@@ -26,10 +26,22 @@ We will implement a security-first approach to router configuration with the fol
 - **Risk Mitigation**: Reduces risk of data leakage to unauthorized providers
 
 ## Implementation
-✅ **Tested and Validated**: All security controls are working properly
-- Router configuration enforces anthropic-only access
-- Security verification script validates all restrictions
-- Banned provider detection prevents unauthorized usage
+
+**Security verification script** (`scripts/router-verify.js`):
+- Validates HOST=127.0.0.1 (localhost binding)
+- Enforces single provider: `allowedProviders = ["anthropic"]`
+- Blocks banned providers: openrouter, iflow, volcengine, modelscope, dashscope
+- Restricts models to: claude-3.7-sonnet, claude-3.7-haiku
+- Validates transformer.use === ["anthropic"] exactly
+- Exit codes: 0=pass, 2=missing config, 10-33=specific validation failures
+
+**Configuration template** (`.claude-code-router/config.json`):
+- Sets HOST to 127.0.0.1 explicitly 
+- Single anthropic provider with restricted model list
+- Environment variable substitution for API keys
+- No external network exposure possible
+
+**Test command**: `npm run router:verify` (integrated into `npm test`)
 
 ## Consequences
 ### Positive

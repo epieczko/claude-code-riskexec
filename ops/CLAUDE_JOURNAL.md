@@ -1,5 +1,45 @@
 # Claude Code Router Integration - Work Journal
 
+## 2025-09-09 - Security Hardening and Documentation Cleanup
+**Branch:** feature/router-security-hardening  
+**Commit:** TBD - fix: harden router verification and cleanup documentation
+
+### Issues Addressed (from code review feedback):
+1. **Hardened verification script** (`scripts/router-verify.js`):
+   - Added comprehensive shape validation for config JSON
+   - Enhanced error messages with specific exit codes (10-33)
+   - Added transformer validation (must be exactly ["anthropic"])
+   - Improved route validation with format checking
+   - Added malformed JSON error handling
+
+2. **Fixed package.json**:
+   - Changed test script from "No tests specified" to `npm run router:verify`
+   - Removed unused `claude-code-router` dependency (keeping only `@musistudio/claude-code-router`)
+
+3. **Documentation accuracy fixes** (`docu/docs/components/claude-code-router.md`):
+   - Removed overselling of "load balancing" (we only have 1 provider)
+   - Removed "intelligent routing" claims (it's static configuration)
+   - Changed "encrypted communication" to "HTTPS connection to Anthropic API"
+   - Added prominent warning about never committing `~/.claude-code-router/config.json`
+
+4. **Added CI verification** (`.github/workflows/verify.yml`):
+   - Runs `router:verify` and `policy:models` on all PRs
+   - Prevents bad configs from reaching main branch
+   - Uses dummy env vars for verification-only testing
+
+5. **Improved ADR-001**:
+   - Removed self-congratulatory "✅ Tested and Validated" language
+   - Added concrete implementation details with exit codes
+   - Linked to actual verification command
+   - Made consequences more specific
+
+### Commands executed:
+```bash
+npm run router:verify  # ✅ Enhanced validation now active
+npm test              # ✅ Now runs router verification
+npm run policy:models # ✅ Model policy check passes
+```
+
 ## 2025-01-28 - Initial Integration
 **Branch:** feature/claude-code-router-integration  
 **Commit:** e9c8634 - feat: add claude-code-router integration with security controls
@@ -73,7 +113,65 @@ node scripts/router-verify.js   # ✅ SUCCESS
 ✅ **Banned Provider Detection**: Script properly validates against banned providers  
 
 ### Next Actions:
-1. Commit tracking files
-2. Create pull request on GitHub  
+1. ✅ Commit tracking files
+2. ✅ Create pull request on GitHub  
 3. Address any PR feedback
 4. Merge to master after approval
+
+---
+
+## 2025-09-09 - Model Policy Enforcement System
+**Branch:** feature/model-policy-enforcement  
+**Status:** Completed and Pushed
+
+### Work Performed:
+1. **Registry System**
+   - Created `.claude/registry.json` with skill-to-model mappings
+   - Configured claude-3.7-sonnet for complex agents (agent.expert, command.expert, etc.)
+   - Configured claude-3.7-haiku for simple commands (lint.command, test.command)
+
+2. **Static Policy Validation**
+   - Built `scripts/model-policy-check.js` for front-matter validation
+   - Validates skill declarations in all agents and commands
+   - Enforces allowed model list (claude-3.7-sonnet, claude-3.7-haiku)
+   - Checks registry defaults and front-matter overrides
+
+3. **Runtime Enforcement**
+   - Created `.claude/hooks/pre-tool.enforce-model.json` hook
+   - Runs policy validation before every tool execution
+   - Prevents execution with invalid model configurations
+
+4. **Front Matter Updates**
+   - Added model policy declarations to all agents:
+     * agent-expert.md, cli-ui-designer.md, command-expert.md
+     * docusaurus-expert.md, mcp-expert.md
+   - Added model policy declarations to all commands:
+     * lint.md, test.md
+   - All files now include: skill, model, maxTokens, strict flags
+
+5. **Package Management**
+   - Added front-matter dependency for parsing
+   - Created npm scripts: policy:models, policy:router, policy:all
+   - Integrated with existing router verification system
+
+### Commands Executed:
+```bash
+git checkout -b feature/model-policy-enforcement
+git add .
+git commit -m "feat: implement model policy enforcement system" -m "Multi-layer enforcement with registry, validation, and runtime hooks"
+git push origin feature/model-policy-enforcement
+npm run policy:all  # ✅ Verified all policies pass
+```
+
+### Architecture Decision:
+- Multi-layer enforcement approach (static + runtime + router)
+- Skill-based model mapping for consistency
+- Registry-driven defaults with front-matter overrides
+- Strict mode for critical agents requiring specific models
+
+### Testing Results:
+✅ **Policy Validation**: All agents and commands pass model policy checks  
+✅ **Registry Loading**: Skill-to-model mappings load correctly  
+✅ **Front Matter Parsing**: All markdown files parse without errors  
+✅ **Hook Integration**: Pre-tool enforcement hook executes properly  
+✅ **npm Scripts**: All policy scripts execute successfully

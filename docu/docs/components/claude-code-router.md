@@ -4,17 +4,16 @@ sidebar_position: 6
 
 # Claude Code Router Integration 🔄
 
-**Claude Code Router** is a local AI model routing service that provides intelligent request routing, load balancing, and enhanced security controls for Claude Code interactions. It enables local model management, provider switching, and advanced configuration options while maintaining strict security boundaries.
+**Claude Code Router** is a local proxy service that provides security controls and basic request routing for Claude Code interactions. It enforces strict provider and model restrictions while maintaining local-only operation.
 
 ## What is Claude Code Router?
 
-The Claude Code Router is a middleware service that:
+The Claude Code Router is a security-focused proxy that:
 
-- **Routes AI Requests**: Intelligently directs requests to appropriate AI models based on context and requirements
+- **Routes AI Requests**: Routes requests to Anthropic's Claude models based on simple configuration rules
 - **Provides Security Controls**: Enforces approved provider and model restrictions with verification scripts
-- **Enables Local Management**: Offers local configuration and monitoring of AI model interactions
-- **Supports Load Balancing**: Distributes requests across multiple providers and models for optimal performance
-- **Maintains Compliance**: Ensures all interactions comply with organizational security policies
+- **Enables Local Management**: Offers local configuration of AI model access
+- **Maintains Compliance**: Ensures all interactions use only approved Anthropic models
 
 ## Router Architecture
 
@@ -86,6 +85,9 @@ npm run router:ui
 ### Manual Installation Steps
 
 #### 1. Environment Setup
+
+⚠️ **CRITICAL**: Never commit `~/.claude-code-router/config.json` to version control! This file contains API keys and should remain only on your local machine.
+
 Configure required environment variables:
 
 **Windows (PowerShell):**
@@ -160,7 +162,7 @@ const allowedModels = new Set([
 - Router binds to localhost (127.0.0.1) only
 - No external network exposure
 - Local API key authentication required
-- Encrypted communication with Claude API
+- HTTPS connection to Anthropic API
 
 ## NPM Script Integration
 
