@@ -1,3 +1,10 @@
+---
+skill: lint.command
+model: claude-3.7-haiku
+maxTokens: 4000
+strict: true
+---
+
 # Python Linter
 
 Run Python code linting and formatting tools.
