@@ -1,3 +1,10 @@
+---
+skill: test.command
+model: claude-3.7-haiku
+maxTokens: 4000
+strict: true
+---
+
 # Test Runner
 
 Run Python tests with pytest, unittest, or other testing frameworks.

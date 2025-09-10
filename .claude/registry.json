@@ -1,0 +1,11 @@
+{
+  "skills": {
+    "agent.expert":        { "defaultModel": "claude-3.7-sonnet" },
+    "command.expert":      { "defaultModel": "claude-3.7-sonnet" },
+    "cli.design":          { "defaultModel": "claude-3.7-sonnet" },
+    "docusaurus.expert":   { "defaultModel": "claude-3.7-sonnet" },
+    "mcp.expert":          { "defaultModel": "claude-3.7-sonnet" },
+    "lint.command":        { "defaultModel": "claude-3.7-haiku" },
+    "test.command":        { "defaultModel": "claude-3.7-haiku" }
+  }
+}

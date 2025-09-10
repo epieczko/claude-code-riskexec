@@ -1,0 +1,6 @@
+{
+  "name": "enforce-model",
+  "when": "pre-tool",
+  "action": "command",
+  "command": "node scripts/model-policy-check.js"
+}
