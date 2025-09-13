@@ -1,4 +1,4 @@
-# Contributing to Claude Code Templates
+# Contributing to Claude Code RiskExec
 
 We welcome contributions! Help us make Claude Code even better for everyone.
 
@@ -285,8 +285,8 @@ For advanced contributors who want to improve the CLI tools like analytics, heal
 #### Project Setup
 ```bash
 # Clone the repository
-git clone https://github.com/davila7/claude-code-templates.git
-cd claude-code-templates
+git clone https://github.com/davila7/claude-code-riskexec.git
+cd claude-code-riskexec
 
 # Navigate to the CLI tool directory
 cd cli-tool
@@ -402,15 +402,15 @@ npm run health-check
 ### Component Testing
 ```bash
 # Test component installation
-npx claude-code-templates@latest --agent your-agent --dry-run
-npx claude-code-templates@latest --command your-command --dry-run
-npx claude-code-templates@latest --mcp your-mcp --dry-run
+npx claude-code-riskexec@latest --agent your-agent --dry-run
+npx claude-code-riskexec@latest --command your-command --dry-run
+npx claude-code-riskexec@latest --mcp your-mcp --dry-run
 ```
 
 ### Template Testing
 ```bash
 # Test template installation
-npx claude-code-templates@latest --template your-template --dry-run
+npx claude-code-riskexec@latest --template your-template --dry-run
 
 # Test with specific scenarios
 npm start -- --language python --framework django --dry-run
@@ -433,8 +433,8 @@ npm run health-check:test
 
 ### 1. Fork and Clone
 ```bash
-git clone https://github.com/your-username/claude-code-templates.git
-cd claude-code-templates
+git clone https://github.com/your-username/claude-code-riskexec.git
+cd claude-code-riskexec
 ```
 
 ### 2. Create Feature Branch
@@ -482,12 +482,12 @@ npm start -- --dry-run
 ## 📞 Getting Help
 
 ### Community Support
-- **GitHub Issues** - [Report bugs or request features](https://github.com/davila7/claude-code-templates/issues)
-- **GitHub Discussions** - [Join community discussions](https://github.com/davila7/claude-code-templates/discussions)
-- **Documentation** - [Complete guides at docs.aitmpl.com](https://docs.aitmpl.com/)
+- **GitHub Issues** - [Report bugs or request features](https://github.com/davila7/claude-code-riskexec/issues)
+- **GitHub Discussions** - [Join community discussions](https://github.com/davila7/claude-code-riskexec/discussions)
+- **Documentation** - [Complete guides at docs.riskexec.com](https://docs.riskexec.com/)
 
 ### Quick Start Guides
-- **Browse Components** - [aitmpl.com](https://aitmpl.com) to see existing components
+- **Browse Components** - [riskexec.com](https://riskexec.com) to see existing components
 - **Component Examples** - Check existing components for structure reference
 - **Template Examples** - Review successful templates for best practices
 
@@ -502,4 +502,4 @@ All contributors are recognized in our:
 - **Release Notes** for significant contributions  
 - **Community Discussions** for helpful contributions
 
-Thank you for helping make Claude Code Templates better for everyone! 🚀
+Thank you for helping make Claude Code RiskExec better for everyone! 🚀

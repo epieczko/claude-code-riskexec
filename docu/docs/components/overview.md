@@ -41,7 +41,6 @@ MCPs enable Claude Code to interact with external services and tools, expanding 
 
 **Examples:**
 - `github-integration` - Direct GitHub repository interactions
-- `database-integration` - Connect to and query databases directly
 - `deepgraph-react` - Advanced React component analysis and visualization
 
 [Learn more about MCPs →](./mcps)
@@ -74,7 +73,7 @@ Hooks are powerful automation components that execute shell commands in response
 
 The **unified web interface** provides an intuitive way to browse and install individual components:
 
-To access the web interface, simply go to https://aitmpl.com
+To access the web interface, simply go to https://riskexec.com
 
 **Interface Features:**
 - **Unified Filter System**: Browse all component types (Templates, Agents, Commands, MCPs, Settings, Hooks) in a single view
@@ -89,8 +88,8 @@ To access the web interface, simply go to https://aitmpl.com
 
 | Method | Use Case | Installation |
 |--------|----------|-------------|
-| **Complete Templates** | Full project setup with multiple components | `npx claude-code-templates@latest --template=react --yes` |
-| **Individual Components** | Selective component installation | `npx claude-code-templates@latest --agent=name --yes` |
+| **Complete Templates** | Full project setup with multiple components | `npx claude-code-riskexec@latest --template=react --yes` |
+| **Individual Components** | Selective component installation | `npx claude-code-riskexec@latest --agent=name --yes` |
 
 ### Installation Commands by Type
 
@@ -99,15 +98,15 @@ Agents can now be installed individually using the `--agent` parameter:
 
 ```bash
 # Install specific agents directly
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --agent=api-security-audit --yes
-npx claude-code-templates@latest --agent=database-optimization --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --agent=api-security-audit --yes
+npx claude-code-riskexec@latest --agent=database-optimization --yes
 
 # Install complete template with all agents
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 
 # Or browse available agents in the web interface
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 ```
 
 #### Installing Commands
@@ -115,9 +114,9 @@ Commands can now be installed using the `--command` parameter or manually:
 
 ```bash
 # Install specific commands using CLI parameter (recommended)
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --command=generate-tests --yes
-npx claude-code-templates@latest --command=optimize-imports --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --command=generate-tests --yes
+npx claude-code-riskexec@latest --command=optimize-imports --yes
 
 # Manual installation (alternative method)
 # Create commands directory first
@@ -125,10 +124,10 @@ mkdir -p .claude/commands
 
 # Download specific commands
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/utilities/check-file.md
 
 curl -o .claude/commands/generate-tests.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/generate-tests.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/testing/generate-tests.md
 ```
 
 #### Installing MCPs
@@ -136,17 +135,14 @@ MCPs can now be installed using the `--mcp` parameter or manually:
 
 ```bash
 # Install specific MCPs using CLI parameter (recommended)
-npx claude-code-templates@latest --mcp=github-integration --yes
-npx claude-code-templates@latest --mcp=database-integration --yes
-npx claude-code-templates@latest --mcp=deepgraph-react --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --mcp=deepgraph-react --yes
 
 # Manual installation (alternative method)
 # Download specific MCPs
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/mcps/integration/github-integration.json
 
-curl -o ./database-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/database-integration.json
 ```
 
 #### Installing Settings
@@ -154,15 +150,15 @@ Settings can be installed using the `--setting` parameter with interactive locat
 
 ```bash
 # Install specific settings with location prompt
-npx claude-code-templates@latest --setting=permissions/allow-npm-commands
-npx claude-code-templates@latest --setting=model/use-sonnet
-npx claude-code-templates@latest --setting=telemetry/enable-telemetry
+npx claude-code-riskexec@latest --setting=permissions/allow-npm-commands
+npx claude-code-riskexec@latest --setting=model/use-sonnet
+npx claude-code-riskexec@latest --setting=telemetry/enable-telemetry
 
 # Install to default location (local settings)
-npx claude-code-templates@latest --setting=cleanup/retention-7-days --yes
+npx claude-code-riskexec@latest --setting=cleanup/retention-7-days --yes
 
 # Install multiple settings
-npx claude-code-templates@latest --setting=model/use-sonnet,telemetry/enable-telemetry --yes
+npx claude-code-riskexec@latest --setting=model/use-sonnet,telemetry/enable-telemetry --yes
 ```
 
 **Installation Location Options:**
@@ -176,15 +172,15 @@ Hooks can be installed using the `--hook` parameter with location selection:
 
 ```bash
 # Install specific hooks with location prompt
-npx claude-code-templates@latest --hook=git-workflow/auto-git-add
-npx claude-code-templates@latest --hook=automation/telegram-notifications
-npx claude-code-templates@latest --hook=development-tools/smart-formatting
+npx claude-code-riskexec@latest --hook=git-workflow/auto-git-add
+npx claude-code-riskexec@latest --hook=automation/telegram-notifications
+npx claude-code-riskexec@latest --hook=development-tools/smart-formatting
 
 # Install to default location (local settings)
-npx claude-code-templates@latest --hook=testing/test-runner --yes
+npx claude-code-riskexec@latest --hook=testing/test-runner --yes
 
 # Install multiple hooks
-npx claude-code-templates@latest --hook=development-tools/file-backup,security/file-protection --yes
+npx claude-code-riskexec@latest --hook=development-tools/file-backup,security/file-protection --yes
 ```
 
 **Hook Categories:**
@@ -215,7 +211,7 @@ npx claude-code-templates@latest --hook=development-tools/file-backup,security/f
 ### Via Web Interface
 The primary way to discover components is through the unified web interface:
 
-1. Run `npx claude-code-templates@latest`
+1. Run `npx claude-code-riskexec@latest`
 2. Select "⚙️ Project Setup"
 3. Browse components with the unified filter system
 4. Use category filters to focus on specific types
@@ -226,11 +222,11 @@ The quickest way to install components is using dedicated CLI parameters:
 
 ```bash
 # Direct component installation
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --mcp=github-integration --yes
-npx claude-code-templates@latest --setting=model/use-sonnet --yes
-npx claude-code-templates@latest --hook=git-workflow/auto-git-add --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --setting=model/use-sonnet --yes
+npx claude-code-riskexec@latest --hook=git-workflow/auto-git-add --yes
 ```
 
 ### Via GitHub Repository
@@ -284,4 +280,4 @@ The system welcomes community contributions! Each component type has "Add New" c
 - [Understand MCPs →](./mcps) - Integrate external services with Claude Code
 - [Configure Settings →](./settings) - Customize Claude Code behavior and preferences
 - [Automate with Hooks →](./hooks) - Set up event-driven automation workflows
-- [Browse All Components](https://aitmpl.com) - Visit the web interface
+- [Browse All Components](https://riskexec.com) - Visit the web interface

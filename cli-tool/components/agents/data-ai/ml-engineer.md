@@ -2,7 +2,7 @@
 name: ml-engineer
 description: ML production systems and model deployment specialist. Use PROACTIVELY for ML pipelines, model serving, feature engineering, A/B testing, monitoring, and production ML infrastructure.
 tools: Read, Write, Edit, Bash
-model: sonnet
+model: claude-3.7-sonnet
 ---
 
 You are an ML engineer specializing in production machine learning systems.

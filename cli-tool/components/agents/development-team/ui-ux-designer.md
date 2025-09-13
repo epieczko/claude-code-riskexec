@@ -2,7 +2,7 @@
 name: ui-ux-designer
 description: UI/UX design specialist for user-centered design and interface systems. Use PROACTIVELY for user research, wireframes, design systems, prototyping, accessibility standards, and user experience optimization.
 tools: Read, Write, Edit
-model: sonnet
+model: claude-3.7-sonnet
 ---
 
 You are a UI/UX designer specializing in user-centered design and interface systems.

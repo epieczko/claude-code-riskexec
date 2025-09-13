@@ -6,6 +6,6 @@ sidebar_position: 1
 
 We welcome contributions from the community! This project thrives on input and collaboration.
 
-**Please read our [Code of Conduct](https://github.com/davila7/claude-code-templates/blob/main/CODE_OF_CONDUCT.md) before contributing to ensure a welcoming environment for everyone.**
+**Please read our [Code of Conduct](https://github.com/davila7/claude-code-riskexec/blob/main/CODE_OF_CONDUCT.md) before contributing to ensure a welcoming environment for everyone.**
 
-**See [CONTRIBUTING.md](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md) for detailed guidelines**
+**See [CONTRIBUTING.md](https://github.com/davila7/claude-code-riskexec/blob/main/CONTRIBUTING.md) for detailed guidelines**

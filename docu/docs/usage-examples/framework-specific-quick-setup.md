@@ -10,19 +10,19 @@ For a faster, non-interactive setup, you can use the modern `--template` paramet
 
 ```bash
 # React project
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 
 # Python project  
-npx claude-code-templates@latest --template=python --yes
+npx claude-code-riskexec@latest --template=python --yes
 
 # Node.js project
-npx claude-code-templates@latest --template=nodejs --yes
+npx claude-code-riskexec@latest --template=nodejs --yes
 
 # Vue.js project
-npx claude-code-templates@latest --template=vue --yes
+npx claude-code-riskexec@latest --template=vue --yes
 
 # Django project
-npx claude-code-templates@latest --template=django --yes
+npx claude-code-riskexec@latest --template=django --yes
 ```
 
 ## Legacy Syntax (Still Supported)
@@ -31,10 +31,10 @@ The old `--language` and `--framework` parameters still work but are deprecated:
 
 ```bash
 # React + TypeScript project (legacy)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react --yes
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react --yes
 
 # Python + Django project (legacy)
-npx claude-code-templates@latest --language=python --framework=django --yes
+npx claude-code-riskexec@latest --language=python --framework=django --yes
 ```
 
 ## Benefits of the New Syntax

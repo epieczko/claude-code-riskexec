@@ -81,13 +81,13 @@ Settings can be installed at different levels of your Claude Code configuration 
 ### Using CLI (Recommended)
 ```bash
 # Install with interactive location selection
-npx claude-code-templates@latest --setting=permissions/allow-npm-commands
+npx claude-code-riskexec@latest --setting=permissions/allow-npm-commands
 
 # Install multiple settings
-npx claude-code-templates@latest --setting=model/use-sonnet,telemetry/enable-telemetry
+npx claude-code-riskexec@latest --setting=model/use-sonnet,telemetry/enable-telemetry
 
 # Skip location prompt with --yes (defaults to local settings)
-npx claude-code-templates@latest --setting=cleanup/retention-7-days --yes
+npx claude-code-riskexec@latest --setting=cleanup/retention-7-days --yes
 ```
 
 ### Installation Flow
@@ -103,37 +103,37 @@ When you install a setting, you'll be prompted to choose the installation locati
 ### Basic Permission Setup
 ```bash
 # Allow npm commands in this project
-npx claude-code-templates@latest --setting=permissions/allow-npm-commands
+npx claude-code-riskexec@latest --setting=permissions/allow-npm-commands
 
 # Prevent modification of sensitive files globally
-npx claude-code-templates@latest --setting=permissions/deny-sensitive-files
+npx claude-code-riskexec@latest --setting=permissions/deny-sensitive-files
 ```
 
 ### Model Configuration
 ```bash
 # Use Claude 3.5 Sonnet for this project
-npx claude-code-templates@latest --setting=model/use-sonnet
+npx claude-code-riskexec@latest --setting=model/use-sonnet
 
 # Use Claude 3 Haiku for faster responses
-npx claude-code-templates@latest --setting=model/use-haiku
+npx claude-code-riskexec@latest --setting=model/use-haiku
 ```
 
 ### Telemetry Management
 ```bash
 # Enable telemetry for usage analytics
-npx claude-code-templates@latest --setting=telemetry/enable-telemetry
+npx claude-code-riskexec@latest --setting=telemetry/enable-telemetry
 
 # Disable all telemetry collection
-npx claude-code-templates@latest --setting=telemetry/disable-telemetry
+npx claude-code-riskexec@latest --setting=telemetry/disable-telemetry
 ```
 
 ### Cleanup Policies
 ```bash
 # Set 7-day retention policy
-npx claude-code-templates@latest --setting=cleanup/retention-7-days
+npx claude-code-riskexec@latest --setting=cleanup/retention-7-days
 
 # Set 90-day retention for long-term projects
-npx claude-code-templates@latest --setting=cleanup/retention-90-days
+npx claude-code-riskexec@latest --setting=cleanup/retention-90-days
 ```
 
 ## Setting Structure
@@ -219,5 +219,5 @@ Want to add a new setting? Follow these guidelines:
 
 **Next Steps:**
 - [Explore Hooks →](./hooks) - Learn about automation and event-driven actions
-- [Browse All Settings](https://aitmpl.com) - View available settings in the web interface
+- [Browse All Settings](https://riskexec.com) - View available settings in the web interface
 - [Contributing Guide →](../contributing) - Add your own settings to the collection

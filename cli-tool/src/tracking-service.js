@@ -129,7 +129,7 @@ class TrackingService {
                 cliVersion: trackingData.environment?.cli_version || 'unknown'
             };
 
-            const response = await fetch('https://www.aitmpl.com/api/track-download-supabase', {
+            const response = await fetch('https://www.riskexec.com/api/track-download-supabase', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
