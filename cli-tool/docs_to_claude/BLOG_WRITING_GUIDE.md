@@ -1,6 +1,6 @@
-# Blog Writing Guide - Claude Code Templates
+# Blog Writing Guide - RiskExec
 
-This guide provides a comprehensive template for creating consistent, SEO-optimized blog articles for Claude Code Templates. Use this structure for articles about technologies, companies, or trends related to Claude Code integration.
+This guide provides a comprehensive template for creating consistent, SEO-optimized blog articles for RiskExec. Use this structure for articles about technologies, companies, or trends related to Claude Code integration.
 
 ## 📁 File Structure
 
@@ -8,8 +8,8 @@ This guide provides a comprehensive template for creating consistent, SEO-optimi
 docs/blog/
 ├── index.html                              # Blog homepage
 ├── assets/                                 # Shared blog assets
-│   ├── [technology]-claude-code-templates-cover.png
-│   └── aitmpl-[technology]-search.png
+│   ├── [technology]-claude-code-riskexec-cover.png
+│   └── riskexec-[technology]-search.png
 ├── [technology-name]-claude-code-integration/
 │   ├── index.html                          # Article page
 │   └── cover.jpg                          # Article cover image (1200x630)
@@ -31,29 +31,29 @@ docs/blog/
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://davila7.github.io/claude-code-templates/blog/[slug]/">
+    <meta property="og:url" content="https://davila7.github.io/claude-code-riskexec/blog/[slug]/">
     <meta property="og:title" content="[Technology] and Claude Code Integration">
     <meta property="og:description" content="Learn how to integrate [Technology] with Claude Code...">
-    <meta property="og:image" content="https://davila7.github.io/claude-code-templates/blog/[slug]/cover.jpg">
+    <meta property="og:image" content="https://davila7.github.io/claude-code-riskexec/blog/[slug]/cover.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="article:published_time" content="[ISO_DATE]">
-    <meta property="article:author" content="Claude Code Templates">
+    <meta property="article:author" content="RiskExec">
     <meta property="article:section" content="[Category]">
     <meta property="article:tag" content="[Technology]">
     <meta property="article:tag" content="Claude Code">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://davila7.github.io/claude-code-templates/blog/[slug]/">
+    <meta property="twitter:url" content="https://davila7.github.io/claude-code-riskexec/blog/[slug]/">
     <meta property="twitter:title" content="[Technology] and Claude Code Integration">
     <meta property="twitter:description" content="Learn how to integrate [Technology] with Claude Code...">
-    <meta property="twitter:image" content="https://davila7.github.io/claude-code-templates/blog/[slug]/cover.jpg">
+    <meta property="twitter:image" content="https://davila7.github.io/claude-code-riskexec/blog/[slug]/cover.jpg">
     
     <!-- Additional SEO -->
     <meta name="keywords" content="[Technology], Claude Code, MCP, [Domain], AI Development, Anthropic">
-    <meta name="author" content="Claude Code Templates">
-    <link rel="canonical" href="https://davila7.github.io/claude-code-templates/blog/[slug]/">
+    <meta name="author" content="RiskExec">
+    <link rel="canonical" href="https://davila7.github.io/claude-code-riskexec/blog/[slug]/">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../../css/styles.css">
@@ -69,24 +69,24 @@ docs/blog/
         "@type": "BlogPosting",
         "headline": "[Technology] and Claude Code Integration",
         "description": "Learn how to integrate [Technology] with Claude Code...",
-        "image": "https://davila7.github.io/claude-code-templates/blog/[slug]/cover.jpg",
+        "image": "https://davila7.github.io/claude-code-riskexec/blog/[slug]/cover.jpg",
         "author": {
             "@type": "Organization",
-            "name": "Claude Code Templates"
+            "name": "RiskExec"
         },
         "publisher": {
             "@type": "Organization",
-            "name": "Claude Code Templates",
+            "name": "RiskExec",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://davila7.github.io/claude-code-templates/static/img/logo.svg"
+                "url": "https://davila7.github.io/claude-code-riskexec/static/img/logo.svg"
             }
         },
         "datePublished": "[ISO_DATE]",
         "dateModified": "[ISO_DATE]",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://davila7.github.io/claude-code-templates/blog/[slug]/"
+            "@id": "https://davila7.github.io/claude-code-riskexec/blog/[slug]/"
         }
     }
     </script>
@@ -123,7 +123,7 @@ docs/blog/
                     </svg>
                     Blog
                 </a>
-                <a href="https://github.com/davila7/claude-code-templates" target="_blank" class="header-btn">
+                <a href="https://github.com/davila7/claude-code-riskexec" target="_blank" class="header-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12..."/>
                     </svg>
@@ -160,13 +160,13 @@ docs/blog/
 
 ### 1. Hero Image
 ```html
-<img src="../assets/[technology]-claude-code-templates-cover.png" alt="[Technology] and Claude Code Integration" class="article-cover">
+<img src="../assets/[technology]-claude-code-riskexec-cover.png" alt="[Technology] and Claude Code Integration" class="article-cover">
 ```
 
 ### 2. Technology Stack Overview
 ```html
 <h2>[Technology] Stack for Claude Code</h2>
-<p>Claude Code Templates offers [X] pre-built components for [Technology] integration:</p>
+<p>RiskExec offers [X] pre-built components for [Technology] integration:</p>
 ```
 
 ### 3. Component Tables
@@ -228,12 +228,12 @@ docs/blog/
 </table>
 ```
 
-### 4. AITMPL.com Browse Section
+### 4. RiskExec.com Browse Section
 ```html
-<h2>Browse all components on AITMPL.com</h2>
-<p>Before installing, you can explore all available [Technology] components on the official Claude Code Templates website:</p>
-<p>Visit <strong><a href="https://aitmpl.com" target="_blank" rel="noopener">aitmpl.com</a></strong> and search for "[technology]" to see:</p>
-<img src="../assets/aitmpl-[technology]-search.png" alt="Searching for [Technology] components on AITMPL.com" loading="lazy">
+<h2>Browse all components on RiskExec.com</h2>
+<p>Before installing, you can explore all available [Technology] components on the official RiskExec website:</p>
+<p>Visit <strong><a href="https://riskexec.com" target="_blank" rel="noopener">riskexec.com</a></strong> and search for "[technology]" to see:</p>
+<img src="../assets/riskexec-[technology]-search.png" alt="Searching for [Technology] components on RiskExec.com" loading="lazy">
 ```
 
 ### 5. Installation Options
@@ -243,13 +243,13 @@ docs/blog/
 <h3>Install Individual Components</h3>
 <pre><code class="language-bash">
 # Install specific agent
-npx claude-code-templates@latest --agent [agent-name]
+npx claude-code-riskexec@latest --agent [agent-name]
 
 # Install specific command
-npx claude-code-templates@latest --command [command-name]
+npx claude-code-riskexec@latest --command [command-name]
 
 # Install MCP server
-npx claude-code-templates@latest --mcp [technology]</code></pre>
+npx claude-code-riskexec@latest --mcp [technology]</code></pre>
 
 <p><strong>Components will be installed to:</strong></p>
 <ul>
@@ -263,16 +263,16 @@ npx claude-code-templates@latest --mcp [technology]</code></pre>
 ```html
 <h3>Create Global Agents (Available Anywhere)</h3>
 <pre><code class="language-bash"># Create global agents accessible from any project
-npx claude-code-templates@latest --create-agent [agent-name]
+npx claude-code-riskexec@latest --create-agent [agent-name]
 
 # List all global agents
-npx claude-code-templates@latest --list-agents
+npx claude-code-riskexec@latest --list-agents
 
 # Update global agents
-npx claude-code-templates@latest --update-agent [agent-name]
+npx claude-code-riskexec@latest --update-agent [agent-name]
 
 # Remove global agents  
-npx claude-code-templates@latest --remove-agent [agent-name]</code></pre>
+npx claude-code-riskexec@latest --remove-agent [agent-name]</code></pre>
 ```
 
 #### Multiple Components
@@ -280,12 +280,12 @@ npx claude-code-templates@latest --remove-agent [agent-name]</code></pre>
 <h3>Install Multiple Components at Once</h3>
 <pre><code class="language-bash">
 # Install specific commands (comma-separated for multiple)
-npx claude-code-templates@latest --command [command1],[command2],[command3]
+npx claude-code-riskexec@latest --command [command1],[command2],[command3]
 </code></pre>
 
 <pre><code class="language-bash">
 # Install all [Technology] components in one command
-npx claude-code-templates@latest \
+npx claude-code-riskexec@latest \
   --command [all-commands-comma-separated] \
   --agent [all-agents-comma-separated] \
   --mcp [technology]</code></pre>
@@ -303,7 +303,7 @@ npx claude-code-templates@latest \
 ```html
 <h3>Execute Prompt After Installation</h3>
 <pre><code class="language-bash"># Install components and run a prompt immediately
-npx claude-code-templates@latest \
+npx claude-code-riskexec@latest \
   --command [primary-command] \
   --prompt "[Sample prompt for the technology]"</code></pre>
 ```
@@ -368,7 +368,7 @@ npx claude-code-templates@latest \
 ### Visual Assets Required
 1. **Cover Image**: 1200x630 pixels for social sharing
 2. **Hero Image**: Technology + Claude Code branded image
-3. **AITMPL Search Screenshot**: Show search results for the technology
+3. **RiskExec Search Screenshot**: Show search results for the technology
 4. **Component Icons**: Use appropriate emojis (🤖 for agents, ⚡ for commands, 🔌 for MCP)
 
 ## 🔧 Technical Requirements

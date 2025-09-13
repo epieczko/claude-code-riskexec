@@ -24,7 +24,7 @@ Use the CLI installer to automatically set up this template in your project:
 
 ```bash
 cd your-javascript-project
-npx claude-code-templates --language javascript-typescript
+npx claude-code-riskexec --language javascript-typescript
 ```
 
 The installer will:
@@ -39,14 +39,14 @@ Copy the template manually for more control:
 
 ```bash
 # Clone the repository
-git clone https://github.com/davila7/claude-code-templates.git
+git clone https://github.com/davila7/claude-code-riskexec.git
 
 # Copy the JavaScript/TypeScript template
-cp claude-code-templates/javascript-typescript/CLAUDE.md your-project/
+cp claude-code-riskexec/javascript-typescript/CLAUDE.md your-project/
 
 # Then use the CLI to complete the setup
 cd your-project
-npx claude-code-templates --language javascript-typescript
+npx claude-code-riskexec --language javascript-typescript
 ```
 
 ## 🎨 Framework Support
@@ -167,7 +167,7 @@ The `CLAUDE.md` file in this folder contains comprehensive guidance for:
 
 2. **Run the installer:**
    ```bash
-   npx claude-code-templates --language javascript-typescript
+   npx claude-code-riskexec --language javascript-typescript
    ```
 
 3. **Start Claude Code:**
@@ -213,7 +213,7 @@ The template adapts to your specific framework needs automatically.
 
 ## 📖 Learn More
 
-- **Main Project**: [Claude Code Templates](../README.md)
+- **Main Project**: [RiskExec](../README.md)
 - **Common Templates**: [Universal patterns](../common/README.md)
 - **Python Templates**: [Python development](../python/README.md)
 - **CLI Tool**: [Automated installer](../cli-tool/README.md)
@@ -232,7 +232,7 @@ The template adapts to your specific framework needs automatically.
 
 ### After (With This Template)
 ```bash
-npx claude-code-templates --language javascript-typescript
+npx claude-code-riskexec --language javascript-typescript
 # ✅ Everything configured in 30 seconds!
 ```
 
@@ -256,4 +256,4 @@ Your contributions make this template better for the entire JavaScript/TypeScrip
 
 ---
 
-**Ready to supercharge your JavaScript/TypeScript development?** Run `npx claude-code-templates --language javascript-typescript` in your project now!
+**Ready to supercharge your JavaScript/TypeScript development?** Run `npx claude-code-riskexec --language javascript-typescript` in your project now!
