@@ -234,17 +234,17 @@ async function runMCPStats(options) {
   
   if (!analysis) {
     console.log(chalk.yellow('\n💡 No MCP servers found.'));
-    console.log(chalk.gray('Would you like to set up Claude Code Templates to add MCP servers?'));
+    console.log(chalk.gray('Would you like to set up Claude Code RiskExec to add MCP servers?'));
     
     const { setupMCP } = await inquirer.prompt([{
       type: 'confirm',
       name: 'setupMCP',
-      message: 'Set up MCP servers with Claude Code Templates?',
+      message: 'Set up MCP servers with Claude Code RiskExec?',
       default: true
     }]);
 
     if (setupMCP) {
-      console.log(chalk.blue('\n🚀 Starting Claude Code Templates setup...'));
+      console.log(chalk.blue('\n🚀 Starting Claude Code RiskExec setup...'));
       
       // Import and run the main setup
       const createClaudeConfig = require('./index');

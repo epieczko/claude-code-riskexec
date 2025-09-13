@@ -655,7 +655,7 @@ function createValidationPrompt(templateConfig) {
   const language = templateConfig.language || 'unknown';
   const framework = templateConfig.framework || 'none';
   
-  return `Validate Claude Code Templates installation for this ${language}${framework !== 'none' ? ` ${framework}` : ''} project. 1) Check project structure (package.json, src/, etc.) 2) Review CLAUDE.md, .claude/settings.json, .claude/commands/ 3) Compare with actual project dependencies 4) Suggest specific improvements. Make configuration match this project's actual setup.`;
+  return `Validate Claude Code RiskExec installation for this ${language}${framework !== 'none' ? ` ${framework}` : ''} project. 1) Check project structure (package.json, src/, etc.) 2) Review CLAUDE.md, .claude/settings.json, .claude/commands/ 3) Compare with actual project dependencies 4) Suggest specific improvements. Make configuration match this project's actual setup.`;
 }
 
 async function processSettingsFile(sourcePath, destPath, templateConfig) {
