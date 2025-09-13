@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Framework-Specific Setup
 
-While the interactive setup is recommended, you can also quickly configure `claude-code-templates` for specific templates using the modern `--template` parameter or legacy `--language`/`--framework` commands.
+While the interactive setup is recommended, you can also quickly configure `claude-code-riskexec` for specific templates using the modern `--template` parameter or legacy `--language`/`--framework` commands.
 
 ## Modern Template Installation (Recommended)
 
@@ -12,19 +12,19 @@ Use the new `--template` parameter for streamlined template installation:
 
 ```bash
 # React project with all components
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 
 # Python project with all components
-npx claude-code-templates@latest --template=python --yes
+npx claude-code-riskexec@latest --template=python --yes
 
 # Node.js project with all components
-npx claude-code-templates@latest --template=nodejs --yes
+npx claude-code-riskexec@latest --template=nodejs --yes
 
 # Vue.js project with all components
-npx claude-code-templates@latest --template=vue --yes
+npx claude-code-riskexec@latest --template=vue --yes
 
 # Django project with all components
-npx claude-code-templates@latest --template=django --yes
+npx claude-code-riskexec@latest --template=django --yes
 ```
 
 ## Legacy Syntax (Still Supported)
@@ -33,10 +33,10 @@ The original `--language` and `--framework` flags are still supported but deprec
 
 ```bash
 # React + TypeScript project (legacy)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react --yes
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react --yes
 
 # Python + Django project (legacy)
-npx claude-code-templates@latest --language=python --framework=django --yes
+npx claude-code-riskexec@latest --language=python --framework=django --yes
 ```
 
 **Note**: These legacy parameters will continue to work but using `--template` is preferred for new installations.
@@ -49,7 +49,7 @@ Even when you know your framework, running the tool without specific flags is of
 
 ```bash
 cd my-react-app
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 # The tool will auto-detect React and suggest optimal configuration
 ```
 
@@ -67,13 +67,13 @@ You can also install individual components instead of complete templates:
 
 ```bash
 # Install specific agent
-npx claude-code-templates@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
 
 # Install specific command
-npx claude-code-templates@latest --command=check-file --yes
+npx claude-code-riskexec@latest --command=check-file --yes
 
 # Install specific MCP
-npx claude-code-templates@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
 ```
 
 ## GitHub Download System
