@@ -1,0 +1,6 @@
+{
+  "name": "enforce-agent-model",
+  "when": "pre-tool",
+  "action": "command",
+  "command": "node scripts/agent-switch-check.js"
+}
