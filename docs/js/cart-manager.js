@@ -1,4 +1,4 @@
-// Shopping Cart Manager for Claude Code Templates
+// Shopping Cart Manager for Claude Code RiskExec
 class CartManager {
     constructor() {
         this.cart = {
@@ -171,7 +171,7 @@ class CartManager {
 
     // Update generated command
     updateCommand() {
-        let command = 'npx claude-code-templates@latest';
+        let command = 'npx claude-code-riskexec@latest';
         
         if (this.cart.agents.length > 0) {
             const agentPaths = this.cart.agents.map(item => item.path).join(',');
@@ -492,7 +492,7 @@ function toggleShareDropdown() {
 
 function shareOnTwitter() {
     const command = document.getElementById('generatedCommand').textContent.trim();
-    const message = `🚀 Just created this Claude Code Templates stack!
+    const message = `🚀 Just created this Claude Code RiskExec stack!
 
 Just run this command:
 ${command}
@@ -507,7 +507,7 @@ Create yours at https://aitmpl.com`;
 
 function shareOnThreads() {
     const command = document.getElementById('generatedCommand').textContent.trim();
-    const message = `🚀 Just created this Claude Code Templates stack!
+    const message = `🚀 Just created this Claude Code RiskExec stack!
 
 Just run this command:
 ${command}

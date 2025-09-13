@@ -1,4 +1,4 @@
-# Claude Code Templates Website
+# Claude Code RiskExec Website
 
 This directory contains the static website for browsing and installing Claude Code configuration templates.
 
@@ -31,7 +31,7 @@ The website is built as a static site that:
 
 This website is automatically deployed to GitHub Pages when changes are pushed to the `docs/` directory in the main branch.
 
-Visit: [https://davila7.github.io/claude-code-templates](https://davila7.github.io/claude-code-templates)
+Visit: [https://davila7.github.io/claude-code-riskexec](https://davila7.github.io/claude-code-riskexec)
 
 ## Development
 

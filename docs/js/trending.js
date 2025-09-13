@@ -1,6 +1,6 @@
 /**
  * Trending Page JavaScript
- * GitHub-inspired trending components page for Claude Code Templates
+ * GitHub-inspired trending components page for Claude Code RiskExec
  */
 
 class TrendingPage {
@@ -368,7 +368,7 @@ function showInstallModal(componentName) {
     }
     
     // Update the command with the correct flag and clean component name
-    const command = `npx claude-code-templates@latest --${flagType} ${cleanName} --yes`;
+    const command = `npx claude-code-riskexec@latest --${flagType} ${cleanName} --yes`;
     commandText.textContent = command;
     
     // Show the modal
