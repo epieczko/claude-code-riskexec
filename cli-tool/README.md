@@ -97,18 +97,18 @@ The agents use the Claude Code SDK internally to provide specialized AI assistan
 
 ## 📖 Documentation
 
-**[📚 Complete Documentation](https://docs.aitmpl.com/)** - Comprehensive guides, examples, and API reference
+**[📚 Complete Documentation](https://docs.riskexec.com/)** - Comprehensive guides, examples, and API reference
 
 Quick links:
-- [Getting Started](https://docs.aitmpl.com/docs/intro) - Installation and first steps
-- [Project Setup](https://docs.aitmpl.com/docs/project-setup/interactive-setup) - Configure your projects
-- [Analytics Dashboard](https://docs.aitmpl.com/docs/analytics/overview) - Real-time monitoring
-- [Individual Components](https://docs.aitmpl.com/docs/components/overview) - Agents, Commands, MCPs
-- [CLI Options](https://docs.aitmpl.com/docs/cli-options) - All available commands
+- [Getting Started](https://docs.riskexec.com/docs/intro) - Installation and first steps
+- [Project Setup](https://docs.riskexec.com/docs/project-setup/interactive-setup) - Configure your projects
+- [Analytics Dashboard](https://docs.riskexec.com/docs/analytics/overview) - Real-time monitoring
+- [Individual Components](https://docs.riskexec.com/docs/components/overview) - Agents, Commands, MCPs
+- [CLI Options](https://docs.riskexec.com/docs/cli-options) - All available commands
 
 ## 🤝 Contributing
 
-We welcome contributions! Browse available templates and components at **[aitmpl.com](https://aitmpl.com)**, then check our [contributing guidelines](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md).
+We welcome contributions! Browse available templates and components at **[riskexec.com](https://riskexec.com)**, then check our [contributing guidelines](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md).
 
 ## 📄 License
 
@@ -116,8 +116,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- **🌐 Browse Components**: [aitmpl.com](https://aitmpl.com)
-- **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
+- **🌐 Browse Components**: [riskexec.com](https://riskexec.com)
+- **📚 Documentation**: [docs.riskexec.com](https://docs.riskexec.com)
 - **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
 - **💬 Discussions**: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
 

@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Claude Code RiskExec',
-  tagline: 'Documentation for Claude Code RiskExec - AITMPL Platform',
+  tagline: 'Documentation for Claude Code RiskExec - RiskExec Platform',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://aitmpl.com',
+  url: 'https://riskexec.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For custom domain deployment
   baseUrl: '/',
@@ -85,7 +85,7 @@ const config: Config = {
     navbar: {
       title: 'Claude Code RiskExec',
       logo: {
-        alt: 'AITMPL Crystal Ball Logo',
+        alt: 'RiskExec Crystal Ball Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -96,7 +96,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          href: 'https://aitmpl.com/',
+          href: 'https://riskexec.com/',
           label: 'Browse Components',
           position: 'left',
         },
@@ -125,7 +125,7 @@ const config: Config = {
           items: [
             {
               label: 'Browse Components',
-              href: 'https://aitmpl.com/',
+              href: 'https://riskexec.com/',
             },
             {
               label: 'GitHub Repository',
