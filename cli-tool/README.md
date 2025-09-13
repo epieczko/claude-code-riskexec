@@ -2,8 +2,8 @@
 [![npm downloads](https://img.shields.io/npm/dt/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md)
-[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-templates.svg?style=social&label=Star)](https://github.com/davila7/claude-code-templates)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/riskexec/claude-code/blob/main/CONTRIBUTING.md)
+[![GitHub stars](https://img.shields.io/github/stars/riskexec/claude-code.svg?style=social&label=Star)](https://github.com/riskexec/claude-code)
 
 # Claude Code Templates
 
@@ -108,7 +108,7 @@ Quick links:
 
 ## 🤝 Contributing
 
-We welcome contributions! Browse available templates and components at **[aitmpl.com](https://aitmpl.com)**, then check our [contributing guidelines](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md).
+We welcome contributions! Browse available templates and components at **[aitmpl.com](https://aitmpl.com)**, then check our [contributing guidelines](https://github.com/riskexec/claude-code/blob/main/CONTRIBUTING.md).
 
 ## 📄 License
 
@@ -118,8 +118,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 - **🌐 Browse Components**: [aitmpl.com](https://aitmpl.com)
 - **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
-- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/riskexec/claude-code/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/riskexec/claude-code/discussions)
 
 ---
 

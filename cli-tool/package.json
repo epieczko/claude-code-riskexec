@@ -77,12 +77,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davila7/claude-code-templates.git"
+    "url": "git+https://github.com/riskexec/claude-code.git"
   },
   "bugs": {
-    "url": "https://github.com/davila7/claude-code-templates/issues"
+    "url": "https://github.com/riskexec/claude-code/issues"
   },
-  "homepage": "https://github.com/davila7/claude-code-templates#readme",
+  "homepage": "https://github.com/riskexec/claude-code#readme",
   "files": [
     "bin/",
     "src/",

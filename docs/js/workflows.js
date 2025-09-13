@@ -530,7 +530,7 @@ function getComponentDescription(component) {
 }
 
 function viewOnGitHub(path) {
-    const url = `https://github.com/davila7/claude-code-templates/tree/main/${path}`;
+    const url = `https://github.com/riskexec/claude-code/tree/main/${path}`;
     window.open(url, '_blank');
 }
 

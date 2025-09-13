@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-templates.svg?style=social&label=Star)](https://github.com/davila7/claude-code-templates)
+[![GitHub stars](https://img.shields.io/github/stars/riskexec/claude-code.svg?style=social&label=Star)](https://github.com/riskexec/claude-code)
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 [![Buy Me a Coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-ffdd00?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/daniavila)
 
@@ -104,16 +104,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **🌐 Browse Templates**: [aitmpl.com](https://aitmpl.com)
 - **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
-- **💬 Community**: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
-- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
+- **💬 Community**: [GitHub Discussions](https://github.com/riskexec/claude-code/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/riskexec/claude-code/issues)
 
 ## ⭐ Star History
 
-<a href="https://star-history.com/#davila7/claude-code-templates&Date">
+<a href="https://star-history.com/#riskexec/claude-code&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=riskexec/claude-code&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=riskexec/claude-code&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=riskexec/claude-code&type=Date" />
   </picture>
 </a>
 

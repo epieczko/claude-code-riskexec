@@ -64,7 +64,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/davila7/claude-code-templates/tree/main/docu/',
+            'https://github.com/riskexec/claude-code/tree/main/docu/',
         },
         blog: false, // Disable blog functionality
         theme: {
@@ -101,7 +101,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/davila7/claude-code-templates',
+          href: 'https://github.com/riskexec/claude-code',
           label: 'GitHub',
           position: 'right',
         },
@@ -129,11 +129,11 @@ const config: Config = {
             },
             {
               label: 'GitHub Repository',
-              href: 'https://github.com/davila7/claude-code-templates',
+              href: 'https://github.com/riskexec/claude-code',
             },
             {
               label: 'Issues & Support',
-              href: 'https://github.com/davila7/claude-code-templates/issues',
+              href: 'https://github.com/riskexec/claude-code/issues',
             },
           ],
         },
@@ -142,11 +142,11 @@ const config: Config = {
           items: [
             {
               label: 'Contribute',
-              href: 'https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md',
+              href: 'https://github.com/riskexec/claude-code/blob/main/CONTRIBUTING.md',
             },
             {
               label: 'License',
-              href: 'https://github.com/davila7/claude-code-templates/blob/main/LICENSE',
+              href: 'https://github.com/riskexec/claude-code/blob/main/LICENSE',
             },
           ],
         },

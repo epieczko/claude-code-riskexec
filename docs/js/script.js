@@ -527,7 +527,7 @@ function showContributeModal() {
                             <div class="step-number-contrib">1</div>
                             <div class="step-content-contrib">
                                 <h4>Fork the Repository</h4>
-                                <p>Go to the <a href="https://github.com/davila7/claude-code-templates" target="_blank">main repository</a> and click "Fork" to create your own copy.</p>
+                                <p>Go to the <a href="https://github.com/riskexec/claude-code" target="_blank">main repository</a> and click "Fork" to create your own copy.</p>
                                 <div class="step-command">
                                     <code>git clone https://github.com/YOUR_USERNAME/claude-code-templates.git</code>
                                     <button class="copy-btn" onclick="copyToClipboard('git clone https://github.com/YOUR_USERNAME/claude-code-templates.git')">Copy</button>
@@ -625,7 +625,7 @@ Please analyze the existing templates in the repository first to understand the 
                     <div class="contribute-footer">
                         <div class="help-section">
                             <h4>Need Help?</h4>
-                            <p>Check out <a href="https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> or open an issue on GitHub.</p>
+                            <p>Check out <a href="https://github.com/riskexec/claude-code/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> or open an issue on GitHub.</p>
                         </div>
                     </div>
                 </div>
@@ -836,7 +836,7 @@ function getFileType(filename) {
 
 // Generate GitHub folder URL for templates
 function getGithubFolderUrl(languageKey, frameworkKey) {
-    const baseUrl = 'https://github.com/davila7/claude-code-templates/tree/main/cli-tool/templates';
+    const baseUrl = 'https://github.com/riskexec/claude-code/tree/main/cli-tool/templates';
     
     if (frameworkKey === 'none' || !frameworkKey) {
         // Base language template
@@ -849,7 +849,7 @@ function getGithubFolderUrl(languageKey, frameworkKey) {
 
 // Generate GitHub file URL for individual files
 function getGithubFileUrl(languageKey, frameworkKey, filePath) {
-    const baseUrl = 'https://github.com/davila7/claude-code-templates/blob/main/cli-tool/templates';
+    const baseUrl = 'https://github.com/riskexec/claude-code/blob/main/cli-tool/templates';
     return `${baseUrl}/${filePath}`;
 }
 
@@ -1614,7 +1614,7 @@ function showComponentContributeModal(type) {
                                 <h4>Follow the Pattern</h4>
                                 <p>Check existing ${type} in the repository to understand the structure and conventions.</p>
                                 <div class="step-command">
-                                    <a href="https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/${type}" target="_blank" class="github-folder-link">
+                                    <a href="https://github.com/riskexec/claude-code/tree/main/cli-tool/components/${type}" target="_blank" class="github-folder-link">
                                         📁 View existing ${type}
                                     </a>
                                 </div>

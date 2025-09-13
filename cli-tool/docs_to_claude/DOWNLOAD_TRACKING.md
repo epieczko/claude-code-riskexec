@@ -286,6 +286,6 @@ MIT License - Ver [LICENSE](LICENSE) para detalles.
 
 ## Contacto
 
-- Issues: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
-- Discussions: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
+- Issues: [GitHub Issues](https://github.com/riskexec/claude-code/issues)
+- Discussions: [GitHub Discussions](https://github.com/riskexec/claude-code/discussions)
 - Email: soporte@claude-code-templates.com

@@ -53,7 +53,7 @@ function createComponentModalHTML(component) {
     const description = getComponentDescription(component); // Full description
 
     // Construct GitHub URL
-    let githubUrl = 'https://github.com/davila7/claude-code-templates/';
+    let githubUrl = 'https://github.com/riskexec/claude-code/';
     if (component.type === 'template') {
         githubUrl += `tree/main/cli-tool/templates/${component.folderPath}`;
     } else {

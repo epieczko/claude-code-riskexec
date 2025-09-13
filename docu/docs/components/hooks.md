@@ -378,4 +378,4 @@ Want to create your own hook? Follow these guidelines:
 - [Browse All Hooks](https://aitmpl.com) - View available hooks in the web interface
 - [Automation Hooks Guide →](../project-setup/automation-hooks) - Deep dive into automation workflows
 - [Contributing Guide →](../contributing) - Add your own hooks to the collection
-- [Telegram Setup Guide →](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/TELEGRAM_SETUP.md) - Detailed Telegram integration guide
+- [Telegram Setup Guide →](https://github.com/riskexec/claude-code/blob/main/cli-tool/components/hooks/automation/TELEGRAM_SETUP.md) - Detailed Telegram integration guide

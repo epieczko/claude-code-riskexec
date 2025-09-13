@@ -123,7 +123,7 @@ docs/blog/
                     </svg>
                     Blog
                 </a>
-                <a href="https://github.com/davila7/claude-code-templates" target="_blank" class="header-btn">
+                <a href="https://github.com/riskexec/claude-code" target="_blank" class="header-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12..."/>
                     </svg>

