@@ -45,15 +45,15 @@ function createComponentModalHTML(component) {
     if (componentPath.endsWith('.json')) {
         componentPath = componentPath.replace(/\.json$/, '');
     }
-    const installCommand = `npx claude-code-templates@latest --${component.type}=${componentPath} --yes`;
+    const installCommand = `npx claude-code-riskexec@latest --${component.type}=${componentPath} --yes`;
     
     // Generate global agent command for agents only
-    const globalAgentCommand = component.type === 'agent' ? `npx claude-code-templates@latest --create-agent ${componentPath}` : null;
+    const globalAgentCommand = component.type === 'agent' ? `npx claude-code-riskexec@latest --create-agent ${componentPath}` : null;
     
     const description = getComponentDescription(component); // Full description
 
     // Construct GitHub URL
-    let githubUrl = 'https://github.com/davila7/claude-code-templates/';
+    let githubUrl = 'https://github.com/davila7/claude-code-riskexec/';
     if (component.type === 'template') {
         githubUrl += `tree/main/cli-tool/templates/${component.folderPath}`;
     } else {
@@ -130,8 +130,8 @@ function createComponentModalHTML(component) {
                                     </div>
                                     
                                     <div class="command-line">
-                                        <code>npx claude-code-templates@latest --sandbox e2b --agent=${componentPath} --prompt "your development task"</code>
-                                        <button class="copy-btn" data-command="npx claude-code-templates@latest --sandbox e2b --agent=${componentPath} --prompt &quot;your development task&quot;" onclick="copyToClipboard(this.dataset.command)">Copy</button>
+                                        <code>npx claude-code-riskexec@latest --sandbox e2b --agent=${componentPath} --prompt "your development task"</code>
+                                        <button class="copy-btn" data-command="npx claude-code-riskexec@latest --sandbox e2b --agent=${componentPath} --prompt &quot;your development task&quot;" onclick="copyToClipboard(this.dataset.command)">Copy</button>
                                     </div>
                                 </div>
                                 

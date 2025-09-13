@@ -171,7 +171,7 @@ class CartManager {
 
     // Update generated command
     updateCommand() {
-        let command = 'npx claude-code-templates@latest';
+        let command = 'npx claude-code-riskexec@latest';
         
         if (this.cart.agents.length > 0) {
             const agentPaths = this.cart.agents.map(item => item.path).join(',');

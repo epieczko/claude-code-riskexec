@@ -1,9 +1,9 @@
-[![npm version](https://img.shields.io/npm/v/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
-[![npm downloads](https://img.shields.io/npm/dt/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
+[![npm version](https://img.shields.io/npm/v/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
+[![npm downloads](https://img.shields.io/npm/dt/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md)
-[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-templates.svg?style=social&label=Star)](https://github.com/davila7/claude-code-templates)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/davila7/claude-code-riskexec/blob/main/CONTRIBUTING.md)
+[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-riskexec.svg?style=social&label=Star)](https://github.com/davila7/claude-code-riskexec)
 
 # Claude Code Templates
 
@@ -13,13 +13,13 @@
 
 ```bash
 # Interactive setup (recommended)
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 
 # Real-time analytics dashboard
-npx claude-code-templates@latest --analytics
+npx claude-code-riskexec@latest --analytics
 
 # System health check
-npx claude-code-templates@latest --health-check
+npx claude-code-riskexec@latest --health-check
 ```
 
 ## ✨ Core Features
@@ -56,7 +56,7 @@ Create AI agents that can be executed from anywhere using the Claude Code SDK:
 
 ```bash
 # Create a global agent (one-time setup)
-npx claude-code-templates@latest --create-agent customer-support
+npx claude-code-riskexec@latest --create-agent customer-support
 
 # Use the agent from anywhere
 customer-support "Help me with ticket #12345"
@@ -77,13 +77,13 @@ code-reviewer "Review this PR for security issues"
 
 ```bash
 # List installed global agents
-npx claude-code-templates@latest --list-agents
+npx claude-code-riskexec@latest --list-agents
 
 # Update an agent to latest version
-npx claude-code-templates@latest --update-agent customer-support
+npx claude-code-riskexec@latest --update-agent customer-support
 
 # Remove an agent
-npx claude-code-templates@latest --remove-agent customer-support
+npx claude-code-riskexec@latest --remove-agent customer-support
 ```
 
 ### How It Works
@@ -108,7 +108,7 @@ Quick links:
 
 ## 🤝 Contributing
 
-We welcome contributions! Browse available templates and components at **[aitmpl.com](https://aitmpl.com)**, then check our [contributing guidelines](https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md).
+We welcome contributions! Browse available templates and components at **[aitmpl.com](https://aitmpl.com)**, then check our [contributing guidelines](https://github.com/davila7/claude-code-riskexec/blob/main/CONTRIBUTING.md).
 
 ## 📄 License
 
@@ -118,8 +118,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 - **🌐 Browse Components**: [aitmpl.com](https://aitmpl.com)
 - **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
-- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-riskexec/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/davila7/claude-code-riskexec/discussions)
 
 ---
 

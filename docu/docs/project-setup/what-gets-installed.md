@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # What Gets Installed
 
-When you use `claude-code-templates` to set up your project, it installs several core files and configurations to integrate Claude Code effectively into your development environment. You can choose between **complete templates** (comprehensive project setup) or **individual components** (selective functionality).
+When you use `claude-code-riskexec` to set up your project, it installs several core files and configurations to integrate Claude Code effectively into your development environment. You can choose between **complete templates** (comprehensive project setup) or **individual components** (selective functionality).
 
 ## Installation Methods
 
@@ -13,15 +13,15 @@ For comprehensive project setup with all recommended components:
 
 ```bash
 # Interactive setup (recommended)
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 
 # Modern template installation (preferred)
-npx claude-code-templates@latest --template=react --yes
-npx claude-code-templates@latest --template=python --yes
-npx claude-code-templates@latest --template=nodejs --yes
+npx claude-code-riskexec@latest --template=react --yes
+npx claude-code-riskexec@latest --template=python --yes
+npx claude-code-riskexec@latest --template=nodejs --yes
 
 # Legacy syntax (still supported but deprecated)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react
 ```
 
 ### Individual Component Installation
@@ -32,9 +32,9 @@ Install specialized AI assistants using the `--agent` parameter:
 
 ```bash
 # Install specific agents
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --agent=api-security-audit --yes
-npx claude-code-templates@latest --agent=database-optimization --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --agent=api-security-audit --yes
+npx claude-code-riskexec@latest --agent=database-optimization --yes
 ```
 
 **Available agents include:**
@@ -48,9 +48,9 @@ Install custom slash commands using the `--command` parameter:
 
 ```bash
 # Install specific commands
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --command=generate-tests --yes
-npx claude-code-templates@latest --command=optimize-imports --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --command=generate-tests --yes
+npx claude-code-riskexec@latest --command=optimize-imports --yes
 ```
 
 **Manual installation (alternative method):**
@@ -60,7 +60,7 @@ mkdir -p .claude/commands
 
 # Install specific commands via direct download
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/check-file.md
 ```
 
 #### MCPs (🔌)
@@ -68,16 +68,16 @@ Install Model Context Protocol integrations using the `--mcp` parameter:
 
 ```bash
 # Install specific MCPs
-npx claude-code-templates@latest --mcp=github-integration --yes
-npx claude-code-templates@latest --mcp=database-integration --yes
-npx claude-code-templates@latest --mcp=deepgraph-react --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --mcp=database-integration --yes
+npx claude-code-riskexec@latest --mcp=deepgraph-react --yes
 ```
 
 **Manual installation (alternative method):**
 ```bash
 # GitHub integration
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/github-integration.json
 ```
 
 ## Core Files Installed
@@ -110,7 +110,7 @@ curl -o ./github-integration.json \
 
 ```bash
 # Downloads complete template with multiple components
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 ```
 
 **Use Templates When:**
@@ -124,9 +124,9 @@ npx claude-code-templates@latest --template=react --yes
 
 ```bash
 # Downloads individual components to specific locations
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
 ```
 
 **Use Individual Components When:**
@@ -154,9 +154,9 @@ All templates and components are now downloaded directly from GitHub in real-tim
 You can discover and install components through:
 
 1. **CLI Parameters**: Use dedicated parameters (`--agent`, `--command`, `--mcp`, `--template`)
-2. **Web Interface**: Visit the [unified component browser](https://davila7.github.io/claude-code-templates/) to explore all available templates and components
-3. **Interactive CLI**: Run `npx claude-code-templates@latest` and select "⚙️ Project Setup"
-4. **GitHub Repository**: Browse components directly in the [repository structure](https://github.com/davila7/claude-code-templates)
+2. **Web Interface**: Visit the [unified component browser](https://davila7.github.io/claude-code-riskexec/) to explore all available templates and components
+3. **Interactive CLI**: Run `npx claude-code-riskexec@latest` and select "⚙️ Project Setup"
+4. **GitHub Repository**: Browse components directly in the [repository structure](https://github.com/davila7/claude-code-riskexec)
 
 ## Installation Paths
 

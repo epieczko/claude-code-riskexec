@@ -23,7 +23,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'davila7', // Usually your GitHub org/user name.
-  projectName: 'claude-code-templates', // Usually your repo name.
+  projectName: 'claude-code-riskexec', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -64,7 +64,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/davila7/claude-code-templates/tree/main/docu/',
+            'https://github.com/davila7/claude-code-riskexec/tree/main/docu/',
         },
         blog: false, // Disable blog functionality
         theme: {
@@ -101,7 +101,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/davila7/claude-code-templates',
+          href: 'https://github.com/davila7/claude-code-riskexec',
           label: 'GitHub',
           position: 'right',
         },
@@ -129,11 +129,11 @@ const config: Config = {
             },
             {
               label: 'GitHub Repository',
-              href: 'https://github.com/davila7/claude-code-templates',
+              href: 'https://github.com/davila7/claude-code-riskexec',
             },
             {
               label: 'Issues & Support',
-              href: 'https://github.com/davila7/claude-code-templates/issues',
+              href: 'https://github.com/davila7/claude-code-riskexec/issues',
             },
           ],
         },
@@ -142,11 +142,11 @@ const config: Config = {
           items: [
             {
               label: 'Contribute',
-              href: 'https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md',
+              href: 'https://github.com/davila7/claude-code-riskexec/blob/main/CONTRIBUTING.md',
             },
             {
               label: 'License',
-              href: 'https://github.com/davila7/claude-code-templates/blob/main/LICENSE',
+              href: 'https://github.com/davila7/claude-code-riskexec/blob/main/LICENSE',
             },
           ],
         },

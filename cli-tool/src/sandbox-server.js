@@ -187,7 +187,7 @@ app.post('/api/install-agent', async (req, res) => {
         console.log(chalk.blue('🔧 Installing agent:'), chalk.cyan(agentName));
         
         // Use the CLI tool to install the agent
-        const child = spawn('npx', ['claude-code-templates@latest', '--agent', agentName, '--yes'], {
+        const child = spawn('npx', ['claude-code-riskexec@latest', '--agent', agentName, '--yes'], {
             cwd: process.cwd(),
             stdio: ['pipe', 'pipe', 'pipe'],
             shell: true
@@ -253,7 +253,7 @@ async function checkAndInstallAgent(agentName, task) {
     task.output.push(`🔧 Agent ${agentName} not found locally. Installing...`);
     
     return new Promise((resolve, reject) => {
-        const child = spawn('npx', ['claude-code-templates@latest', '--agent', agentName, '--yes'], {
+        const child = spawn('npx', ['claude-code-riskexec@latest', '--agent', agentName, '--yes'], {
             cwd: process.cwd(),
             stdio: ['pipe', 'pipe', 'pipe'],
             shell: true

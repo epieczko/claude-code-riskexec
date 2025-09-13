@@ -4,20 +4,20 @@ sidebar_position: 1
 
 # Health Check Overview
 
-The `claude-code-templates` CLI provides a comprehensive health check feature to validate your Claude Code configuration and system environment. This ensures that your setup is optimal for running Claude Code and helps identify any potential issues.
+The `claude-code-riskexec` CLI provides a comprehensive health check feature to validate your Claude Code configuration and system environment. This ensures that your setup is optimal for running Claude Code and helps identify any potential issues.
 
 ## Running the Health Check
 
 You can run the comprehensive diagnostics on your Claude Code setup using the following command:
 
 ```bash
-npx claude-code-templates --health-check
+npx claude-code-riskexec --health-check
 # or
-npx claude-code-templates --health
+npx claude-code-riskexec --health
 # or
-npx claude-code-templates --check
+npx claude-code-riskexec --check
 # or
-npx claude-code-templates --verify
+npx claude-code-riskexec --verify
 ```
 
 ## What the Health Check Analyzes

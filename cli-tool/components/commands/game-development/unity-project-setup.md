@@ -95,7 +95,7 @@ Assets/
 ## Usage:
 
 ```bash
-npx claude-code-templates@latest --command unity-project-setup
+npx claude-code-riskexec@latest --command unity-project-setup
 ```
 
 ## Interactive Options:

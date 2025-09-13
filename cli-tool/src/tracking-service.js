@@ -133,7 +133,7 @@ class TrackingService {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'User-Agent': `claude-code-templates/${trackingData.environment?.cli_version || 'unknown'}`
+                    'User-Agent': `claude-code-riskexec/${trackingData.environment?.cli_version || 'unknown'}`
                 },
                 body: JSON.stringify(payload),
                 signal: signal

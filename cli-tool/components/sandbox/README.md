@@ -18,13 +18,13 @@ Run Claude Code in E2B's secure cloud environment with pre-configured developmen
 
 ```bash
 # Simple execution with API keys as parameters (recommended)
-npx claude-code-templates@latest --sandbox e2b \
+npx claude-code-riskexec@latest --sandbox e2b \
   --e2b-api-key your_e2b_key \
   --anthropic-api-key your_anthropic_key \
   --prompt "Create a React todo app"
 
 # With components installation
-npx claude-code-templates@latest --sandbox e2b \
+npx claude-code-riskexec@latest --sandbox e2b \
   --e2b-api-key your_e2b_key \
   --anthropic-api-key your_anthropic_key \
   --agent frontend-developer \
@@ -32,7 +32,7 @@ npx claude-code-templates@latest --sandbox e2b \
   --prompt "Create a modern todo app with TypeScript"
 
 # Or use environment variables (set E2B_API_KEY and ANTHROPIC_API_KEY)
-npx claude-code-templates@latest --sandbox e2b --prompt "Create a React todo app"
+npx claude-code-riskexec@latest --sandbox e2b --prompt "Create a React todo app"
 ```
 
 ## Environment Setup
@@ -68,12 +68,12 @@ npx claude-code-templates@latest --sandbox e2b --prompt "Create a React todo app
 
 ### Basic Web Development
 ```bash
-npx claude-code-templates@latest --sandbox e2b --prompt "Create an HTML page with modern CSS animations"
+npx claude-code-riskexec@latest --sandbox e2b --prompt "Create an HTML page with modern CSS animations"
 ```
 
 ### Full Stack with Components  
 ```bash
-npx claude-code-templates@latest --sandbox e2b \
+npx claude-code-riskexec@latest --sandbox e2b \
   --agent fullstack-developer \
   --command setup-node \
   --prompt "Create a Node.js API with JWT authentication"
@@ -81,14 +81,14 @@ npx claude-code-templates@latest --sandbox e2b \
 
 ### Data Analysis
 ```bash
-npx claude-code-templates@latest --sandbox e2b \
+npx claude-code-riskexec@latest --sandbox e2b \
   --agent data-scientist \
   --prompt "Analyze this CSV data and create visualizations"
 ```
 
 ### Security Audit
 ```bash
-npx claude-code-templates@latest --sandbox e2b \
+npx claude-code-riskexec@latest --sandbox e2b \
   --agent security-auditor \
   --command security-audit \
   --prompt "Review this codebase for security vulnerabilities"
@@ -152,7 +152,7 @@ pip3 install -r requirements.txt
 ## Component Architecture
 
 ```
-claude-code-templates/
+claude-code-riskexec/
 └── cli-tool/
     └── components/
         └── sandbox/

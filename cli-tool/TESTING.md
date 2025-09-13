@@ -1,6 +1,6 @@
-# Testing Guide for claude-code-templates
+# Testing Guide for claude-code-riskexec
 
-This guide explains how to test the `claude-code-templates` CLI tool before publishing.
+This guide explains how to test the `claude-code-riskexec` CLI tool before publishing.
 
 ## Quick Start
 
@@ -73,19 +73,19 @@ make uninstall-dev
 npm link
 
 # Test different scenarios manually
-claude-code-templates --help
-claude-code-templates --version
-claude-code-templates --dry-run
-claude-code-templates --language javascript-typescript --framework react --yes
-claude-code-templates --language common --yes
+claude-code-riskexec --help
+claude-code-riskexec --version
+claude-code-riskexec --dry-run
+claude-code-riskexec --language javascript-typescript --framework react --yes
+claude-code-riskexec --language common --yes
 
 # Test in different directories
 mkdir test-project && cd test-project
-claude-code-templates --language javascript-typescript --framework vue --yes
+claude-code-riskexec --language javascript-typescript --framework vue --yes
 ls -la  # Check created files
 
 # Cleanup
-npm unlink -g claude-code-templates
+npm unlink -g claude-code-riskexec
 ```
 
 ### 4. **Direct Node Execution**
@@ -148,7 +148,7 @@ make pre-publish
 
 ### Manual Verification Steps:
 
-1. **Interactive Flow**: Start `claude-code-templates` without flags and go through the full interactive setup
+1. **Interactive Flow**: Start `claude-code-riskexec` without flags and go through the full interactive setup
 2. **Error Scenarios**: Test invalid inputs and edge cases
 3. **File Content**: Verify that created files have correct content
 4. **Framework Detection**: Test in projects with existing package.json files
@@ -190,8 +190,8 @@ npm run build      # If applicable
 ### Production Testing
 ```bash
 # Test published version
-npx claude-code-templates@latest --version
-npx claude-code-templates@latest --help
+npx claude-code-riskexec@latest --version
+npx claude-code-riskexec@latest --help
 ```
 
 ## Debugging Tests
@@ -199,14 +199,14 @@ npx claude-code-templates@latest --help
 ### Verbose Output
 ```bash
 # Add verbose flag to see detailed output
-claude-code-templates --language javascript-typescript --framework react --dry-run --yes --verbose
+claude-code-riskexec --language javascript-typescript --framework react --dry-run --yes --verbose
 ```
 
 ### Test Specific Scenarios
 ```bash
 # Create isolated test environment
 mkdir /tmp/test-claude && cd /tmp/test-claude
-claude-code-templates --language javascript-typescript --framework react --yes
+claude-code-riskexec --language javascript-typescript --framework react --yes
 ls -la .claude/commands/
 cat CLAUDE.md
 ```
@@ -230,7 +230,7 @@ npm config set prefix ~/.npm-global
 ### Command Not Found
 ```bash
 # If linked command isn't found
-which claude-code-templates
+which claude-code-riskexec
 echo $PATH
 # May need to add npm global bin to PATH
 ```

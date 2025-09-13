@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Agent Chats Manager
 
-The Agent Chats Manager within the `claude-code-templates` analytics dashboard allows you to monitor and analyze Claude agent interactions in real-time. This provides a clear visual flow of how Claude Code processes information and responds.
+The Agent Chats Manager within the `claude-code-riskexec` analytics dashboard allows you to monitor and analyze Claude agent interactions in real-time. This provides a clear visual flow of how Claude Code processes information and responds.
 
 ## How it Works
 

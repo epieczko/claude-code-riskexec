@@ -4,14 +4,14 @@ sidebar_position: 4
 
 # Analysis Tools
 
-The `claude-code-templates` CLI provides dedicated analysis tools to help you understand and optimize your existing Claude Code configurations. These tools offer insights into your commands, automation hooks, and MCP server configurations.
+The `claude-code-riskexec` CLI provides dedicated analysis tools to help you understand and optimize your existing Claude Code configurations. These tools offer insights into your commands, automation hooks, and MCP server configurations.
 
 ## Command Analysis
 
 View detailed statistics about your custom commands:
 
 ```bash
-npx claude-code-templates --commands-stats
+npx claude-code-riskexec --commands-stats
 ```
 
 **What you get:**
@@ -26,7 +26,7 @@ npx claude-code-templates --commands-stats
 Analyze your automation hooks configuration:
 
 ```bash
-npx claude-code-templates --hooks-stats
+npx claude-code-riskexec --hooks-stats
 ```
 
 **What you get:**
@@ -42,7 +42,7 @@ npx claude-code-templates --hooks-stats
 Analyze your MCP server configurations:
 
 ```bash
-npx claude-code-templates --mcps-stats
+npx claude-code-riskexec --mcps-stats
 ```
 
 **What you get:**

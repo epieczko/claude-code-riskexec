@@ -4,14 +4,14 @@ sidebar_position: 1
 
 # Interactive Project Setup
 
-The `claude-code-templates` CLI provides an interactive way to set up and configure your projects for Claude Code. This is the recommended way to get started.
+The `claude-code-riskexec` CLI provides an interactive way to set up and configure your projects for Claude Code. This is the recommended way to get started.
 
 ## Quick Start
 
 To begin, navigate to your project directory and run the following command:
 
 ```bash
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 ```
 
 You'll be greeted with an interactive welcome screen:

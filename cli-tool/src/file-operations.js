@@ -7,7 +7,7 @@ const { getHooksForLanguage, filterHooksBySelection, getMCPsForLanguage, filterM
 // GitHub configuration for downloading templates
 const GITHUB_CONFIG = {
   owner: 'davila7',
-  repo: 'claude-code-templates',
+  repo: 'claude-code-riskexec',
   branch: 'main',
   templatesPath: 'cli-tool/templates'
 };

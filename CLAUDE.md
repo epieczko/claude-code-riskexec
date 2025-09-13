@@ -377,17 +377,17 @@ Automation triggers for development workflows:
 #### CLI Installation Patterns
 ```bash
 # Install specific components
-npx claude-code-templates@latest --agent <name>
-npx claude-code-templates@latest --command <name>
-npx claude-code-templates@latest --mcp <name>
-npx claude-code-templates@latest --setting <name>
-npx claude-code-templates@latest --hook <name>
+npx claude-code-riskexec@latest --agent <name>
+npx claude-code-riskexec@latest --command <name>
+npx claude-code-riskexec@latest --mcp <name>
+npx claude-code-riskexec@latest --setting <name>
+npx claude-code-riskexec@latest --hook <name>
 
 # Batch installation
-npx claude-code-templates@latest --agent security-auditor --command security-audit --setting read-only-mode
+npx claude-code-riskexec@latest --agent security-auditor --command security-audit --setting read-only-mode
 
 # Interactive mode
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 ```
 
 #### Special Component Features

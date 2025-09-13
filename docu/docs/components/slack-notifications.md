@@ -23,13 +23,13 @@ Get instant Slack notifications when Claude Code finishes working.
 
 ```bash
 # Basic notifications
-npx claude-code-templates@latest --hook automation/slack-notifications
+npx claude-code-riskexec@latest --hook automation/slack-notifications
 
 # Rich block notifications with session details
-npx claude-code-templates@latest --hook automation/slack-detailed-notifications
+npx claude-code-riskexec@latest --hook automation/slack-detailed-notifications
 
 # Long operation monitoring
-npx claude-code-templates@latest --hook automation/slack-error-notifications
+npx claude-code-riskexec@latest --hook automation/slack-error-notifications
 ```
 
 ### 4. Set Environment Variable

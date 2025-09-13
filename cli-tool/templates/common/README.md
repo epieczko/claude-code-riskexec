@@ -20,7 +20,7 @@ This folder contains language-agnostic templates and configurations that can be 
 Copy the entire `common/` folder contents to your project root:
 
 ```bash
-cp -r claude-code-templates/common/* your-project/
+cp -r claude-code-riskexec/common/* your-project/
 ```
 
 ### For Existing Projects
@@ -28,10 +28,10 @@ Merge the relevant files with your existing Claude Code configuration:
 
 ```bash
 # Copy custom commands
-cp -r claude-code-templates/common/.claude/commands/* your-project/.claude/commands/
+cp -r claude-code-riskexec/common/.claude/commands/* your-project/.claude/commands/
 
 # Review and merge CLAUDE.md content
-cat claude-code-templates/common/CLAUDE.md >> your-project/CLAUDE.md
+cat claude-code-riskexec/common/CLAUDE.md >> your-project/CLAUDE.md
 ```
 
 ## Customization
@@ -69,11 +69,11 @@ For projects using multiple programming languages:
 
 ```bash
 # Copy common base
-cp -r claude-code-templates/common/* your-project/
+cp -r claude-code-riskexec/common/* your-project/
 
 # Add language-specific configurations
-cp -r claude-code-templates/javascript-typescript/.claude/commands/* your-project/.claude/commands/
-cp -r claude-code-templates/python/.claude/commands/* your-project/.claude/commands/
+cp -r claude-code-riskexec/javascript-typescript/.claude/commands/* your-project/.claude/commands/
+cp -r claude-code-riskexec/python/.claude/commands/* your-project/.claude/commands/
 ```
 
 ### Team Standardization

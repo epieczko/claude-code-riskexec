@@ -115,7 +115,7 @@ function displayCommandStats(analysis) {
 
   if (!analysis.exists) {
     console.log(chalk.yellow('⚠️  ' + analysis.message));
-    console.log(chalk.blue('\n💡 Run the setup first: npx claude-code-templates'));
+    console.log(chalk.blue('\n💡 Run the setup first: npx claude-code-riskexec'));
     return false; // Indicate no .claude directory
   }
 
@@ -207,7 +207,7 @@ async function promptSetupWhenNoCommands(targetDir) {
     }]);
 
     if (!setupNow) {
-      console.log(chalk.yellow('⏭️  Setup skipped. Run "npx claude-code-templates" anytime to set up your project.'));
+      console.log(chalk.yellow('⏭️  Setup skipped. Run "npx claude-code-riskexec" anytime to set up your project.'));
       return false;
     }
 
@@ -222,7 +222,7 @@ async function promptSetupWhenNoCommands(targetDir) {
 
   } catch (error) {
     console.error(chalk.red('Error during setup:'), error.message);
-    console.log(chalk.blue('💡 You can run setup manually with: npx claude-code-templates'));
+    console.log(chalk.blue('💡 You can run setup manually with: npx claude-code-riskexec'));
     return false;
   }
 }

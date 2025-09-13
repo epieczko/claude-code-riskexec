@@ -142,7 +142,7 @@ class ConsoleBridge extends EventEmitter {
           })
           .filter(proc => 
             proc.command.includes('claude') && 
-            !proc.command.includes('claude-code-templates') &&
+            !proc.command.includes('claude-code-riskexec') &&
             !proc.command.includes('grep')
           );
 
@@ -339,11 +339,11 @@ class ConsoleBridge extends EventEmitter {
         this.handleDetectedPrompt(`Read file
 
   Search(pattern: "(?:Yes|No|yes|no)(?:,\\s*and\\s*don't\\s*ask\\s*again)?", path: 
-  "../../../../../../../.claude/projects/-Users-danipower-Proyectos-Github-claude-code-templates", include: "*.jsonl")
+  "../../../../../../../.claude/projects/-Users-danipower-Proyectos-Github-claude-code-riskexec", include: "*.jsonl")
 
 Do you want to proceed?
 ❯ 1. Yes
-  2. Yes, and add /Users/danipower/.claude/projects/-Users-danipower-Proyectos-Github-claude-code-templates as a working directory for this session
+  2. Yes, and add /Users/danipower/.claude/projects/-Users-danipower-Proyectos-Github-claude-code-riskexec as a working directory for this session
   3. No, and tell Claude what to do differently (esc)`);
       }
       
