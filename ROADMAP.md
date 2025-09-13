@@ -1,4 +1,4 @@
-# 🚀 Claude Code Templates - Roadmap
+# 🚀 Claude Code RiskExec - Roadmap
 
 ```
  ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗     ██████╗ ██████╗ ██████╗ ███████╗
@@ -18,7 +18,7 @@
 
 ## 📋 Development Roadmap 
 
-> **Mission**: Transform Claude Code Templates into the definitive marketplace for AI-powered development tools and workflows.
+> **Mission**: Transform Claude Code RiskExec into the definitive marketplace for AI-powered development tools and workflows.
 
 ---
 
