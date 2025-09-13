@@ -10,6 +10,9 @@ if (!fs.existsSync(cfg)) die("Router config missing at ~/.claude-code-router/con
 
 const json = JSON.parse(fs.readFileSync(cfg, "utf8"));
 
+if (json.HOST !== "127.0.0.1")
+    die(`HOST must be "127.0.0.1", found '${json.HOST}'`, 8);
+
 const allowedProviders = new Set(["anthropic"]);
 const bannedProviders = new Set(["openrouter", "iflow", "volcengine", "modelscope", "dashscope"]);
 const allowedModels = new Set(["claude-3.7-sonnet", "claude-3.7-haiku"]);
