@@ -14,7 +14,7 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Quick Setup',
     icon: '⚡',
-    command: 'npm install -g claude-code-templates',
+    command: 'npm install -g claude-code-riskexec',
     description: (
       <>
         Install the CLI tool globally and get started with Claude Code templates 
@@ -35,7 +35,7 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Real-time Analytics',
     icon: '📊',
-    command: 'claude-code-templates --analytics',
+    command: 'claude-code-riskexec --analytics',
     description: (
       <>
         Monitor your Claude Code usage with our comprehensive analytics dashboard. 

@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Real-time Monitoring
 
-The `claude-code-templates` analytics dashboard provides robust real-time monitoring capabilities to keep you informed about your Claude Code interactions as they happen.
+The `claude-code-riskexec` analytics dashboard provides robust real-time monitoring capabilities to keep you informed about your Claude Code interactions as they happen.
 
 ## Features
 

@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Supported Languages & Frameworks
 
-`claude-code-templates` is designed to support a wide range of programming languages and frameworks, providing tailored configurations and commands for each. The following table outlines the current status of support:
+`claude-code-riskexec` is designed to support a wide range of programming languages and frameworks, providing tailored configurations and commands for each. The following table outlines the current status of support:
 
 | Language | Frameworks | Status | Commands | Hooks | MCP |
 |----------|------------|---------|----------|--------|-----|

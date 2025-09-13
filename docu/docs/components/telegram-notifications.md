@@ -26,13 +26,13 @@ Get instant Telegram notifications when Claude Code finishes working.
 
 ```bash
 # Basic notifications
-npx claude-code-templates@latest --hook automation/telegram-notifications
+npx claude-code-riskexec@latest --hook automation/telegram-notifications
 
 # Detailed notifications with session info
-npx claude-code-templates@latest --hook automation/telegram-detailed-notifications
+npx claude-code-riskexec@latest --hook automation/telegram-detailed-notifications
 
 # Long operation monitoring
-npx claude-code-templates@latest --hook automation/telegram-error-notifications
+npx claude-code-riskexec@latest --hook automation/telegram-error-notifications
 ```
 
 ### 4. Set Environment Variables

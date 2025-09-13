@@ -150,7 +150,7 @@ def main():
         if components_to_install:
             print("📦 Installing specified components...")
             install_result = sbx.commands.run(
-                f"npx claude-code-templates@latest {components_to_install}",
+                f"npx claude-code-riskexec@latest {components_to_install}",
                 timeout=120,  # 2 minutes for component installation
             )
             

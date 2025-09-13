@@ -15,10 +15,10 @@ A comprehensive Health Check feature has been successfully implemented for the C
 
 ### 2. CLI Command Aliases
 All specified command aliases work correctly:
-- `claude-code-templates --health-check`
-- `claude-code-templates --health`
-- `claude-code-templates --check`
-- `claude-code-templates --verify`
+- `claude-code-riskexec --health-check`
+- `claude-code-riskexec --health`
+- `claude-code-riskexec --check`
+- `claude-code-riskexec --verify`
 
 ### 3. Comprehensive System Verification
 

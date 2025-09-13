@@ -8,12 +8,12 @@ sidebar_position: 1
 
 ## Key Functionalities
 
-The core functionality of `claude-code-templates` revolves around these key areas:
+The core functionality of `claude-code-riskexec` revolves around these key areas:
 
 ```bash
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 # Or use the new template-specific syntax:
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 ```
 
 ### 🚀 Project Setup & Configuration
@@ -55,32 +55,32 @@ Environment and configuration validation:
 ### 1. Modern Template Installation (Recommended)
 ```bash
 # Quick template installation with new syntax
-npx claude-code-templates@latest --template=react --yes
-npx claude-code-templates@latest --template=python --yes
-npx claude-code-templates@latest --template=nodejs --yes
+npx claude-code-riskexec@latest --template=react --yes
+npx claude-code-riskexec@latest --template=python --yes
+npx claude-code-riskexec@latest --template=nodejs --yes
 
 # Or use interactive setup for guidance
 cd your-project-directory
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 ```
 
 ### 2. Individual Component Installation
 ```bash
 # Install specific components using new CLI parameters
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
 ```
 
 ### 3. Launch Real-time Analytics Dashboard
 ```bash
-npx claude-code-templates --analytics
+npx claude-code-riskexec --analytics
 # This will launch the real-time monitoring dashboard, accessible at http://localhost:3333.
 ```
 
 ### 4. Run Comprehensive Health Check
 ```bash
-npx claude-code-templates --health-check
+npx claude-code-riskexec --health-check
 # This command performs a comprehensive system validation and provides optimization recommendations.
 ```
 

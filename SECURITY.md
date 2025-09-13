@@ -16,7 +16,7 @@ If you discover a security vulnerability in Claude Code Templates, please report
 Send details of the vulnerability to [dan.avila7@gmail.com](mailto:dan.avila7@gmail.com) with the subject line "SECURITY: Claude Code Templates Vulnerability Report"
 
 ### GitHub Security Advisories
-You can also report vulnerabilities through [GitHub Security Advisories](https://github.com/davila7/claude-code-templates/security/advisories/new) for this repository.
+You can also report vulnerabilities through [GitHub Security Advisories](https://github.com/davila7/claude-code-riskexec/security/advisories/new) for this repository.
 
 ## What to Include in Your Report
 
@@ -34,7 +34,7 @@ To help us understand and resolve the issue quickly, please include:
 When using Claude Code Templates:
 
 ### For Users
-- **Keep Updated**: Always use the latest version via `npx claude-code-templates@latest`
+- **Keep Updated**: Always use the latest version via `npx claude-code-riskexec@latest`
 - **Review Templates**: Check generated files before committing to your repository
 - **Audit Hooks**: Review automation hooks before enabling them
 - **Secure Environment**: Use the tool in a secure development environment

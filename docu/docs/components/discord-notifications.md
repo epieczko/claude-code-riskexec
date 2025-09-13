@@ -15,13 +15,13 @@ Get instant Discord notifications when Claude Code finishes working.
 
 ```bash
 # Basic notifications
-npx claude-code-templates@latest --hook automation/discord-notifications
+npx claude-code-riskexec@latest --hook automation/discord-notifications
 
 # Rich embed notifications with session details
-npx claude-code-templates@latest --hook automation/discord-detailed-notifications
+npx claude-code-riskexec@latest --hook automation/discord-detailed-notifications
 
 # Long operation monitoring
-npx claude-code-templates@latest --hook automation/discord-error-notifications
+npx claude-code-riskexec@latest --hook automation/discord-error-notifications
 ```
 
 ### 3. Set Environment Variable

@@ -285,8 +285,8 @@ For advanced contributors who want to improve the CLI tools like analytics, heal
 #### Project Setup
 ```bash
 # Clone the repository
-git clone https://github.com/davila7/claude-code-templates.git
-cd claude-code-templates
+git clone https://github.com/davila7/claude-code-riskexec.git
+cd claude-code-riskexec
 
 # Navigate to the CLI tool directory
 cd cli-tool
@@ -402,15 +402,15 @@ npm run health-check
 ### Component Testing
 ```bash
 # Test component installation
-npx claude-code-templates@latest --agent your-agent --dry-run
-npx claude-code-templates@latest --command your-command --dry-run
-npx claude-code-templates@latest --mcp your-mcp --dry-run
+npx claude-code-riskexec@latest --agent your-agent --dry-run
+npx claude-code-riskexec@latest --command your-command --dry-run
+npx claude-code-riskexec@latest --mcp your-mcp --dry-run
 ```
 
 ### Template Testing
 ```bash
 # Test template installation
-npx claude-code-templates@latest --template your-template --dry-run
+npx claude-code-riskexec@latest --template your-template --dry-run
 
 # Test with specific scenarios
 npm start -- --language python --framework django --dry-run
@@ -433,8 +433,8 @@ npm run health-check:test
 
 ### 1. Fork and Clone
 ```bash
-git clone https://github.com/your-username/claude-code-templates.git
-cd claude-code-templates
+git clone https://github.com/your-username/claude-code-riskexec.git
+cd claude-code-riskexec
 ```
 
 ### 2. Create Feature Branch
@@ -482,8 +482,8 @@ npm start -- --dry-run
 ## 📞 Getting Help
 
 ### Community Support
-- **GitHub Issues** - [Report bugs or request features](https://github.com/davila7/claude-code-templates/issues)
-- **GitHub Discussions** - [Join community discussions](https://github.com/davila7/claude-code-templates/discussions)
+- **GitHub Issues** - [Report bugs or request features](https://github.com/davila7/claude-code-riskexec/issues)
+- **GitHub Discussions** - [Join community discussions](https://github.com/davila7/claude-code-riskexec/discussions)
 - **Documentation** - [Complete guides at docs.aitmpl.com](https://docs.aitmpl.com/)
 
 ### Quick Start Guides

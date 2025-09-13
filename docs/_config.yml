@@ -28,7 +28,7 @@ plugins:
   - jekyll-sitemap
 
 # Repository information
-repository: davila7/claude-code-templates
+repository: davila7/claude-code-riskexec
 
 # Social media and SEO
 twitter:

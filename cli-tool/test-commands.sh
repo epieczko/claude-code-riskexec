@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Test script for claude-code-templates CLI
+# Test script for claude-code-riskexec CLI
 set -e
 
 echo "🧪 Starting CLI Testing Suite..."
@@ -14,25 +14,25 @@ echo "📂 Test directory: $TEST_DIR"
 
 # Test 1: Help command
 echo "🔸 Test 1: Help command"
-claude-code-templates --help > /dev/null && echo "✅ Help command works" || echo "❌ Help command failed"
+claude-code-riskexec --help > /dev/null && echo "✅ Help command works" || echo "❌ Help command failed"
 
 # Test 2: Version command
 echo "🔸 Test 2: Version command"
-claude-code-templates --version > /dev/null && echo "✅ Version command works" || echo "❌ Version command failed"
+claude-code-riskexec --version > /dev/null && echo "✅ Version command works" || echo "❌ Version command failed"
 
 # Test 3: Dry run with JavaScript/TypeScript + React
 echo "🔸 Test 3: Dry run - JavaScript/TypeScript + React"
-claude-code-templates --language javascript-typescript --framework react --dry-run --yes > /dev/null && echo "✅ JS/TS + React dry run works" || echo "❌ JS/TS + React dry run failed"
+claude-code-riskexec --language javascript-typescript --framework react --dry-run --yes > /dev/null && echo "✅ JS/TS + React dry run works" || echo "❌ JS/TS + React dry run failed"
 
 # Test 4: Dry run with Common language
 echo "🔸 Test 4: Dry run - Common language"
-claude-code-templates --language common --dry-run --yes > /dev/null && echo "✅ Common language dry run works" || echo "❌ Common language dry run failed"
+claude-code-riskexec --language common --dry-run --yes > /dev/null && echo "✅ Common language dry run works" || echo "❌ Common language dry run failed"
 
 # Test 5: Actual installation to test directory
 echo "🔸 Test 5: Actual installation"
 mkdir react-test-project
 cd react-test-project
-claude-code-templates --language javascript-typescript --framework react --yes > /dev/null
+claude-code-riskexec --language javascript-typescript --framework react --yes > /dev/null
 
 if [ -f "CLAUDE.md" ] && [ -d ".claude" ]; then
     echo "✅ Installation creates required files"
@@ -78,7 +78,7 @@ fi
 cd "$TEST_DIR"
 echo "🔸 Test 8: Interactive mode dry run"
 # This will start interactive mode but we'll cancel it quickly
-timeout 5s claude-code-templates --dry-run || echo "✅ Interactive mode starts correctly"
+timeout 5s claude-code-riskexec --dry-run || echo "✅ Interactive mode starts correctly"
 
 echo "🎉 All tests completed!"
 echo "🧹 Cleaning up test directory: $TEST_DIR"

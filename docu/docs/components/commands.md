@@ -240,11 +240,11 @@ Install commands using the `--command` parameter:
 
 ```bash
 # Install specific commands directly
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --command=generate-tests --yes
-npx claude-code-templates@latest --command=optimize-imports --yes
-npx claude-code-templates@latest --command=create-component --yes
-npx claude-code-templates@latest --command=bundle-analysis --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --command=generate-tests --yes
+npx claude-code-riskexec@latest --command=optimize-imports --yes
+npx claude-code-riskexec@latest --command=create-component --yes
+npx claude-code-riskexec@latest --command=bundle-analysis --yes
 ```
 
 ### Direct Download Method (Alternative)
@@ -256,13 +256,13 @@ mkdir -p .claude/commands
 
 # Install specific commands via direct download
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/check-file.md
 
 curl -o .claude/commands/generate-tests.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/generate-tests.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/generate-tests.md
 
 curl -o .claude/commands/optimize-imports.md \
-  https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/optimize-imports.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/optimize-imports.md
 ```
 
 ### Batch Installation
@@ -270,23 +270,23 @@ Install multiple commands using CLI parameters:
 
 ```bash
 # Install multiple commands using CLI parameters (recommended)
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --command=generate-tests --yes
-npx claude-code-templates@latest --command=run-tests --yes
-npx claude-code-templates@latest --command=create-component --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --command=generate-tests --yes
+npx claude-code-riskexec@latest --command=run-tests --yes
+npx claude-code-riskexec@latest --command=create-component --yes
 
 # Or install via direct download (alternative)
 commands=("check-file" "generate-tests" "run-tests" "create-component")
 for cmd in "${commands[@]}"; do
   curl -o .claude/commands/${cmd}.md \
-    https://raw.githubusercontent.com/davila7/claude-code-templates/main/components/commands/${cmd}.md
+    https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/${cmd}.md
 done
 ```
 
 ### Via Web Interface
 Browse and install commands through the unified interface:
 
-1. Run `npx claude-code-templates@latest`
+1. Run `npx claude-code-riskexec@latest`
 2. Select "⚙️ Project Setup"
 3. Filter by "Commands" in the navigation
 4. Click on command cards to see installation instructions

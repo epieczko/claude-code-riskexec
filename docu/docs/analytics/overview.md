@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Analytics Dashboard Overview
 
-The `claude-code-templates` CLI includes a comprehensive analytics dashboard that allows you to monitor and optimize your Claude Code agents and interactions in real-time. This dashboard provides valuable insights into usage patterns, performance metrics, and conversation history.
+The `claude-code-riskexec` CLI includes a comprehensive analytics dashboard that allows you to monitor and optimize your Claude Code agents and interactions in real-time. This dashboard provides valuable insights into usage patterns, performance metrics, and conversation history.
 
 ## Key Features of the Analytics Dashboard
 
@@ -40,9 +40,9 @@ graph TD
 You can launch the analytics dashboard using the following command:
 
 ```bash
-npx claude-code-templates --analytics
+npx claude-code-riskexec --analytics
 # or
-npx claude-code-templates --chats
+npx claude-code-riskexec --chats
 ```
 
 Once launched, you can access the web interface in your browser at `http://localhost:3333`.
