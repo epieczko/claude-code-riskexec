@@ -282,7 +282,7 @@ console.log(JSON.stringify(payload, null, 2))
 
 ## Licencia
 
-MIT License - Ver [LICENSE](LICENSE) para detalles.
+Este proyecto es software propietario. Todos los derechos reservados.
 
 ## Contacto
 

@@ -493,7 +493,7 @@ npm start -- --dry-run
 
 ## 📄 License
 
-By contributing to this project, you agree that your contributions will be licensed under the MIT License.
+By contributing to this project, you agree that your contributions become the property of the project maintainers and may be used in this proprietary software.
 
 ## 🙏 Recognition
 

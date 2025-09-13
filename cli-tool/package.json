@@ -58,7 +58,7 @@
     "go"
   ],
   "author": "Claude Code Templates",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "dependencies": {
     "boxen": "^5.1.2",
     "chalk": "^4.1.2",

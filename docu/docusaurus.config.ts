@@ -144,10 +144,6 @@ const config: Config = {
               label: 'Contribute',
               href: 'https://github.com/davila7/claude-code-templates/blob/main/CONTRIBUTING.md',
             },
-            {
-              label: 'License',
-              href: 'https://github.com/davila7/claude-code-templates/blob/main/LICENSE',
-            },
           ],
         },
       ],

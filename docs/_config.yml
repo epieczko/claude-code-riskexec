@@ -14,7 +14,6 @@ sass:
 # Exclude files from processing
 exclude:
   - README.md
-  - LICENSE
   - Gemfile
   - Gemfile.lock
 
