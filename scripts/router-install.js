@@ -3,7 +3,9 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-const src = path.join(process.cwd(), ".claude-code-router", "config.json");
+// Resolve the source path relative to this script's directory so it does not
+// depend on the current working directory when executed.
+const src = path.resolve(__dirname, "..", ".claude-code-router", "config.json");
 const dstDir = path.join(os.homedir(), ".claude-code-router");
 const dst = path.join(dstDir, "config.json");
 
@@ -20,6 +22,8 @@ if (fs.existsSync(dst)) {
 }
 
 fs.copyFileSync(src, dst);
+// Restrict permissions to the owner after writing the file
+fs.chmodSync(dst, 0o600);
 console.log(`Wrote ${dst}`);
 
 console.log("\nSet env vars before running the router:");
