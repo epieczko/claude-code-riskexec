@@ -5,11 +5,6 @@ const fm = require("front-matter");
 
 const ALLOWED_MODELS = new Set(["claude-3.7-sonnet", "claude-3.7-haiku"]);
 const REG_PATH = path.join(".claude", "registry.json");
-if (!fs.existsSync(REG_PATH)) {
-  console.error("Missing .claude/registry.json");
-  process.exit(2);
-}
-const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf8"));
 
 function listMarkdown(dir) {
   const out = [];
@@ -23,7 +18,7 @@ function listMarkdown(dir) {
   return out;
 }
 
-function validateFile(p) {
+function validateFile(p, registry) {
   const raw = fs.readFileSync(p, "utf8");
   const { attributes } = fm(raw);
 
@@ -44,11 +39,30 @@ function validateFile(p) {
 }
 
 function main() {
+  if (!fs.existsSync(REG_PATH)) {
+    console.error("Missing .claude/registry.json");
+    process.exit(2);
+  }
+  let registry;
+  try {
+    const raw = fs.readFileSync(REG_PATH, "utf8");
+    registry = JSON.parse(raw);
+  } catch (err) {
+    console.error(`Failed to parse ${REG_PATH}: ${err.message}`);
+    process.exit(3);
+  }
+
   const files = [
     ...listMarkdown(path.join(".claude", "agents")),
     ...listMarkdown(path.join(".claude", "commands"))
   ];
-  for (const f of files) validateFile(f);
+  for (const f of files) validateFile(f, registry);
   console.log("model-policy-check OK");
 }
-try { main(); } catch (e) { console.error(String(e.message || e)); process.exit(1); }
+
+try {
+  main();
+} catch (e) {
+  console.error(String(e.message || e));
+  process.exit(1);
+}
