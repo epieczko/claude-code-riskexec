@@ -128,7 +128,7 @@ async function listGlobalAgents(options = {}) {
     
     if (allAgents.length === 0) {
       console.log(chalk.yellow('⚠️  No global agents installed yet.'));
-      console.log(chalk.gray('💡 Create one with: npx claude-code-templates@latest --create-agent <agent-name>'));
+      console.log(chalk.gray('💡 Create one with: npx claude-code-riskexec@latest --create-agent <agent-name>'));
       return;
     }
     
@@ -159,8 +159,8 @@ async function listGlobalAgents(options = {}) {
     
     console.log(chalk.blue('🌟 Global Usage:'));
     console.log(chalk.gray('  • Run from any directory: <agent-name> "prompt"'));
-    console.log(chalk.gray('  • List agents: npx claude-code-templates@latest --list-agents'));
-    console.log(chalk.gray('  • Remove agent: npx claude-code-templates@latest --remove-agent <name>'));
+    console.log(chalk.gray('  • List agents: npx claude-code-riskexec@latest --list-agents'));
+    console.log(chalk.gray('  • Remove agent: npx claude-code-riskexec@latest --remove-agent <name>'));
     
   } catch (error) {
     console.log(chalk.red(`❌ Error listing agents: ${error.message}`));
@@ -520,7 +520,7 @@ async function addToPath() {
       
       // Add PATH export if not already present
       if (!content.includes(BIN_DIR)) {
-        const newContent = content + `\n# Claude Code Templates - Global Agents\n${pathExport}\n`;
+        const newContent = content + `\n# Claude Code RiskExec - Global Agents\n${pathExport}\n`;
         await fs.writeFile(configFile, newContent, 'utf8');
         console.log(chalk.green(`✅ Updated ${path.basename(configFile)}`));
       }
@@ -629,8 +629,8 @@ async function showAvailableAgents() {
     });
     
     console.log(chalk.blue('Examples:'));
-    console.log(chalk.gray('  npx claude-code-templates@latest --create-agent api-security-audit'));
-    console.log(chalk.gray('  npx claude-code-templates@latest --create-agent deep-research-team/academic-researcher'));
+    console.log(chalk.gray('  npx claude-code-riskexec@latest --create-agent api-security-audit'));
+    console.log(chalk.gray('  npx claude-code-riskexec@latest --create-agent deep-research-team/academic-researcher'));
     
   } catch (error) {
     console.log(chalk.red('❌ Error fetching agents:', error.message));

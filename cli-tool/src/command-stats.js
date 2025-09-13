@@ -115,7 +115,7 @@ function displayCommandStats(analysis) {
 
   if (!analysis.exists) {
     console.log(chalk.yellow('⚠️  ' + analysis.message));
-    console.log(chalk.blue('\n💡 Run the setup first: npx claude-code-templates'));
+    console.log(chalk.blue('\n💡 Run the setup first: npx claude-code-riskexec'));
     return false; // Indicate no .claude directory
   }
 
@@ -188,30 +188,30 @@ function displayCommandStats(analysis) {
 }
 
 /**
- * Prompts user to setup Claude Code Templates when no commands are found
+ * Prompts user to setup Claude Code RiskExec when no commands are found
  * @param {string} targetDir - Project directory
  */
 async function promptSetupWhenNoCommands(targetDir) {
   const inquirer = require('inquirer');
   
-  console.log(chalk.cyan('\n🚀 Claude Code Templates Setup'));
-  console.log(chalk.gray('No Claude Code commands found in this project. You can set up Claude Code Templates to get started.'));
+  console.log(chalk.cyan('\n🚀 Claude Code RiskExec Setup'));
+  console.log(chalk.gray('No Claude Code commands found in this project. You can set up Claude Code RiskExec to get started.'));
   
   try {
     const { setupNow } = await inquirer.prompt([{
       type: 'confirm',
       name: 'setupNow',
-      message: 'Would you like to start the Claude Code Templates setup now?',
+      message: 'Would you like to start the Claude Code RiskExec setup now?',
       default: true,
       prefix: chalk.blue('🤖')
     }]);
 
     if (!setupNow) {
-      console.log(chalk.yellow('⏭️  Setup skipped. Run "npx claude-code-templates" anytime to set up your project.'));
+      console.log(chalk.yellow('⏭️  Setup skipped. Run "npx claude-code-riskexec" anytime to set up your project.'));
       return false;
     }
 
-    console.log(chalk.blue('\n🚀 Starting Claude Code Templates setup...'));
+    console.log(chalk.blue('\n🚀 Starting Claude Code RiskExec setup...'));
     console.log(chalk.gray('This will guide you through language and framework selection.\n'));
 
     // Import and run the main setup function
@@ -222,7 +222,7 @@ async function promptSetupWhenNoCommands(targetDir) {
 
   } catch (error) {
     console.error(chalk.red('Error during setup:'), error.message);
-    console.log(chalk.blue('💡 You can run setup manually with: npx claude-code-templates'));
+    console.log(chalk.blue('💡 You can run setup manually with: npx claude-code-riskexec'));
     return false;
   }
 }
