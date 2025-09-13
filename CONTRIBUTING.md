@@ -1,4 +1,4 @@
-# Contributing to Claude Code Templates
+# Contributing to Claude Code RiskExec
 
 We welcome contributions! Help us make Claude Code even better for everyone.
 
@@ -484,10 +484,10 @@ npm start -- --dry-run
 ### Community Support
 - **GitHub Issues** - [Report bugs or request features](https://github.com/davila7/claude-code-riskexec/issues)
 - **GitHub Discussions** - [Join community discussions](https://github.com/davila7/claude-code-riskexec/discussions)
-- **Documentation** - [Complete guides at docs.aitmpl.com](https://docs.aitmpl.com/)
+- **Documentation** - [Complete guides at docs.riskexec.com](https://docs.riskexec.com/)
 
 ### Quick Start Guides
-- **Browse Components** - [aitmpl.com](https://aitmpl.com) to see existing components
+- **Browse Components** - [riskexec.com](https://riskexec.com) to see existing components
 - **Component Examples** - Check existing components for structure reference
 - **Template Examples** - Review successful templates for best practices
 
@@ -502,4 +502,4 @@ All contributors are recognized in our:
 - **Release Notes** for significant contributions  
 - **Community Discussions** for helpful contributions
 
-Thank you for helping make Claude Code Templates better for everyone! 🚀
+Thank you for helping make Claude Code RiskExec better for everyone! 🚀

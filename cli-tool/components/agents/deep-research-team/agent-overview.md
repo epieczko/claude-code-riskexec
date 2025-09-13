@@ -1,3 +1,8 @@
+---
+name: deep-research-team-overview
+model: claude-3.7-sonnet
+---
+
 [Open Deep Research Team Diagram](../../../images/research_team_diagram.html)
 
 ## Open Deep Research Team Agent Overview

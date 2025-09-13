@@ -1,8 +1,8 @@
-# Rust Claude Code Templates
+# Rust RiskExec Templates
 
 ## Coming Soon! 🚧
 
-We're actively working on creating comprehensive Claude Code templates for Rust development.
+We're actively working on creating comprehensive RiskExec templates for Rust development.
 
 ### What to Expect
 - Best practices for Rust project structure

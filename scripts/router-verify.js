@@ -8,7 +8,15 @@ function die(msg, code = 1) { console.error(msg); process.exit(code); }
 const cfg = path.join(os.homedir(), ".claude-code-router", "config.json");
 if (!fs.existsSync(cfg)) die("Router config missing at ~/.claude-code-router/config.json", 2);
 
-const json = JSON.parse(fs.readFileSync(cfg, "utf8"));
+let json;
+try {
+    json = JSON.parse(fs.readFileSync(cfg, "utf8"));
+} catch (err) {
+    die(`Failed to parse router config JSON: ${err.message}`, 8);
+}
+
+if (json.HOST !== "127.0.0.1")
+    die(`HOST must be "127.0.0.1", found '${json.HOST}'`, 8);
 
 const allowedProviders = new Set(["anthropic"]);
 const bannedProviders = new Set(["openrouter", "iflow", "volcengine", "modelscope", "dashscope"]);

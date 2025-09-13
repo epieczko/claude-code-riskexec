@@ -7,8 +7,8 @@ const { createClaudeConfig } = require('../src/index');
 
 const pkg = require('../package.json');
 
-const title = 'Claude Code Templates';
-const subtitle = 'Your starting point for Claude Code projects';
+const title = 'Claude Code RiskExec.';
+const subtitle = 'Your starting point for Claude Code RiskExec projects';
 
 const colorGradient = ['#EA580C', '#F97316', '#FB923C', '#FDBA74', '#FED7AA', '#FFEBD6'];
 
@@ -36,8 +36,8 @@ function showBanner() {
   console.log(
     chalk.hex('#D97706')('🚀 Setup Claude Code for any project language 🚀') +
     chalk.gray(`\n                             v${pkg.version}\n\n`) +
-    chalk.blue('🌐 Templates: ') + chalk.underline('https://aitmpl.com') + '\n' +
-    chalk.blue('📖 Documentation: ') + chalk.underline('https://docs.aitmpl.com') + '\n'
+    chalk.blue('🌐 Templates: ') + chalk.underline('https://riskexec.com') + '\n' +
+    chalk.blue('📖 Documentation: ') + chalk.underline('https://docs.riskexec.com') + '\n'
   );
 }
 

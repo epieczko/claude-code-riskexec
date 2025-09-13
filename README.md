@@ -9,13 +9,13 @@
 
 
 
-# Claude Code Templates (aitmpl.com)
+# Claude Code RiskExec (riskexec.com)
 
 **Ready-to-use configurations for Anthropic's Claude Code.** A comprehensive collection of AI agents, custom commands, settings, hooks, external integrations (MCPs), and project templates to enhance your development workflow.
 
 ## Browse & Install Components and Templates
 
-**[Browse All Templates](https://aitmpl.com)** - Interactive web interface to explore and install 100+ agents, commands, settings, hooks, and MCPs.
+**[Browse All Templates](https://riskexec.com)** - Interactive web interface to explore and install 100+ agents, commands, settings, hooks, and MCPs.
 
 <img width="1049" height="855" alt="Screenshot 2025-08-19 at 08 09 24" src="https://github.com/user-attachments/assets/e3617410-9b1c-4731-87b7-a3858800b737" />
 
@@ -49,7 +49,7 @@ npx claude-code-riskexec@latest --mcp postgresql-integration
 
 ## 🛠️ Additional Tools
 
-Beyond the template catalog, Claude Code Templates includes powerful development tools:
+Beyond the template catalog, Claude Code RiskExec includes powerful development tools:
 
 ### 📊 Claude Code Analytics
 Monitor your AI-powered development sessions in real-time with live state detection and performance metrics.
@@ -78,11 +78,11 @@ npx claude-code-riskexec@latest --health-check
 
 ## 📖 Documentation
 
-**[📚 docs.aitmpl.com](https://docs.aitmpl.com/)** - Complete guides, examples, and API reference for all components and tools.
+**[📚 docs.riskexec.com](https://docs.riskexec.com/)** - Complete guides, examples, and API reference for all components and tools.
 
 ## Contributing
 
-We welcome contributions! **[Browse existing templates](https://aitmpl.com)** to see what's available, then check our [contributing guidelines](CONTRIBUTING.md) to add your own agents, commands, MCPs, settings, or hooks.
+We welcome contributions! **[Browse existing templates](https://riskexec.com)** to see what's available, then check our [contributing guidelines](CONTRIBUTING.md) to add your own agents, commands, MCPs, settings, or hooks.
 
 **Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.**
 
@@ -102,8 +102,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **🌐 Browse Templates**: [aitmpl.com](https://aitmpl.com)
-- **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
+=======
+- **🌐 Browse Templates**: [riskexec.com](https://riskexec.com)
+- **📚 Documentation**: [docs.riskexec.com](https://docs.riskexec.com)
 - **💬 Community**: [GitHub Discussions](https://github.com/davila7/claude-code-riskexec/discussions)
 - **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-riskexec/issues)
 

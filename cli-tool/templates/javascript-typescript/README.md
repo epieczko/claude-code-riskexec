@@ -213,7 +213,7 @@ The template adapts to your specific framework needs automatically.
 
 ## 📖 Learn More
 
-- **Main Project**: [Claude Code Templates](../README.md)
+- **Main Project**: [RiskExec](../README.md)
 - **Common Templates**: [Universal patterns](../common/README.md)
 - **Python Templates**: [Python development](../python/README.md)
 - **CLI Tool**: [Automated installer](../cli-tool/README.md)

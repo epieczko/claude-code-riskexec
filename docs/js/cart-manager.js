@@ -497,7 +497,7 @@ function shareOnTwitter() {
 Just run this command:
 ${command}
 
-Create yours at https://aitmpl.com`;
+Create yours at https://riskexec.com`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
     window.open(twitterUrl, '_blank');
     
@@ -512,7 +512,7 @@ function shareOnThreads() {
 Just run this command:
 ${command}
 
-Create yours at https://aitmpl.com`;
+Create yours at https://riskexec.com`;
     const threadsUrl = `https://threads.net/intent/post?text=${encodeURIComponent(message)}`;
     window.open(threadsUrl, '_blank');
     

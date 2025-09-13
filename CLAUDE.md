@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Node.js CLI tool for setting up Claude Code configurations and providing real-time analytics. The project uses modern JavaScript/Node.js development practices and includes a comprehensive analytics dashboard with modular architecture.
+Claude Code RiskExec is a Node.js CLI tool for setting up Claude Code configurations and providing real-time analytics. The project uses modern JavaScript/Node.js development practices and includes a comprehensive analytics dashboard with modular architecture.
 
 ## Development Commands
 
@@ -414,7 +414,7 @@ if (settingName.includes('statusline/')) {
 The `generate_components_json.py` script creates the component catalog:
 - Scans all component directories recursively
 - Excludes `.py` files from public listings (they remain as background dependencies)
-- Generates `docs/components.json` for the web interface at aitmpl.com
+- Generates `docs/components.json` for the web interface at riskexec.com
 - Handles file content embedding and metadata extraction
 
 ## Important Implementation Notes

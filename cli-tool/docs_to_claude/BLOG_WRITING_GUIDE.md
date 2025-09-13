@@ -1,6 +1,6 @@
-# Blog Writing Guide - Claude Code Templates
+# Blog Writing Guide - RiskExec
 
-This guide provides a comprehensive template for creating consistent, SEO-optimized blog articles for Claude Code Templates. Use this structure for articles about technologies, companies, or trends related to Claude Code integration.
+This guide provides a comprehensive template for creating consistent, SEO-optimized blog articles for RiskExec. Use this structure for articles about technologies, companies, or trends related to Claude Code integration.
 
 ## 📁 File Structure
 
@@ -9,7 +9,7 @@ docs/blog/
 ├── index.html                              # Blog homepage
 ├── assets/                                 # Shared blog assets
 │   ├── [technology]-claude-code-riskexec-cover.png
-│   └── aitmpl-[technology]-search.png
+│   └── riskexec-[technology]-search.png
 ├── [technology-name]-claude-code-integration/
 │   ├── index.html                          # Article page
 │   └── cover.jpg                          # Article cover image (1200x630)
@@ -38,7 +38,7 @@ docs/blog/
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="article:published_time" content="[ISO_DATE]">
-    <meta property="article:author" content="Claude Code Templates">
+    <meta property="article:author" content="RiskExec">
     <meta property="article:section" content="[Category]">
     <meta property="article:tag" content="[Technology]">
     <meta property="article:tag" content="Claude Code">
@@ -52,7 +52,7 @@ docs/blog/
     
     <!-- Additional SEO -->
     <meta name="keywords" content="[Technology], Claude Code, MCP, [Domain], AI Development, Anthropic">
-    <meta name="author" content="Claude Code Templates">
+    <meta name="author" content="RiskExec">
     <link rel="canonical" href="https://davila7.github.io/claude-code-riskexec/blog/[slug]/">
     
     <!-- Stylesheets -->
@@ -72,11 +72,11 @@ docs/blog/
         "image": "https://davila7.github.io/claude-code-riskexec/blog/[slug]/cover.jpg",
         "author": {
             "@type": "Organization",
-            "name": "Claude Code Templates"
+            "name": "RiskExec"
         },
         "publisher": {
             "@type": "Organization",
-            "name": "Claude Code Templates",
+            "name": "RiskExec",
             "logo": {
                 "@type": "ImageObject",
                 "url": "https://davila7.github.io/claude-code-riskexec/static/img/logo.svg"
@@ -166,7 +166,7 @@ docs/blog/
 ### 2. Technology Stack Overview
 ```html
 <h2>[Technology] Stack for Claude Code</h2>
-<p>Claude Code Templates offers [X] pre-built components for [Technology] integration:</p>
+<p>RiskExec offers [X] pre-built components for [Technology] integration:</p>
 ```
 
 ### 3. Component Tables
@@ -228,12 +228,12 @@ docs/blog/
 </table>
 ```
 
-### 4. AITMPL.com Browse Section
+### 4. RiskExec.com Browse Section
 ```html
-<h2>Browse all components on AITMPL.com</h2>
-<p>Before installing, you can explore all available [Technology] components on the official Claude Code Templates website:</p>
-<p>Visit <strong><a href="https://aitmpl.com" target="_blank" rel="noopener">aitmpl.com</a></strong> and search for "[technology]" to see:</p>
-<img src="../assets/aitmpl-[technology]-search.png" alt="Searching for [Technology] components on AITMPL.com" loading="lazy">
+<h2>Browse all components on RiskExec.com</h2>
+<p>Before installing, you can explore all available [Technology] components on the official RiskExec website:</p>
+<p>Visit <strong><a href="https://riskexec.com" target="_blank" rel="noopener">riskexec.com</a></strong> and search for "[technology]" to see:</p>
+<img src="../assets/riskexec-[technology]-search.png" alt="Searching for [Technology] components on RiskExec.com" loading="lazy">
 ```
 
 ### 5. Installation Options
@@ -368,7 +368,7 @@ npx claude-code-riskexec@latest \
 ### Visual Assets Required
 1. **Cover Image**: 1200x630 pixels for social sharing
 2. **Hero Image**: Technology + Claude Code branded image
-3. **AITMPL Search Screenshot**: Show search results for the technology
+3. **RiskExec Search Screenshot**: Show search results for the technology
 4. **Component Icons**: Use appropriate emojis (🤖 for agents, ⚡ for commands, 🔌 for MCP)
 
 ## 🔧 Technical Requirements

@@ -172,17 +172,17 @@ async function runHookStats(options) {
   
   if (!analysis) {
     console.log(chalk.yellow('\n💡 No automation hooks found.'));
-    console.log(chalk.gray('Would you like to set up Claude Code Templates to add automation hooks?'));
+    console.log(chalk.gray('Would you like to set up Claude Code RiskExec to add automation hooks?'));
     
     const { setupHooks } = await inquirer.prompt([{
       type: 'confirm',
       name: 'setupHooks',
-      message: 'Set up automation hooks with Claude Code Templates?',
+      message: 'Set up automation hooks with Claude Code RiskExec?',
       default: true
     }]);
 
     if (setupHooks) {
-      console.log(chalk.blue('\n🚀 Starting Claude Code Templates setup...'));
+      console.log(chalk.blue('\n🚀 Starting Claude Code RiskExec setup...'));
       
       // Import and run the main setup
       const createClaudeConfig = require('./index');

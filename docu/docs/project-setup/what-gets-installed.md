@@ -60,7 +60,7 @@ mkdir -p .claude/commands
 
 # Install specific commands via direct download
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/check-file.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/utilities/check-file.md
 ```
 
 #### MCPs (🔌)
@@ -77,7 +77,7 @@ npx claude-code-riskexec@latest --mcp=deepgraph-react --yes
 ```bash
 # GitHub integration
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/github-integration.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/mcps/integration/github-integration.json
 ```
 
 ## Core Files Installed

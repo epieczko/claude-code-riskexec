@@ -520,7 +520,7 @@ async function addToPath() {
       
       // Add PATH export if not already present
       if (!content.includes(BIN_DIR)) {
-        const newContent = content + `\n# Claude Code Templates - Global Agents\n${pathExport}\n`;
+        const newContent = content + `\n# Claude Code RiskExec - Global Agents\n${pathExport}\n`;
         await fs.writeFile(configFile, newContent, 'utf8');
         console.log(chalk.green(`✅ Updated ${path.basename(configFile)}`));
       }

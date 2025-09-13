@@ -219,5 +219,5 @@ Want to add a new setting? Follow these guidelines:
 
 **Next Steps:**
 - [Explore Hooks →](./hooks) - Learn about automation and event-driven actions
-- [Browse All Settings](https://aitmpl.com) - View available settings in the web interface
+- [Browse All Settings](https://riskexec.com) - View available settings in the web interface
 - [Contributing Guide →](../contributing) - Add your own settings to the collection

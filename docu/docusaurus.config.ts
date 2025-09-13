@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Claude Code Templates',
-  tagline: 'Documentation for Claude Code Templates - AITMPL Platform',
+  title: 'Claude Code RiskExec',
+  tagline: 'Documentation for Claude Code RiskExec - RiskExec Platform',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://aitmpl.com',
+  url: 'https://riskexec.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For custom domain deployment
   baseUrl: '/',
@@ -83,9 +83,9 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Claude Code Templates',
+      title: 'Claude Code RiskExec',
       logo: {
-        alt: 'AITMPL Crystal Ball Logo',
+        alt: 'RiskExec Crystal Ball Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -96,7 +96,7 @@ const config: Config = {
           label: 'Documentation',
         },
         {
-          href: 'https://aitmpl.com/',
+          href: 'https://riskexec.com/',
           label: 'Browse Components',
           position: 'left',
         },
@@ -125,7 +125,7 @@ const config: Config = {
           items: [
             {
               label: 'Browse Components',
-              href: 'https://aitmpl.com/',
+              href: 'https://riskexec.com/',
             },
             {
               label: 'GitHub Repository',
@@ -151,7 +151,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Claude Code Templates. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Claude Code RiskExec. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

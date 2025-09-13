@@ -1,4 +1,4 @@
-# Common Claude Code Templates
+# Common RiskExec Templates
 
 This folder contains language-agnostic templates and configurations that can be used across different programming languages and project types.
 

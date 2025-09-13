@@ -82,7 +82,6 @@ MCPs are standardized integrations that allow Claude Code to:
 **Configuration Example**:
 ```json
 {
-  "name": "database-integration",
   "type": "mcp",
   "config": {
     "connections": {

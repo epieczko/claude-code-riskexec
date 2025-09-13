@@ -17,7 +17,7 @@ const FeatureList: FeatureItem[] = [
     command: 'npm install -g claude-code-riskexec',
     description: (
       <>
-        Install the CLI tool globally and get started with Claude Code templates 
+        Install the CLI tool globally and get started with Claude Code RiskExec
         in seconds. No complex configuration required.
       </>
     ),
@@ -38,7 +38,7 @@ const FeatureList: FeatureItem[] = [
     command: 'claude-code-riskexec --analytics',
     description: (
       <>
-        Monitor your Claude Code usage with our comprehensive analytics dashboard. 
+        Monitor your Claude Code RiskExec usage with our comprehensive analytics dashboard.
         Track sessions, token usage, and performance metrics in real-time.
       </>
     ),
