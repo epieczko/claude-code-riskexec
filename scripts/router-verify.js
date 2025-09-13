@@ -15,6 +15,9 @@ try {
     die(`Failed to parse router config JSON: ${err.message}`, 8);
 }
 
+if (json.HOST !== "127.0.0.1")
+    die(`HOST must be "127.0.0.1", found '${json.HOST}'`, 8);
+
 const allowedProviders = new Set(["anthropic"]);
 const bannedProviders = new Set(["openrouter", "iflow", "volcengine", "modelscope", "dashscope"]);
 const allowedModels = new Set(["claude-3.7-sonnet", "claude-3.7-haiku"]);
