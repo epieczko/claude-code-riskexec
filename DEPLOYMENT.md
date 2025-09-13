@@ -37,7 +37,7 @@ cat .vercel/project.json
 
 ## Deployment Flow
 
-- ✅ **Push to main** → Automatic production deploy to aitmpl.com
+- ✅ **Push to main** → Automatic production deploy to riskexec.com
 - ✅ **Other branches** → Manual deploy only (no auto-deploy)
 - ✅ **Pull Requests** → No deployment
 
@@ -55,6 +55,6 @@ vercel --prod
 
 ## Domain Configuration
 
-The main branch deploys to the custom domain: **aitmpl.com**
+The main branch deploys to the custom domain: **riskexec.com**
 
 Configured in Vercel dashboard under Project Settings → Domains.

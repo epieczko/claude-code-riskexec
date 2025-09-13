@@ -73,7 +73,7 @@ Hooks are powerful automation components that execute shell commands in response
 
 The **unified web interface** provides an intuitive way to browse and install individual components:
 
-To access the web interface, simply go to https://aitmpl.com
+To access the web interface, simply go to https://riskexec.com
 
 **Interface Features:**
 - **Unified Filter System**: Browse all component types (Templates, Agents, Commands, MCPs, Settings, Hooks) in a single view
@@ -280,4 +280,4 @@ The system welcomes community contributions! Each component type has "Add New" c
 - [Understand MCPs →](./mcps) - Integrate external services with Claude Code
 - [Configure Settings →](./settings) - Customize Claude Code behavior and preferences
 - [Automate with Hooks →](./hooks) - Set up event-driven automation workflows
-- [Browse All Components](https://aitmpl.com) - Visit the web interface
+- [Browse All Components](https://riskexec.com) - Visit the web interface

@@ -375,6 +375,6 @@ Want to create your own hook? Follow these guidelines:
 ---
 
 **Next Steps:**
-- [Browse All Hooks](https://aitmpl.com) - View available hooks in the web interface
+- [Browse All Hooks](https://riskexec.com) - View available hooks in the web interface
 - [Automation Hooks Guide →](../project-setup/automation-hooks) - Deep dive into automation workflows
 - [Contributing Guide →](../contributing) - Add your own hooks to the collection

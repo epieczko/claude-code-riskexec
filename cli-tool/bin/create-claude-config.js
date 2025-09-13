@@ -36,8 +36,8 @@ function showBanner() {
   console.log(
     chalk.hex('#D97706')('🚀 Setup Claude Code for any project language 🚀') +
     chalk.gray(`\n                             v${pkg.version}\n\n`) +
-    chalk.blue('🌐 Templates: ') + chalk.underline('https://aitmpl.com') + '\n' +
-    chalk.blue('📖 Documentation: ') + chalk.underline('https://docs.aitmpl.com') + '\n'
+    chalk.blue('🌐 Templates: ') + chalk.underline('https://riskexec.com') + '\n' +
+    chalk.blue('📖 Documentation: ') + chalk.underline('https://docs.riskexec.com') + '\n'
   );
 }
 
