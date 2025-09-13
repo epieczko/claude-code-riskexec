@@ -125,7 +125,7 @@ def generate_components_json():
                     'category': 'languages',
                     'description': f'{language_dir.title()} project template',
                     'files': language_files,
-                    'installCommand': f'npx claude-code-templates@latest --template={language_dir} --yes'
+                    'installCommand': f'npx claude-code-riskexec@latest --template={language_dir} --yes'
                 }
                 components_data['templates'].append(language_template)
                 
@@ -162,7 +162,7 @@ def generate_components_json():
                                 'language': language_dir,
                                 'description': f'{framework_dir.title()} with {language_dir.title()}',
                                 'files': framework_files,
-                                'installCommand': f'npx claude-code-templates@latest --template={framework_dir} --yes'
+                                'installCommand': f'npx claude-code-riskexec@latest --template={framework_dir} --yes'
                             }
                             components_data['templates'].append(framework_template)
     else:
