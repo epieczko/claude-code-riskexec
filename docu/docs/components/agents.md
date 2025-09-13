@@ -26,13 +26,13 @@ Agents extend Claude Code's capabilities by providing:
 
 ```bash
 # Install specific agent using new CLI parameter (recommended)
-npx claude-code-templates@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
 
 # Or install via complete template
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 
 # Legacy syntax (still supported)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react
 ```
 
 #### Vue.js Development Assistant  
@@ -103,11 +103,11 @@ Install specific agents using the `--agent` parameter:
 
 ```bash
 # Install specific agents directly
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --agent=api-security-audit --yes
-npx claude-code-templates@latest --agent=database-optimization --yes
-npx claude-code-templates@latest --agent=vue-development --yes
-npx claude-code-templates@latest --agent=docker-expert --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --agent=api-security-audit --yes
+npx claude-code-riskexec@latest --agent=database-optimization --yes
+npx claude-code-riskexec@latest --agent=vue-development --yes
+npx claude-code-riskexec@latest --agent=docker-expert --yes
 ```
 
 ### Via Template Installation
@@ -115,16 +115,16 @@ Agents are also included in complete template installations:
 
 ```bash
 # React template includes performance optimization agent
-npx claude-code-templates@latest --template=react --yes
+npx claude-code-riskexec@latest --template=react --yes
 
 # Python template includes API security agent
-npx claude-code-templates@latest --template=python --yes
+npx claude-code-riskexec@latest --template=python --yes
 
 # Node.js template includes database optimization agent  
-npx claude-code-templates@latest --template=nodejs --yes
+npx claude-code-riskexec@latest --template=nodejs --yes
 
 # Legacy syntax (still supported but deprecated)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react
 ```
 
 ### Manual Agent Configuration

@@ -136,13 +136,13 @@ Like settings, hooks support the full Claude Code configuration hierarchy:
 ### Using CLI (Recommended)
 ```bash
 # Install with interactive location selection
-npx claude-code-templates@latest --hook=git-workflow/auto-git-add
+npx claude-code-riskexec@latest --hook=git-workflow/auto-git-add
 
 # Install multiple hooks
-npx claude-code-templates@latest --hook=development-tools/file-backup,automation/simple-notifications
+npx claude-code-riskexec@latest --hook=development-tools/file-backup,automation/simple-notifications
 
 # Skip location prompt (defaults to local settings)
-npx claude-code-templates@latest --hook=testing/test-runner --yes
+npx claude-code-riskexec@latest --hook=testing/test-runner --yes
 ```
 
 ### Installation Flow
@@ -158,40 +158,40 @@ When installing hooks, you'll choose the installation location:
 ### Basic File Operations
 ```bash
 # Backup files before editing
-npx claude-code-templates@latest --hook=development-tools/file-backup
+npx claude-code-riskexec@latest --hook=development-tools/file-backup
 
 # Track all file changes
-npx claude-code-templates@latest --hook=development-tools/change-tracker
+npx claude-code-riskexec@latest --hook=development-tools/change-tracker
 
 # Auto-format code after editing
-npx claude-code-templates@latest --hook=development-tools/smart-formatting
+npx claude-code-riskexec@latest --hook=development-tools/smart-formatting
 ```
 
 ### Git Integration
 ```bash
 # Automatically stage changes
-npx claude-code-templates@latest --hook=git-workflow/auto-git-add
+npx claude-code-riskexec@latest --hook=git-workflow/auto-git-add
 
 # Generate smart commits
-npx claude-code-templates@latest --hook=git-workflow/smart-commit
+npx claude-code-riskexec@latest --hook=git-workflow/smart-commit
 ```
 
 ### Automation & Notifications
 ```bash
 # Get desktop notifications
-npx claude-code-templates@latest --hook=automation/simple-notifications
+npx claude-code-riskexec@latest --hook=automation/simple-notifications
 
 # Telegram integration (requires bot setup)
-npx claude-code-templates@latest --hook=automation/telegram-notifications
+npx claude-code-riskexec@latest --hook=automation/telegram-notifications
 ```
 
 ### Security & Performance
 ```bash
 # Protect sensitive files
-npx claude-code-templates@latest --hook=security/file-protection
+npx claude-code-riskexec@latest --hook=security/file-protection
 
 # Monitor performance
-npx claude-code-templates@latest --hook=performance/performance-monitor
+npx claude-code-riskexec@latest --hook=performance/performance-monitor
 ```
 
 ## Environment Variables
@@ -278,7 +278,7 @@ Hooks follow the official Claude Code specification:
 
 4. **Install Hook**:
    ```bash
-   npx claude-code-templates@latest --hook=automation/telegram-notifications
+   npx claude-code-riskexec@latest --hook=automation/telegram-notifications
    ```
 
 ### Custom File Processing
@@ -378,4 +378,3 @@ Want to create your own hook? Follow these guidelines:
 - [Browse All Hooks](https://aitmpl.com) - View available hooks in the web interface
 - [Automation Hooks Guide →](../project-setup/automation-hooks) - Deep dive into automation workflows
 - [Contributing Guide →](../contributing) - Add your own hooks to the collection
-- [Telegram Setup Guide →](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/hooks/automation/TELEGRAM_SETUP.md) - Detailed Telegram integration guide

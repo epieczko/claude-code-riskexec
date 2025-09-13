@@ -4,14 +4,14 @@ sidebar_position: 4
 
 # Alternative Commands
 
-`claude-code-templates` offers several alternative commands that perform the exact same function, providing flexibility and convenience.
+`claude-code-riskexec` offers several alternative commands that perform the exact same function, providing flexibility and convenience.
 
 ## Long Form Commands
 
 These commands are more descriptive and can be used interchangeably:
 
 ```bash
-npx claude-code-templates    # ✅ Recommended (package name)
+npx claude-code-riskexec    # ✅ Recommended (package name)
 npx claude-code-template     # Singular alias
 npx create-claude-config     # Create-style command
 npx claude-setup             # Setup-style command

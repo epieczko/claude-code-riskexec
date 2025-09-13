@@ -4,57 +4,57 @@ sidebar_position: 3
 
 # Advanced Options
 
-`claude-code-templates` provides several advanced command-line options for more granular control over its behavior.
+`claude-code-riskexec` provides several advanced command-line options for more granular control over its behavior.
 
 ## Template and Component Installation
 
 ```bash
 # Modern template installation (recommended)
-npx claude-code-templates@latest --template=react --yes
-npx claude-code-templates@latest --template=python --yes
+npx claude-code-riskexec@latest --template=react --yes
+npx claude-code-riskexec@latest --template=python --yes
 
 # Individual component installation
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
 
 # Legacy syntax (still supported but deprecated)
-npx claude-code-templates@latest --language=javascript-typescript --framework=react --yes
+npx claude-code-riskexec@latest --language=javascript-typescript --framework=react --yes
 ```
 
 ## Installation Control Options
 
 ```bash
 # Preview installation without making changes
-npx claude-code-templates@latest --dry-run
+npx claude-code-riskexec@latest --dry-run
 
 # Skip all prompts and use defaults
-npx claude-code-templates@latest --yes
+npx claude-code-riskexec@latest --yes
 
 # Install to custom directory
-npx claude-code-templates@latest --directory /path/to/project
+npx claude-code-riskexec@latest --directory /path/to/project
 ```
 
 ## System Analysis and Monitoring
 
 ```bash
 # Run comprehensive system health check
-npx claude-code-templates@latest --health-check
-npx claude-code-templates@latest --health
-npx claude-code-templates@latest --check
-npx claude-code-templates@latest --verify
+npx claude-code-riskexec@latest --health-check
+npx claude-code-riskexec@latest --health
+npx claude-code-riskexec@latest --check
+npx claude-code-riskexec@latest --verify
 
 # Analyze existing commands 
-npx claude-code-templates@latest --commands-stats
+npx claude-code-riskexec@latest --commands-stats
 
 # Analyze automation hooks
-npx claude-code-templates@latest --hooks-stats
+npx claude-code-riskexec@latest --hooks-stats
 
 # Analyze MCP server configurations 
-npx claude-code-templates@latest --mcps-stats
+npx claude-code-riskexec@latest --mcps-stats
 
 # Launch real-time analytics dashboard
-npx claude-code-templates@latest --analytics
+npx claude-code-riskexec@latest --analytics
 npx cct --analytics
 ```
 
@@ -63,16 +63,16 @@ npx cct --analytics
 ### Installing Multiple Components
 ```bash
 # Install multiple components in sequence
-npx claude-code-templates@latest --agent=react-performance --yes
-npx claude-code-templates@latest --command=check-file --yes
-npx claude-code-templates@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --agent=react-performance --yes
+npx claude-code-riskexec@latest --command=check-file --yes
+npx claude-code-riskexec@latest --mcp=github-integration --yes
 ```
 
 ### Combining with Analysis
 ```bash
 # Install component and run stats
-npx claude-code-templates@latest --template=react --yes
-npx claude-code-templates@latest --commands-stats
+npx claude-code-riskexec@latest --template=react --yes
+npx claude-code-riskexec@latest --commands-stats
 ```
 
 ## GitHub Download System

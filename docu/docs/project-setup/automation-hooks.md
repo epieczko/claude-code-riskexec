@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Automation Hooks
 
-Automation hooks in `claude-code-templates` allow you to execute custom actions at key moments during the Claude Code workflow. This enables powerful automation and integration with your existing development processes.
+Automation hooks in `claude-code-riskexec` allow you to execute custom actions at key moments during the Claude Code workflow. This enables powerful automation and integration with your existing development processes.
 
 ## Types of Hooks
 
