@@ -1,15 +1,15 @@
-[![npm version](https://img.shields.io/npm/v/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
-[![npm downloads](https://img.shields.io/npm/dt/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
+[![npm version](https://img.shields.io/npm/v/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
+[![npm downloads](https://img.shields.io/npm/dt/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-templates.svg?style=social&label=Star)](https://github.com/davila7/claude-code-templates)
+[![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-riskexec.svg?style=social&label=Star)](https://github.com/davila7/claude-code-riskexec)
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 [![Buy Me a Coffee](https://img.shields.io/badge/☕-Buy%20me%20a%20coffee-ffdd00?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/daniavila)
 
 
 
-# Claude Code Templates (aitmpl.com)
+# Claude Code RiskExec (aitmpl.com)
 
 **Ready-to-use configurations for Anthropic's Claude Code.** A comprehensive collection of AI agents, custom commands, settings, hooks, external integrations (MCPs), and project templates to enhance your development workflow.
 
@@ -23,17 +23,17 @@
 
 ```bash
 # Install a complete development stack
-npx claude-code-templates@latest --agent frontend-developer --command generate-tests --mcp github-integration
+npx claude-code-riskexec@latest --agent frontend-developer --command generate-tests --mcp github-integration
 
 # Browse and install interactively
-npx claude-code-templates@latest
+npx claude-code-riskexec@latest
 
 # Install specific components
-npx claude-code-templates@latest --agent security-auditor
-npx claude-code-templates@latest --command optimize-bundle
-npx claude-code-templates@latest --setting mcp-timeouts
-npx claude-code-templates@latest --hook pre-commit-validation
-npx claude-code-templates@latest --mcp postgresql-integration
+npx claude-code-riskexec@latest --agent security-auditor
+npx claude-code-riskexec@latest --command optimize-bundle
+npx claude-code-riskexec@latest --setting mcp-timeouts
+npx claude-code-riskexec@latest --hook pre-commit-validation
+npx claude-code-riskexec@latest --mcp postgresql-integration
 ```
 
 ## What You Get
@@ -49,13 +49,13 @@ npx claude-code-templates@latest --mcp postgresql-integration
 
 ## 🛠️ Additional Tools
 
-Beyond the template catalog, Claude Code Templates includes powerful development tools:
+Beyond the template catalog, Claude Code RiskExec includes powerful development tools:
 
 ### 📊 Claude Code Analytics
 Monitor your AI-powered development sessions in real-time with live state detection and performance metrics.
 
 ```bash
-npx claude-code-templates@latest --analytics
+npx claude-code-riskexec@latest --analytics
 ```
 
 ### 💬 Conversation Monitor  
@@ -63,17 +63,17 @@ Mobile-optimized interface to view Claude responses in real-time with secure rem
 
 ```bash
 # Local access
-npx claude-code-templates@latest --chats
+npx claude-code-riskexec@latest --chats
 
 # Secure remote access via Cloudflare Tunnel
-npx claude-code-templates@latest --chats --tunnel
+npx claude-code-riskexec@latest --chats --tunnel
 ```
 
 ### 🔍 Health Check
 Comprehensive diagnostics to ensure your Claude Code installation is optimized.
 
 ```bash
-npx claude-code-templates@latest --health-check
+npx claude-code-riskexec@latest --health-check
 ```
 
 ## 📖 Documentation
@@ -104,16 +104,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **🌐 Browse Templates**: [aitmpl.com](https://aitmpl.com)
 - **📚 Documentation**: [docs.aitmpl.com](https://docs.aitmpl.com)
-- **💬 Community**: [GitHub Discussions](https://github.com/davila7/claude-code-templates/discussions)
-- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-templates/issues)
+- **💬 Community**: [GitHub Discussions](https://github.com/davila7/claude-code-riskexec/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/davila7/claude-code-riskexec/issues)
 
 ## ⭐ Star History
 
-<a href="https://star-history.com/#davila7/claude-code-templates&Date">
+<a href="https://star-history.com/#davila7/claude-code-riskexec&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=davila7/claude-code-templates&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-riskexec&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=davila7/claude-code-riskexec&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=davila7/claude-code-riskexec&type=Date" />
   </picture>
 </a>
 
