@@ -414,7 +414,7 @@ if (settingName.includes('statusline/')) {
 The `generate_components_json.py` script creates the component catalog:
 - Scans all component directories recursively
 - Excludes `.py` files from public listings (they remain as background dependencies)
-- Generates `docs/components.json` for the web interface at aitmpl.com
+- Generates `docs/components.json` for the web interface at riskexec.com
 - Handles file content embedding and metadata extraction
 
 ## Important Implementation Notes

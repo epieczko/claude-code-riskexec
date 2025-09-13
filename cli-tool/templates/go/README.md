@@ -1,8 +1,8 @@
-# Go Claude Code Templates
+# Go RiskExec Templates
 
 ## Coming Soon! 🚧
 
-We're actively working on creating comprehensive Claude Code templates for Go development.
+We're actively working on creating comprehensive RiskExec templates for Go development.
 
 ### What to Expect
 - Best practices for Go project structure
