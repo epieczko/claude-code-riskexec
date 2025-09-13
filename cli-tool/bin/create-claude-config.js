@@ -7,8 +7,8 @@ const { createClaudeConfig } = require('../src/index');
 
 const pkg = require('../package.json');
 
-const title = 'Claude Code Templates';
-const subtitle = 'Your starting point for Claude Code projects';
+const title = 'Claude Code RiskExec.';
+const subtitle = 'Your starting point for Claude Code RiskExec projects';
 
 const colorGradient = ['#EA580C', '#F97316', '#FB923C', '#FDBA74', '#FED7AA', '#FFEBD6'];
 
