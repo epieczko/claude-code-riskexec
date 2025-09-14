@@ -83,20 +83,6 @@ We welcome contributions! **[Browse existing templates](https://riskexec.com)** 
 
 **Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.**
 
-## Attribution
-
-This collection includes components from multiple sources:
-
-**Agents Collection:**
-- **wshobson/agents Collection** by [wshobson](https://github.com/wshobson/agents) - Licensed under MIT License (48 agents)
-
-**Commands Collection:**
-- **awesome-claude-code Commands** by [hesreallyhim](https://github.com/hesreallyhim/awesome-claude-code) - Licensed under CC0 1.0 Universal (21 commands)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🔗 Links
 
 - **🌐 Browse Templates**: [riskexec.com](https://riskexec.com)
