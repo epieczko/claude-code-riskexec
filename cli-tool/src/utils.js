@@ -103,7 +103,15 @@ async function detectProject(targetDir) {
       }
     }
   }
-  
+
+  // Check for .NET (C#) files
+  const csharpFiles = await findFilesByExtension(targetDir, ['.cs']);
+  const csprojFiles = await findFilesByExtension(targetDir, ['.csproj']);
+  const slnFiles = await findFilesByExtension(targetDir, ['.sln']);
+  if (csharpFiles.length > 0 || csprojFiles.length > 0 || slnFiles.length > 0) {
+    detectedLanguages.push('dotnet');
+  }
+
   // Check for Rust files
   const rustFiles = await findFilesByExtension(targetDir, ['.rs']);
   const cargoPath = path.join(targetDir, 'Cargo.toml');

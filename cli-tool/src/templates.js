@@ -101,6 +101,16 @@ const TEMPLATES_CONFIG = {
       }
     }
   },
+  'dotnet': {
+    name: '.NET',
+    description: 'Optimized for .NET development',
+    files: [
+      { source: 'dotnet/CLAUDE.md', destination: 'CLAUDE.md' },
+      { source: 'dotnet/.claude', destination: '.claude' },
+      { source: 'dotnet/.claude/settings.json', destination: '.claude/settings.json' },
+      { source: 'dotnet/.mcp.json', destination: '.mcp.json' }
+    ]
+  },
   'rust': {
     name: 'Rust',
     description: 'Optimized for Rust development',

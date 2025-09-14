@@ -47,6 +47,7 @@ npx claude-code-templates@latest --health-check
 | **JavaScript/TypeScript** | React, Vue, Angular, Node.js | ✅ Ready |
 | **Python** | Django, Flask, FastAPI | ✅ Ready |
 | **Common** | Universal configurations | ✅ Ready |
+| **.NET** | ASP.NET Core, Blazor | ✅ Ready |
 | **Go** | Gin, Echo, Fiber | 🚧 Coming Soon |
 | **Rust** | Axum, Warp, Actix | 🚧 Coming Soon |
 
