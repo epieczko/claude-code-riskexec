@@ -1,6 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
 [![npm downloads](https://img.shields.io/npm/dt/claude-code-riskexec.svg)](https://www.npmjs.com/package/claude-code-riskexec)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-riskexec.svg?style=social&label=Star)](https://github.com/davila7/claude-code-riskexec)
 
