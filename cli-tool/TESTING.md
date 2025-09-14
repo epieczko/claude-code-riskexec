@@ -102,7 +102,7 @@ node bin/create-claude-config.js --dry-run --language javascript-typescript --fr
 
 - ✅ **Command Variants**: All CLI aliases work
 - ✅ **Help & Version**: Basic commands respond correctly
-- ✅ **Language Support**: JavaScript/TypeScript, Common, Python, Rust, Go
+- ✅ **Language Support**: JavaScript/TypeScript, Common, Python, .NET, Rust, Go
 - ✅ **Framework Support**: React, Vue, Angular, Node.js, None
 - ✅ **File Creation**: CLAUDE.md, .claude directory, settings.json
 - ✅ **Framework Commands**: Framework-specific commands are created

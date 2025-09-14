@@ -134,6 +134,10 @@ function getHookDescription(hook, matcher, type) {
   if (command.includes('println!') && command.includes('rs$')) {
     return 'Block println! macros in Rust files';
   }
+
+  if (command.includes('Console.WriteLine') && command.includes('cs$')) {
+    return 'Block Console.WriteLine statements in C# files';
+  }
   
   if (command.includes('npm audit') || command.includes('pip-audit') || command.includes('bundle audit') || command.includes('cargo audit')) {
     return 'Security audit for dependencies';
@@ -173,6 +177,10 @@ function getHookDescription(hook, matcher, type) {
   
   if (command.includes('rustfmt') && command.includes('rs$')) {
     return 'Auto-format Rust files with rustfmt';
+  }
+
+  if (command.includes('dotnet format') && command.includes('cs$')) {
+    return 'Auto-format C# files with dotnet format';
   }
   
   if (command.includes('tsc --noEmit')) {
@@ -406,6 +414,7 @@ function getDefaultMCPSelection(serverId) {
     'sequential-thinking',
     'typescript-sdk',
     'python-sdk',
+    'dotnet-sdk',
     'rust-sdk',
     'go-sdk'
   ];
