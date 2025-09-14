@@ -1,0 +1,6 @@
+{
+  "name": "context-loader",
+  "when": "session-start",
+  "action": "command",
+  "command": "node_modules/.bin/ts-node scripts/hooks/load_context.ts --load-context"
+}

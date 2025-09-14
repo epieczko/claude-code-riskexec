@@ -47,3 +47,6 @@ coverage
 
 # Deployment
 .vercel
+
+# Hook logs
+logs/

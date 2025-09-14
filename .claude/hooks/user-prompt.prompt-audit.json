@@ -1,0 +1,6 @@
+{
+  "name": "prompt-audit",
+  "when": "user-prompt",
+  "action": "command",
+  "command": "node_modules/.bin/ts-node scripts/hooks/log_user_prompt.ts"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "command-safety",
+  "when": "pre-tool",
+  "action": "command",
+  "command": "node_modules/.bin/ts-node scripts/hooks/block_dangerous_commands.ts"
+}

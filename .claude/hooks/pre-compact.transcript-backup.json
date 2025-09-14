@@ -1,0 +1,6 @@
+{
+  "name": "transcript-backup",
+  "when": "pre-compact",
+  "action": "command",
+  "command": "node_modules/.bin/ts-node scripts/hooks/backup_transcript.ts --backup"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "output-log",
+  "when": "post-tool",
+  "action": "command",
+  "command": "node_modules/.bin/ts-node scripts/hooks/log_tool_output.ts"
+}
