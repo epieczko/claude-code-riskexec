@@ -11,5 +11,6 @@ sidebar_position: 4
 | **JavaScript/TypeScript** | React, Vue, Angular, Node.js | ✅ Ready | 7+ | 9+ | 4+ |
 | **Python** | Django, Flask, FastAPI | ✅ Ready | 5+ | 8+ | 4+ |
 | **Common** | Universal | ✅ Ready | 2+ | 1+ | 4+ |
+| **.NET** | ASP.NET Core, Blazor | ✅ Ready | 3+ | 3+ | 4+ |
 | **Go** | Gin, Echo, Fiber | 🚧 Coming Soon | - | - | - |
 | **Rust** | Axum, Warp, Actix | 🚧 Coming Soon | - | - | - |

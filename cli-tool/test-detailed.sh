@@ -44,6 +44,7 @@ test_scenarios() {
         "javascript-typescript:angular"
         "javascript-typescript:node"
         "javascript-typescript:none"
+        "dotnet:none"
         "common:none"
     )
     
@@ -188,20 +189,34 @@ test_hooks_functionality() {
     run_test "Python flake8 hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'flake8'"
     
+    # Test .NET hooks
+    cd "$TEST_BASE_DIR"
+    mkdir -p "test-dotnet-hooks"
+    cd "test-dotnet-hooks"
+
+    run_test "Dotnet installation with hooks" \
+        "claude-code-templates --language dotnet --yes > /dev/null 2>&1"
+
+    run_test "Dotnet format hook exists" \
+        "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'dotnet format'"
+
+    run_test "Console.WriteLine hook exists" \
+        "jq -r '.hooks.PreToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'Console.WriteLine'"
+
     # Test Go hooks
     cd "$TEST_BASE_DIR"
     mkdir -p "test-go-hooks"
     cd "test-go-hooks"
-    
+
     run_test "Go installation with hooks" \
         "claude-code-templates --language go --yes > /dev/null 2>&1"
-    
+
     run_test "Go fmt hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'gofmt'"
-    
+
     run_test "Go vet hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'go vet'"
-    
+
     # Test Rust hooks
     cd "$TEST_BASE_DIR"
     mkdir -p "test-rust-hooks"
