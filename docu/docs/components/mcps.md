@@ -247,6 +247,7 @@ Install MCPs using the `--mcp` parameter:
 ```bash
 # Install specific MCPs directly
 npx claude-code-riskexec@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --mcp=database-integration --yes
 npx claude-code-riskexec@latest --mcp=deepgraph-react --yes
 npx claude-code-riskexec@latest --mcp=aws-integration --yes
 npx claude-code-riskexec@latest --mcp=docker-integration --yes
@@ -258,12 +259,15 @@ MCPs can also be installed as JSON configuration files via direct download:
 ```bash
 # Install GitHub integration MCP
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/mcps/integration/github-integration.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/github-integration.json
 
+# Install database integration MCP
+curl -o ./database-integration.json \
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/database-integration.json
 
 # Install DeepGraph React MCP
 curl -o ./deepgraph-react.json \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/mcps/deepgraph/deepgraph-react.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/deepgraph-react.json
 ```
 
 ### Configuration Management

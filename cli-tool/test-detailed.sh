@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Detailed test script for claude-code-templates CLI
+# Detailed test script for claude-code-riskexec CLI
 set -e
 
 echo "🔬 Starting Detailed CLI Testing..."
@@ -59,11 +59,11 @@ test_scenarios() {
         
         # Test dry run
         run_test "Dry run for $language + $framework" \
-            "claude-code-templates --language $language --framework $framework --dry-run --yes > /dev/null 2>&1"
+            "claude-code-riskexec --language $language --framework $framework --dry-run --yes > /dev/null 2>&1"
         
         # Test actual installation
         run_test "Installation for $language + $framework" \
-            "claude-code-templates --language $language --framework $framework --yes > /dev/null 2>&1"
+            "claude-code-riskexec --language $language --framework $framework --yes > /dev/null 2>&1"
         
         # Check if CLAUDE.md was created
         run_test "CLAUDE.md exists for $language + $framework" \
@@ -131,11 +131,11 @@ test_error_scenarios() {
     
     # Invalid language
     run_test "Invalid language handling" \
-        "! claude-code-templates --language invalid-lang --yes > /dev/null 2>&1"
+        "! claude-code-riskexec --language invalid-lang --yes > /dev/null 2>&1"
     
     # Invalid framework
     run_test "Invalid framework handling" \
-        "! claude-code-templates --language javascript-typescript --framework invalid-framework --yes > /dev/null 2>&1"
+        "! claude-code-riskexec --language javascript-typescript --framework invalid-framework --yes > /dev/null 2>&1"
 }
 
 # Test hooks functionality specifically
@@ -148,7 +148,7 @@ test_hooks_functionality() {
     
     # Test JavaScript/TypeScript hooks
     run_test "JS/TS installation with default hooks" \
-        "claude-code-templates --language javascript-typescript --yes > /dev/null 2>&1"
+        "claude-code-riskexec --language javascript-typescript --yes > /dev/null 2>&1"
     
     run_test "JS/TS hooks count verification" \
         "[ \$(jq '.hooks.PreToolUse | length' '.claude/settings.json') -gt 0 ]"
@@ -180,7 +180,7 @@ test_hooks_functionality() {
     cd "test-python-hooks"
     
     run_test "Python installation with hooks" \
-        "claude-code-templates --language python --yes > /dev/null 2>&1"
+        "claude-code-riskexec --language python --yes > /dev/null 2>&1"
     
     run_test "Python Black formatter hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'black'"
@@ -194,7 +194,7 @@ test_hooks_functionality() {
     cd "test-go-hooks"
     
     run_test "Go installation with hooks" \
-        "claude-code-templates --language go --yes > /dev/null 2>&1"
+        "claude-code-riskexec --language go --yes > /dev/null 2>&1"
     
     run_test "Go fmt hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'gofmt'"
@@ -208,7 +208,7 @@ test_hooks_functionality() {
     cd "test-rust-hooks"
     
     run_test "Rust installation with hooks" \
-        "claude-code-templates --language rust --yes > /dev/null 2>&1"
+        "claude-code-riskexec --language rust --yes > /dev/null 2>&1"
     
     run_test "Rust fmt hook exists" \
         "jq -r '.hooks.PostToolUse[].hooks[].command' '.claude/settings.json' | grep -q 'rustfmt'"
@@ -226,8 +226,8 @@ test_command_variants() {
     cd "$test_dir"
     
     # Test all command aliases
-    run_test "claude-code-templates command" \
-        "claude-code-templates --version > /dev/null 2>&1"
+    run_test "claude-code-riskexec command" \
+        "claude-code-riskexec --version > /dev/null 2>&1"
     
     run_test "create-claude-config command" \
         "create-claude-config --version > /dev/null 2>&1"

@@ -102,6 +102,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
+=======
 - **🌐 Browse Templates**: [riskexec.com](https://riskexec.com)
 - **📚 Documentation**: [docs.riskexec.com](https://docs.riskexec.com)
 - **💬 Community**: [GitHub Discussions](https://github.com/davila7/claude-code-riskexec/discussions)

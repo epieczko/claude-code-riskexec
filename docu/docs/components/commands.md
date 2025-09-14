@@ -256,10 +256,14 @@ mkdir -p .claude/commands
 
 # Install specific commands via direct download
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/utilities/check-file.md
+
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/check-file.md
 
 curl -o .claude/commands/generate-tests.md \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/testing/generate-tests.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/generate-tests.md
+
+curl -o .claude/commands/optimize-imports.md \
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/optimize-imports.md
 
 ```
 

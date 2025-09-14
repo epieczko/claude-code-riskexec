@@ -124,10 +124,10 @@ mkdir -p .claude/commands
 
 # Download specific commands
 curl -o .claude/commands/check-file.md \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/utilities/check-file.md
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/commands/check-file.md
 
 curl -o .claude/commands/generate-tests.md \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/commands/testing/generate-tests.md
+  https://raw.
 ```
 
 #### Installing MCPs
@@ -136,13 +136,16 @@ MCPs can now be installed using the `--mcp` parameter or manually:
 ```bash
 # Install specific MCPs using CLI parameter (recommended)
 npx claude-code-riskexec@latest --mcp=github-integration --yes
+npx claude-code-riskexec@latest --mcp=database-integration --yes
 npx claude-code-riskexec@latest --mcp=deepgraph-react --yes
 
 # Manual installation (alternative method)
 # Download specific MCPs
 curl -o ./github-integration.json \
-  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/cli-tool/components/mcps/integration/github-integration.json
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/github-integration.json
 
+curl -o ./database-integration.json \
+  https://raw.githubusercontent.com/davila7/claude-code-riskexec/main/components/mcps/database-integration.json
 ```
 
 #### Installing Settings

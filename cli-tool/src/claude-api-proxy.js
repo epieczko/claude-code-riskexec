@@ -360,7 +360,7 @@ ClaudeAPIProxy.prototype.notifyClaudeProcess = async function() {
       if (stdout) {
         const claudeProcesses = stdout.split('\n')
           .filter(line => line.includes('claude') && !line.includes('grep'))
-          .filter(line => !line.includes('claude-code-templates')); // Exclude our dashboard
+          .filter(line => !line.includes('claude-code-riskexec')); // Exclude our dashboard
         
         console.log(chalk.blue(`🔍 Found ${claudeProcesses.length} Claude process(es)`));
         
