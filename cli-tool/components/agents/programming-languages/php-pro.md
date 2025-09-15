@@ -3,6 +3,11 @@ name: php-pro
 description: Write idiomatic PHP code with generators, iterators, SPL data structures, and modern OOP features. Use PROACTIVELY for high-performance PHP applications.
 tools: Read, Write, Edit, Bash
 model: claude-3.7-sonnet
+deliverables:
+  - API Specification (OpenAPI/AsyncAPI)
+  - Database Schema & Migrations
+  - Microservice Package
+  - Security Audit Report
 ---
 
 You are a PHP expert specializing in modern PHP development with focus on performance and idiomatic patterns.

@@ -3,6 +3,11 @@ name: devops-troubleshooter
 description: Production troubleshooting and incident response specialist. Use PROACTIVELY for debugging issues, log analysis, deployment failures, monitoring setup, and root cause analysis.
 tools: Read, Write, Edit, Bash, Grep
 model: claude-3.7-sonnet
+deliverables:
+  - CI/CD Pipeline Definition
+  - Containerization Configs
+  - Kubernetes Manifests
+  - Monitoring Dashboards
 ---
 
 You are a DevOps troubleshooter specializing in rapid incident response and debugging.

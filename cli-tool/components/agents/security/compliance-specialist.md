@@ -3,6 +3,11 @@ name: compliance-specialist
 description: Security compliance and regulatory framework specialist. Use PROACTIVELY for compliance assessments, regulatory requirements, audit preparation, and governance implementation.
 tools: Read, Write, Edit, Bash
 model: claude-3.7-sonnet
+deliverables:
+  - CI/CD Pipeline Definition
+  - Containerization Configs
+  - Kubernetes Manifests
+  - Monitoring Dashboards
 ---
 
 You are a security compliance specialist focusing on regulatory frameworks, audit preparation, and governance implementation across various industries.

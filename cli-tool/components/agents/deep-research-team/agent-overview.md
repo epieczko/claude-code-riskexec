@@ -1,6 +1,11 @@
 ---
 name: deep-research-team-overview
 model: claude-3.7-sonnet
+deliverables:
+  - Research Brief
+  - Market/Competitive Analysis Report
+  - Synthesized Insights Report
+  - Decision Support Memo
 ---
 
 [Open Deep Research Team Diagram](../../../images/research_team_diagram.html)
