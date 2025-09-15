@@ -1,5 +1,6 @@
 import os
 import json
+import yaml
 
 def scan_directory_recursively(directory_path, relative_to_path=None):
     """
@@ -32,6 +33,12 @@ def generate_components_json():
     components_data = {'agents': [], 'commands': [], 'mcps': [], 'settings': [], 'hooks': [], 'sandbox': [], 'templates': []}
     component_types = ['agents', 'commands', 'mcps', 'settings', 'hooks', 'sandbox']
 
+    # Approved taxonomy values for agents are the directory names under components/agents
+    agents_dir = os.path.join(components_base_path, 'agents')
+    approved_agent_categories = [
+        d for d in os.listdir(agents_dir) if os.path.isdir(os.path.join(agents_dir, d))
+    ] if os.path.isdir(agents_dir) else []
+
     print(f"Starting scan of {components_base_path} and {templates_base_path}...")
 
     # Scan components (existing logic)
@@ -42,7 +49,7 @@ def generate_components_json():
             continue
 
         print(f"Scanning for {component_type} in {type_path}...")
-        
+
         for category in os.listdir(type_path):
             category_path = os.path.join(type_path, category)
             if os.path.isdir(category_path):
@@ -50,20 +57,39 @@ def generate_components_json():
                     file_path = os.path.join(category_path, file_name)
                     if os.path.isfile(file_path) and (file_name.endswith('.md') or file_name.endswith('.json')) and not file_name.endswith('.py'):
                         name = os.path.splitext(file_name)[0]
-                        
+
                         # Read file content
                         content = ''
                         description = ''
+                        current_category = category
                         try:
                             with open(file_path, 'r', encoding='utf-8') as f:
                                 content = f.read()
-                                
+
+                            # For agents, parse YAML front matter for category
+                            if component_type == 'agents' and file_name.endswith('.md'):
+                                fm = {}
+                                if content.startswith('---'):
+                                    parts = content.split('---', 2)
+                                    if len(parts) >= 3:
+                                        try:
+                                            fm = yaml.safe_load(parts[1]) or {}
+                                        except yaml.YAMLError as e:
+                                            print(f"Warning: Invalid YAML in {file_path}: {e}")
+                                fm_category = fm.get('category')
+                                if fm_category:
+                                    if fm_category not in approved_agent_categories:
+                                        raise ValueError(
+                                            f"Invalid category '{fm_category}' in {file_path}. "
+                                            f"Approved categories: {approved_agent_categories}"
+                                        )
+                                    current_category = fm_category
+
                             # Extract description field from JSON files
                             if file_name.endswith('.json'):
                                 try:
-                                    import json
                                     json_data = json.loads(content)
-                                    
+
                                     if component_type == 'mcps':
                                         # Extract description from the first mcpServer entry
                                         if 'mcpServers' in json_data:
@@ -75,17 +101,17 @@ def generate_components_json():
                                         # Extract description from settings/hooks JSON files
                                         if 'description' in json_data:
                                             description = json_data['description']
-                                            
+
                                 except json.JSONDecodeError:
                                     print(f"Warning: Invalid JSON in {file_path}")
-                                    
+
                         except Exception as e:
                             print(f"Warning: Could not read file {file_path}: {e}")
 
                         component = {
                             'name': name,
                             'path': os.path.join(category, file_name).replace("\\", "/"),
-                            'category': category,
+                            'category': current_category,
                             'type': component_type[:-1],  # singular form
                             'content': content,  # Add file content
                             'description': description  # Add description for MCPs
