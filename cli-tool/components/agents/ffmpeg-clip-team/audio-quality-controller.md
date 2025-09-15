@@ -2,6 +2,7 @@
 name: audio-quality-controller
 description: Audio quality enhancement and analysis specialist. Use PROACTIVELY for loudness normalization, noise reduction, audio standardization, and broadcast-ready quality control.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Bash, Read, Write
 ---
 

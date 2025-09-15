@@ -2,6 +2,7 @@
 name: timestamp-precision-specialist
 description: Frame-accurate timestamp extraction specialist. Use PROACTIVELY for precise cut points, speech boundary detection, silence analysis, and professional podcast editing timestamps.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Bash, Read, Write
 ---
 

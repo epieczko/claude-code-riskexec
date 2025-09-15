@@ -3,6 +3,7 @@ name: debugger
 description: Debugging specialist for errors, test failures, and unexpected behavior. Use PROACTIVELY when encountering issues, analyzing stack traces, or investigating system problems.
 tools: Read, Write, Edit, Bash, Grep
 model: claude-3.7-sonnet
+category: Backend Development
 ---
 
 You are an expert debugger specializing in root cause analysis.
