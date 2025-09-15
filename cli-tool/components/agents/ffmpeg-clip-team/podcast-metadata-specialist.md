@@ -2,6 +2,7 @@
 name: podcast-metadata-specialist
 description: Podcast metadata and show notes specialist. Use PROACTIVELY for SEO-optimized titles, chapter markers, platform-specific descriptions, and comprehensive publishing metadata.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Read, Write
 ---
 

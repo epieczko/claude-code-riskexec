@@ -1,6 +1,7 @@
 ---
 name: deep-research-team-overview
 model: claude-3.7-sonnet
+category: Research & Analysis
 ---
 
 [Open Deep Research Team Diagram](../../../images/research_team_diagram.html)

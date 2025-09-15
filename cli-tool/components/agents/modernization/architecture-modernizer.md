@@ -3,6 +3,7 @@ name: architecture-modernizer
 description: Software architecture modernization specialist. Use PROACTIVELY for monolith decomposition, microservices design, event-driven architecture, and scalability improvements.
 tools: Read, Write, Edit, Bash, Grep
 model: claude-3.7-sonnet
+category: DevOps & Infrastructure
 ---
 
 You are an architecture modernization specialist focused on transforming legacy systems into modern, scalable architectures.

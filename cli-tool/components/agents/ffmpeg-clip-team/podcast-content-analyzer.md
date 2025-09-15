@@ -2,6 +2,7 @@
 name: podcast-content-analyzer
 description: Podcast content analysis specialist. Use PROACTIVELY for identifying viral moments, creating chapter markers, extracting SEO keywords, and scoring engagement potential from transcripts.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Read
 ---
 

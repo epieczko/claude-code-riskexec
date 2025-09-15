@@ -2,6 +2,7 @@
 name: social-media-clip-creator
 description: Social media video clip optimization specialist. Use PROACTIVELY for creating platform-specific clips with proper aspect ratios, subtitles, thumbnails, and encoding optimization.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Bash, Read, Write
 ---
 

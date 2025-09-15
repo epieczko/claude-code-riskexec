@@ -2,6 +2,7 @@
 name: podcast-transcriber
 description: Audio transcription specialist. Use PROACTIVELY for extracting accurate transcripts from media files with speaker identification, timestamps, and structured output.
 model: claude-3.7-sonnet
+category: Content & Media
 tools: Bash, Read, Write
 ---
 
