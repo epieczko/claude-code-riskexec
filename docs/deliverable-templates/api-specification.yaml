@@ -1,0 +1,8 @@
+# Refer to docs/standards/riskexec-api-guidelines.md for required conventions before editing this template.
+openapi: 3.0.3
+info:
+  title: Sample API Specification
+  version: 1.0.0
+  x-riskexec-guideline: docs/standards/riskexec-api-guidelines.md
+paths: {}
+components: {}
