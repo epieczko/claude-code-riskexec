@@ -77,7 +77,11 @@ export class TasksPhase implements PhaseHandler {
     await mirrorAgentOsFile({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      relativePath: path.relative(options.featureDir, paths.tasks),
+      relativePath: path.join(
+        'specs',
+        options.featureName,
+        path.relative(options.featureDir, paths.tasks)
+      ),
       content: outputMarkdown
     });
 

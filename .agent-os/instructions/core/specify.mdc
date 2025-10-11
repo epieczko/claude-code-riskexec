@@ -1,11 +1,12 @@
-# Spec Kit – Specification Phase
+# Spec Kit – Specification Phase (Agent OS)
 
-Use the Claude CLI to create or update the feature specification so it satisfies the Spec Kit constitution.
-
-```bash
-claude /specify "{{ feature }}" "{{ brief }}"
-```
-
-- Replace `{{ feature }}` with the feature identifier used under `specs/`.
-- Provide `{{ brief }}` when additional context is available; otherwise supply an empty string.
-- The command writes `spec.md` in `specs/{{ feature }}/`.
+1. Run the Claude CLI to generate or update the feature specification:
+   ```bash
+   claude /specify "{{ feature }}" "{{ brief | default('') }}"
+   ```
+   - `{{ feature }}` is the folder name under `specs/`.
+   - `{{ brief }}` is optional additional context supplied by the requester.
+2. Wait for the CLI to finish and confirm `specs/{{ feature }}/spec.md` was updated.
+3. Mirror the result into Agent OS storage (the Spec Kit CLI does this automatically):
+   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/spec.md`
+4. Announce completion back to Agent OS with a short summary of notable risks or open questions so the next phase can review them.

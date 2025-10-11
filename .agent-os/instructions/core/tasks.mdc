@@ -1,10 +1,10 @@
-# Spec Kit – Task Breakdown Phase
+# Spec Kit – Task Breakdown Phase (Agent OS)
 
-Create the execution-ready task list with QA notes derived from the plan and specification.
-
-```bash
-claude /tasks "{{ feature }}"
-```
-
-- Replace `{{ feature }}` with the feature identifier used under `specs/`.
-- The command writes `tasks.md` in `specs/{{ feature }}/` with traceable checklist items.
+1. Launch the Claude CLI to generate the implementation checklist:
+   ```bash
+   claude /tasks "{{ feature }}"
+   ```
+2. Let the command finish so it can read the latest `spec.md` and `plan.md`, then overwrite `specs/{{ feature }}/tasks.md` with the decomposed checklist.
+3. Verify Agent OS mirror paths are refreshed:
+   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/tasks.md`
+4. Send Agent OS a brief status update summarizing task count, QA ownership notes, and any dependencies called out in the checklist.

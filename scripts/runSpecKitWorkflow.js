@@ -11,13 +11,53 @@ const { createWorkflowLogger, createLogger } = require('../src/lib/logger');
 const { parseTasksChecklist } = require('../src/lib/tasks');
 
 const PHASES = ['specify', 'plan', 'tasks', 'implement', 'verify'];
-const PHASE_TO_COMMAND = {
+const DEFAULT_PHASE_TO_COMMAND = {
   specify: '/specify',
   plan: '/plan',
   tasks: '/tasks',
   implement: '/implement',
   verify: '/verify'
 };
+let phaseCommandMap = { ...DEFAULT_PHASE_TO_COMMAND };
+
+function loadAgentOsCommandMapSafe() {
+  const commandMapPath = path.join(__dirname, '..', '.agent-os', 'command-map.json');
+  try {
+    const source = fs.readFileSync(commandMapPath, 'utf8');
+    return JSON.parse(source);
+  } catch (error) {
+    if (!error || typeof error !== 'object' || error.code !== 'ENOENT') {
+      const reason = error instanceof Error ? error.message : String(error);
+      createLogger('workflow:agent-os').warn(
+        `Unable to load Agent OS command map at ${commandMapPath}: ${reason}`
+      );
+    }
+    return null;
+  }
+}
+
+function buildPhaseCommandMap(useAgentOsAliases) {
+  if (!useAgentOsAliases) {
+    return { ...DEFAULT_PHASE_TO_COMMAND };
+  }
+
+  const agentOsLogger = createLogger('workflow:agent-os');
+  const commandMap = loadAgentOsCommandMapSafe();
+  if (!commandMap) {
+    agentOsLogger.warn('Agent OS mode requested but command-map.json was not found. Falling back to CLI commands.');
+    return { ...DEFAULT_PHASE_TO_COMMAND };
+  }
+
+  const resolved = { ...DEFAULT_PHASE_TO_COMMAND };
+  for (const [phase, entry] of Object.entries(commandMap)) {
+    if (entry && typeof entry.agentOsCommand === 'string' && entry.agentOsCommand.trim()) {
+      resolved[phase] = entry.agentOsCommand;
+    }
+  }
+
+  agentOsLogger.info('Agent OS command aliases enabled for Spec Kit workflow.');
+  return resolved;
+}
 
 function main() {
   const options = parseArgs(process.argv.slice(2));
@@ -36,6 +76,14 @@ function main() {
     workflowLogger.error(`Unknown resume phase: ${resumePhase}`);
     process.exit(1);
   }
+
+  const useAgentOsCommands = Boolean(
+    options['agent-os'] ||
+      options.agentOs ||
+      process.env.SPEC_KIT_AGENT_OS_MODE === '1' ||
+      process.env.SPEC_KIT_AGENT_OS_MODE === 'true'
+  );
+  phaseCommandMap = buildPhaseCommandMap(useAgentOsCommands);
 
   workflowLogger.info(`Starting workflow for ${featureName}`);
   if (resumePhase) {
@@ -138,7 +186,7 @@ function parseTasks(featureDir) {
 }
 
 function runCommand(phase, args, options = {}) {
-  const command = PHASE_TO_COMMAND[phase];
+  const command = phaseCommandMap[phase];
   if (!command) {
     throw new Error(`Unknown phase: ${phase}`);
   }

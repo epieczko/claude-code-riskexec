@@ -82,14 +82,18 @@ export class PlanPhase implements PhaseHandler {
     await mirrorAgentOsFile({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      relativePath: path.relative(options.featureDir, paths.plan),
+      relativePath: path.join(
+        'specs',
+        options.featureName,
+        path.relative(options.featureDir, paths.plan)
+      ),
       content: outputMarkdown
     });
     await mirrorAgentOsDirectory({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       sourceDir: paths.architectureDir,
-      targetSubdir: 'architecture'
+      targetSubdir: path.join('specs', options.featureName, 'architecture')
     });
 
     const contextPath = await saveContext(options.featureName, this.phaseName, extractPlanContext(outputMarkdown), {

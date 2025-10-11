@@ -1,10 +1,11 @@
-# Spec Kit – Architecture Plan Phase
+# Spec Kit – Architecture Plan Phase (Agent OS)
 
-Generate or refresh the technical plan derived from the approved specification.
-
-```bash
-claude /plan "{{ feature }}"
-```
-
-- Replace `{{ feature }}` with the feature identifier used under `specs/`.
-- The command writes `plan.md` and supporting artifacts under `specs/{{ feature }}/`.
+1. Invoke the Claude CLI to translate the approved specification into a technical plan:
+   ```bash
+   claude /plan "{{ feature }}"
+   ```
+2. Wait for the CLI execution to complete, ensuring it reads `specs/{{ feature }}/spec.md` and writes the refreshed plan to `specs/{{ feature }}/plan.md` (plus any diagrams under `specs/{{ feature }}/architecture/`).
+3. Confirm the artifacts were mirrored for Agent OS consumption:
+   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/plan.md`
+   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/architecture/`
+4. Report back to Agent OS with a concise plan summary highlighting architecture decisions, risks, and next-step approvals.

@@ -25,6 +25,7 @@ Agent OS orchestrates the Spec Kit workflow by issuing commands that correspond 
 * `.agent-os/workflows/spec_kit.yml` defines the Agent OS orchestration. Each phase lists the agent to invoke, the command alias, the instruction file, inputs, and expected output path.
 * `.agent-os/command-map.json` maps each phase to both the CLI command (e.g., `/specify`) and the Agent OS alias (e.g., `/create-spec`). The map is generated programmatically to ensure consistency.
 * `.agent-os/instructions/core/*.mdc` contain prompt snippets used by Agent OS when triggering each phase.
+* `.claude/commands/create-spec.md`, `.claude/commands/create-tasks.md`, and `.claude/commands/execute-tasks.md` provide BuilderMethods Agent OS–friendly aliases that delegate to the standard Spec Kit commands.
 
 ## Command Synchronization
 
@@ -66,12 +67,12 @@ Each Spec Kit phase writes its canonical output under `specs/{feature}` and imme
 
 Key mirrored artifacts:
 
-| Phase      | Primary Output                        | Mirrored Location                                |
-|------------|----------------------------------------|--------------------------------------------------|
-| Specify    | `specs/{feature}/spec.md`              | `.agent-os/product/{feature}/spec.md`            |
-| Plan       | `specs/{feature}/plan.md` and `architecture/` | `.agent-os/product/{feature}/plan.md` and `.agent-os/product/{feature}/architecture/` |
-| Tasks      | `specs/{feature}/tasks.md`             | `.agent-os/product/{feature}/tasks.md`           |
-| Implement  | `specs/{feature}/implementation/` logs | `.agent-os/product/{feature}/implementation/`    |
+| Phase      | Primary Output                        | Mirrored Location                                                             |
+|------------|----------------------------------------|---------------------------------------------------------------------------------|
+| Specify    | `specs/{feature}/spec.md`              | `.agent-os/product/{feature}/specs/{feature}/spec.md`                          |
+| Plan       | `specs/{feature}/plan.md` and `architecture/` | `.agent-os/product/{feature}/specs/{feature}/plan.md` and `.agent-os/product/{feature}/specs/{feature}/architecture/` |
+| Tasks      | `specs/{feature}/tasks.md`             | `.agent-os/product/{feature}/specs/{feature}/tasks.md`                         |
+| Implement  | `specs/{feature}/implementation/` logs | `.agent-os/product/{feature}/specs/{feature}/implementation/`                  |
 
 ## Status Tracking (Optional Extension)
 

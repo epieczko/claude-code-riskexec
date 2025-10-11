@@ -99,7 +99,7 @@ export class ImplementPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       sourceDir: paths.implementationDir,
-      targetSubdir: 'implementation'
+      targetSubdir: path.join('specs', options.featureName, 'implementation')
     });
 
     return {
