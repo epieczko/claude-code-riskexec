@@ -20,6 +20,7 @@
     "router:verify": "node ./scripts/router-verify.js",
     "router:code": "npx @musistudio/claude-code-router code",
     "router:ui": "npx @musistudio/claude-code-router ui",
+    "components:validate": "node scripts/validateBmadComponents.js",
     "format": "prettier -w .",
     "spec-kit:workflow": "node scripts/runSpecKitWorkflow.js",
     "spec-workflow": "node -r ts-node/register src/workflowOrchestrator.ts"

@@ -58,3 +58,19 @@ phases:
       checklist:
         - "Unit tests defined"
         - "QA notes captured"
+  - id: verify
+    label: "Verification"
+    agent: "bmad-qa"
+    input:
+      - "specs/{feature}/spec.md"
+      - "specs/{feature}/plan.md"
+      - "specs/{feature}/tasks.md"
+      - "specs/{feature}/implementation"
+    output: "specs/{feature}/qa-report.md"
+    gate:
+      requires:
+        - "specs/{feature}/implementation"
+        - "specs/{feature}/tasks.md"
+      checklist:
+        - "Critical regressions triaged"
+        - "Release recommendation recorded"

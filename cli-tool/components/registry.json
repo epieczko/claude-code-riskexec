@@ -10,7 +10,8 @@
     "specify": "commands/spec-kit/specify.md",
     "plan": "commands/spec-kit/plan.md",
     "tasks": "commands/spec-kit/tasks.md",
-    "implement": "commands/spec-kit/implement.md"
+    "implement": "commands/spec-kit/implement.md",
+    "verify": "commands/spec-kit/verify.md"
   },
   "mcps": {
     "github": "mcps/integration/github-integration.json"
