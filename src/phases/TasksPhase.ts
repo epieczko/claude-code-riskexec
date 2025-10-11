@@ -1,36 +1,48 @@
-import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
-import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { writeFileAtomic } from '../lib/files';
 import { mirrorAgentOsFile } from '../lib/agentOs';
 import { extractTaskContext, loadContext, saveContext } from '../lib/contextStore';
 import type { PlanContext, SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
+import {
+  assertPhasePrerequisites,
+  ensureFeaturePaths,
+  readPhaseFiles,
+  resolveFeaturePaths
+} from '../lib/phaseUtils';
+import path from 'path';
+import { createPhaseLogger } from '../lib/logger';
 
+/**
+ * Converts an approved plan into an actionable checklist of tasks with QA notes.
+ * Requires both `spec.md` and `plan.md`, writes the generated checklist to
+ * `tasks.md`, mirrors it to Agent OS, and saves derived task context for
+ * implementation.
+ */
 export class TasksPhase implements PhaseHandler {
   public readonly phaseName = 'tasks';
 
   public async run(options: PhaseRunOptions): Promise<PhaseResult> {
-    await ensureDir(options.featureDir);
+    const logger = createPhaseLogger(this.phaseName);
+    const paths = resolveFeaturePaths(options.featureDir);
+    await ensureFeaturePaths(paths);
 
-    const specPath = path.join(options.featureDir, 'spec.md');
-    const planPath = path.join(options.featureDir, 'plan.md');
-    const tasksPath = path.join(options.featureDir, 'tasks.md');
+    const io = await readPhaseFiles([
+      { key: 'spec', path: paths.spec, description: 'Specification', required: true },
+      { key: 'plan', path: paths.plan, description: 'Implementation plan', required: true },
+      { key: 'tasks', path: paths.tasks, description: 'Existing task list' }
+    ]);
 
-    const spec = await readFileIfExists(specPath);
-    const plan = await readFileIfExists(planPath);
+    assertPhasePrerequisites(io, this.phaseName);
+
+    const spec = io.files.spec as string;
+    const plan = io.files.plan as string;
     const specContext: SpecContext | null =
       options.specContext ??
       (await loadContext<SpecContext>(options.featureName, 'specify', { workspaceRoot: options.workspaceRoot }));
     const planContext: PlanContext | null =
       options.planContext ??
       (await loadContext<PlanContext>(options.featureName, 'plan', { workspaceRoot: options.workspaceRoot }));
-
-    if (!spec) {
-      throw new Error(`Missing specification at ${specPath}. Run the specify phase first.`);
-    }
-    if (!plan) {
-      throw new Error(`Missing plan at ${planPath}. Run the plan phase before generating tasks.`);
-    }
 
     const prompt = [
       'Break the plan into executable tasks with QA acceptance notes.',
@@ -40,9 +52,9 @@ export class TasksPhase implements PhaseHandler {
     ].join('\n\n');
 
     const contextFiles = [
-      { path: specPath, label: 'Specification', optional: false },
-      { path: planPath, label: 'Implementation Plan', optional: false },
-      { path: tasksPath, label: 'Existing Task List', optional: true }
+      { path: paths.spec, label: 'Specification', optional: false },
+      { path: paths.plan, label: 'Implementation Plan', optional: false },
+      { path: paths.tasks, label: 'Existing Task List', optional: true }
     ];
 
     const result = await invokeAgent({
@@ -61,11 +73,11 @@ export class TasksPhase implements PhaseHandler {
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
-    await writeFileAtomic(tasksPath, outputMarkdown);
+    await writeFileAtomic(paths.tasks, outputMarkdown);
     await mirrorAgentOsFile({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      relativePath: path.relative(options.featureDir, tasksPath),
+      relativePath: path.relative(options.featureDir, paths.tasks),
       content: outputMarkdown
     });
 
@@ -74,9 +86,11 @@ export class TasksPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot
     });
 
+    logger.info(`tasks.md created with ${taskContext.tasks.length} tasks`);
+
     return {
       phase: this.phaseName,
-      outputPath: tasksPath,
+      outputPath: paths.tasks,
       details: {
         agentCommand: result.command,
         contextPath,

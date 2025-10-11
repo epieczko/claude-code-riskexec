@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
+require('ts-node/register');
+
 const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 const { validatePhaseOutputs } = require('./validators');
+const { createWorkflowLogger, createLogger } = require('../src/lib/logger');
+const { parseTasksChecklist } = require('../src/lib/tasks');
 
 const PHASES = ['specify', 'plan', 'tasks', 'implement', 'verify'];
 const PHASE_TO_COMMAND = {
@@ -22,22 +26,23 @@ function main() {
   const resumePhase = options.resume ? options.resume.toLowerCase() : null;
   const skipQA = options['skip-qa'] || false;
   const autoTestCommand = options['test-command'] || process.env.SPEC_KIT_TEST_COMMAND || '';
+  const workflowLogger = createWorkflowLogger();
 
   const featureDir = path.join(process.cwd(), 'specs', featureName);
   ensureDirectory(featureDir);
 
   const startIndex = resumePhase ? PHASES.indexOf(resumePhase) : 0;
   if (resumePhase && startIndex === -1) {
-    console.error(`Unknown resume phase: ${resumePhase}`);
+    workflowLogger.error(`Unknown resume phase: ${resumePhase}`);
     process.exit(1);
   }
 
-  console.log(`\n▶ Running Spec Kit workflow for ${featureName}`);
+  workflowLogger.info(`Starting workflow for ${featureName}`);
   if (resumePhase) {
-    console.log(`↻ Resuming from phase: ${resumePhase}`);
+    workflowLogger.info(`Resuming from phase: ${resumePhase}`);
   }
   if (autoTestCommand) {
-    console.log(`🧪 Tests will run after each implementation task using: ${autoTestCommand}`);
+    workflowLogger.info(`Tests will run after each implementation task using: ${autoTestCommand}`);
   }
 
   const queue = ['specify', 'plan', 'tasks', 'implement'];
@@ -47,6 +52,7 @@ function main() {
 
   for (let i = startIndex; i < queue.length; i += 1) {
     const phase = queue[i];
+    const phaseLogger = createLogger(`workflow:${phase}`);
     try {
       if (phase === 'specify') {
         runCommand(phase, [featureName, brief].filter(Boolean));
@@ -58,28 +64,29 @@ function main() {
         runCommand(phase, [featureName]);
         validatePhase(featureDir, 'tasks');
       } else if (phase === 'implement') {
-        runImplementationPhase(featureDir, featureName, autoTestCommand, options['start-task']);
+        runImplementationPhase(featureDir, featureName, autoTestCommand, options['start-task'], phaseLogger);
       } else if (phase === 'verify') {
         runCommand(phase, [featureName]);
-        console.log('✅ QA review triggered');
+        phaseLogger.info('QA review triggered');
       }
+      phaseLogger.info('Phase complete');
     } catch (error) {
-      console.error(`❌ ${phase} phase failed: ${error.message}`);
+      phaseLogger.error(`Phase failed: ${error.message}`);
       process.exit(1);
     }
   }
 
-  console.log('\n🎉 Spec Kit workflow completed successfully.');
+  workflowLogger.info('Workflow completed successfully.');
 }
 
-function runImplementationPhase(featureDir, featureName, testCommand, startTaskLabel) {
+function runImplementationPhase(featureDir, featureName, testCommand, startTaskLabel, logger) {
   const tasks = parseTasks(featureDir);
   if (!tasks.length) {
     throw new Error('No tasks found in tasks.md — cannot continue implementation.');
   }
 
   const startIndex = startTaskLabel
-    ? tasks.findIndex(task => task.raw.includes(startTaskLabel))
+    ? tasks.findIndex(task => task.title.includes(startTaskLabel))
     : 0;
 
   if (startTaskLabel && startIndex === -1) {
@@ -88,17 +95,17 @@ function runImplementationPhase(featureDir, featureName, testCommand, startTaskL
 
   for (let i = startIndex; i < tasks.length; i += 1) {
     const task = tasks[i];
-    console.log(`\n🚧 Implementing task ${i + 1}/${tasks.length}: ${task.label}`);
+    logger.info(`Implementing task ${i + 1}/${tasks.length}: ${task.title}`);
     const args = [featureName];
-    if (task.label) {
-      args.push(task.label);
+    if (task.title) {
+      args.push(task.title);
     }
 
     runCommand('implement', args, {
       env: {
         SPEC_KIT_TASK_INDEX: String(i + 1),
         SPEC_KIT_TASK_TOTAL: String(tasks.length),
-        SPEC_KIT_TASK_ID: task.label
+        SPEC_KIT_TASK_ID: task.title
       }
     });
 
@@ -109,7 +116,7 @@ function runImplementationPhase(featureDir, featureName, testCommand, startTaskL
 }
 
 function runTestCommand(command) {
-  console.log(`🧪 Running tests: ${command}`);
+  createLogger('workflow:tests').info(`Running tests: ${command}`);
   const result = spawnSync(command, {
     stdio: 'inherit',
     shell: true
@@ -127,20 +134,7 @@ function parseTasks(featureDir) {
   }
 
   const content = fs.readFileSync(tasksFile, 'utf8');
-  const lines = content.replace(/\r\n/g, '\n').split('\n');
-  const tasks = [];
-
-  for (const line of lines) {
-    const match = line.match(/^- \[[ xX]\]\s+(.+)$/);
-    if (match) {
-      tasks.push({
-        raw: line,
-        label: match[1].trim()
-      });
-    }
-  }
-
-  return tasks;
+  return parseTasksChecklist(content);
 }
 
 function runCommand(phase, args, options = {}) {
@@ -151,7 +145,7 @@ function runCommand(phase, args, options = {}) {
 
   const cliBinary = process.env.CLAUDE_CLI || 'claude';
   const finalArgs = [command, ...args];
-  console.log(`\n▶ Executing ${cliBinary} ${finalArgs.join(' ')}`);
+  createLogger(`workflow:${phase}`).info(`Executing ${cliBinary} ${finalArgs.join(' ')}`);
 
   const result = spawnSync(cliBinary, finalArgs, {
     stdio: 'inherit',
@@ -178,9 +172,10 @@ function validatePhase(featureDir, phaseKey) {
     throw new Error(`Unknown validation key: ${phaseKey}`);
   }
 
-  console.log(`\n🧮 Validation for ${phaseKey}: ${result.valid ? 'pass' : 'fail'}`);
-  result.errors.forEach(error => console.error(`   ✖ ${error}`));
-  result.warnings.forEach(warning => console.warn(`   ⚠ ${warning}`));
+  const validatorLogger = createLogger(`workflow:validate:${phaseKey}`);
+  validatorLogger.info(`Validation ${result.valid ? 'pass' : 'fail'}`);
+  result.errors.forEach(error => validatorLogger.error(`Validation error: ${error}`));
+  result.warnings.forEach(warning => validatorLogger.warn(`Validation warning: ${warning}`));
 
   if (!result.valid) {
     throw new Error('Validation failed. Fix issues before continuing.');
