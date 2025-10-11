@@ -20,6 +20,8 @@ jobs:
             --no-progress
             --accept 429,403
             --verbose
+            --exclude http://localhost
+            --exclude https://localhost
             README.md
             docs/**/*.md
             docu/**/*.md
