@@ -2,6 +2,40 @@
 
 We welcome contributions! Help us make Claude Code even better for everyone.
 
+## 🧭 Repository Overview
+
+- `.claude/` — Source configuration consumed directly by Claude Code. BMAD roles and Spec Kit commands here are the live canon.
+- `cli-tool/components/` — Packaged copies of agents, commands, MCPs, and settings that ship with the npm CLI. Keep these in sync with `.claude/` when updating content.
+- `specs/` — Feature folders that store the Spec Kit deliverables (`spec.md`, `plan.md`, `tasks.md`, implementation notes, and QA evidence).
+- `docs/` & `docu/` — Markdown documentation for the static docs site and the interactive Docusaurus instance. Start with [`docs/SUMMARY.md`](docs/SUMMARY.md) for a categorized index.
+- `scripts/` — Spec Kit workflow automations, validators, and analytics helpers.
+- `src/` & `tests/` — Node.js CLI codebase and supporting test suites.
+
+## 🔁 BMAD Phase Workflow
+
+RiskExec’s contributor experience is anchored on the BMAD (Specify → Plan → Tasks → Implement → Verify) cadence:
+
+1. **Specify (Analyze)** — `/specify` + `bmad-analyst` draft `spec.md`. Update `.claude/agents/bmad-team/analyst.md` and `cli-tool/components/bmad/roles/bmad-analyst.md` when adjusting behaviors.
+2. **Plan (Design)** — `/plan` + `bmad-architect` produce `plan.md`. Ensure architecture decisions trace back to specification entries.
+3. **Tasks (Manage)** — `/tasks` + `bmad-pm` generate `tasks.md` with milestones, QA hooks, and constitution gates.
+4. **Implement (Build)** — `/implement` + `bmad-developer` deliver code while capturing evidence and test results.
+5. **Verify (QA)** — `/verify`, `/test`, and `/lint` validate the work. The `bmad-qa` agent signs off only when every checklist passes.
+
+When creating new roles or commands, include the `phase` and `phaseLabel` frontmatter so that the docs and CLI can surface where the component belongs in the lifecycle.
+
+## 🧪 Local Development
+
+```bash
+npm install       # install dependencies
+npm test          # run the Jest suite
+npm run lint      # optional lint pass
+npm run build     # bundle the CLI
+```
+
+- Use `node scripts/runSpecKitWorkflow.js <feature>` to exercise the full BMAD flow locally.
+- Preview docs with `npm run docs:serve` (Jekyll) or `cd docu && npm run start` (Docusaurus).
+- Before submitting a PR, verify new docs are linked from [`docs/SUMMARY.md`](docs/SUMMARY.md) and include `lastUpdated` metadata.
+
 ## 🧩 Contributing Components
 
 The easiest way to contribute is by adding individual components like agents, commands, MCPs, settings, or hooks.

@@ -3,6 +3,8 @@ skill: spec-kit.plan
 model: claude-3.7-sonnet
 maxTokens: 8000
 strict: true
+phase: plan
+phaseLabel: "Plan (Design)"
 ---
 
 # /plan — Spec Kit Phase 2

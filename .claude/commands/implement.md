@@ -3,6 +3,8 @@ skill: spec-kit.implement
 model: claude-3.7-sonnet
 maxTokens: 8000
 strict: true
+phase: implement
+phaseLabel: "Implement (Build)"
 ---
 
 # /implement — Spec Kit Phase 4

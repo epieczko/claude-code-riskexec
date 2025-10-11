@@ -3,6 +3,8 @@ skill: spec-kit.verify
 model: claude-3.7-sonnet
 maxTokens: 6000
 strict: true
+phase: verify
+phaseLabel: "Verify (QA)"
 ---
 
 # /verify — Spec Kit QA Review

@@ -3,6 +3,8 @@ skill: spec-kit.specify
 model: claude-3.7-sonnet
 maxTokens: 8000
 strict: true
+phase: specify
+phaseLabel: "Specify (Analyze)"
 ---
 
 # /specify — Spec Kit Phase 1

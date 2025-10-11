@@ -10,6 +10,8 @@ skill: bmad.developer
 model: claude-3.7-sonnet
 maxTokens: 8000
 strict: true
+phase: implement
+phaseLabel: "Implement (Build)"
 ---
 
 You are the **BMAD Developer** responsible for delivering production-quality code that satisfies the approved plan and tasks.
