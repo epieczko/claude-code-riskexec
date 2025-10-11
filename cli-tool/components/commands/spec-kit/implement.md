@@ -1,10 +1,9 @@
 ---
 command: /implement
 description: Execute backlog tasks using the BMAD Developer.
-argument-hint: [feature-name] | --task "task-title"
+argument-hint: '[feature-name] | --task "task-title"'
 agent: bmad-developer
-allowed-tools: Read, Write, Edit, Execute
-model: claude-3.7-sonnet
+phase: implement
 ---
 
 # /implement – Delivery Execution

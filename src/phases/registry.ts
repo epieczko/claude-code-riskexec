@@ -23,5 +23,10 @@ export const phaseRegistry: Record<string, PhaseRegistryEntry> = {
     agent: 'bmad-developer',
     input: ['plan.md', 'tasks.md'],
     output: 'specs/{feature}/implementation'
+  },
+  verify: {
+    agent: 'bmad-qa',
+    input: ['spec.md', 'plan.md', 'tasks.md', 'implementation'],
+    output: 'specs/{feature}/qa-report.md'
   }
 };
