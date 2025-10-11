@@ -1,0 +1,57 @@
+name: Docs Quality Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    name: Check outbound links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run lychee link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: true
+          args: >-
+            --no-progress
+            --accept 429,403
+            --verbose
+            README.md
+            docs/**/*.md
+            docu/**/*.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docs-build-preview:
+    name: Build docs preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: docu/package-lock.json
+
+      - name: Install dependencies
+        working-directory: docu
+        run: npm ci
+
+      - name: Build documentation site
+        working-directory: docu
+        run: npm run build
+
+      - name: Upload documentation preview
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docusaurus-preview
+          path: docu/build
+          retention-days: 7
