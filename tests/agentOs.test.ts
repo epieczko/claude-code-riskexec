@@ -33,13 +33,18 @@ describe('Agent OS mirroring helpers', () => {
     expect(mirroredContent).toBe('# Plan\n');
   });
 
-  it('mirrors directories recursively into Agent OS', async () => {
+  it('mirrors directories recursively into Agent OS when targetSubdir is provided', async () => {
     const nestedDir = path.join(sourceDir, 'nested');
     await fs.mkdir(nestedDir, { recursive: true });
     await fs.writeFile(path.join(sourceDir, 'root.txt'), 'root file');
     await fs.writeFile(path.join(nestedDir, 'child.txt'), 'child file');
 
-    await mirrorAgentOsDirectory({ workspaceRoot, featureName, sourceDir });
+    await mirrorAgentOsDirectory({
+      workspaceRoot,
+      featureName,
+      sourceDir,
+      targetSubdir: path.basename(sourceDir)
+    });
 
     const destination = path.join(workspaceRoot, '.agent-os', 'product', featureName, path.basename(sourceDir));
     const mirroredFiles = await fs.readdir(destination);

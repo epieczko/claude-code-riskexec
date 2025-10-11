@@ -1,9 +1,14 @@
 import fs from 'fs/promises';
 import path from 'path';
+import fsExtra from 'fs-extra';
 import { ensureDir } from './files';
+import { createLogger } from './logger';
 
 const AGENT_OS_ROOT = '.agent-os';
 const PRODUCT_SUBDIR = 'product';
+const agentOsLogger = createLogger('agent-os');
+
+const PHASE_ARTIFACTS = ['spec.md', 'plan.md', 'tasks.md', 'implementation'];
 
 interface MirrorFileOptions {
   workspaceRoot: string;
@@ -49,32 +54,72 @@ export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): P
     throw error;
   }
 
-  const destination = path.resolve(
-    workspaceRoot,
-    AGENT_OS_ROOT,
-    PRODUCT_SUBDIR,
-    featureName,
-    targetSubdir ?? path.basename(resolvedSource)
-  );
+  const destinationRoot = path.resolve(workspaceRoot, AGENT_OS_ROOT, PRODUCT_SUBDIR, featureName);
+  await ensureDir(destinationRoot);
 
-  await fs.rm(destination, { recursive: true, force: true });
-  await copyDirectory(resolvedSource, destination);
-}
+  const mirroredEntries: string[] = [];
 
-async function copyDirectory(source: string, destination: string): Promise<void> {
-  await ensureDir(destination);
-  const entries = await fs.readdir(source, { withFileTypes: true });
+  if (targetSubdir) {
+    const destination = path.join(destinationRoot, targetSubdir);
+    fsExtra.copySync(resolvedSource, destination, { overwrite: true, errorOnExist: false });
+    mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
+  } else {
+    for (const artifact of PHASE_ARTIFACTS) {
+      const sourcePath = path.join(resolvedSource, artifact);
+      if (!fsExtra.pathExistsSync(sourcePath)) {
+        continue;
+      }
 
-  for (const entry of entries) {
-    const sourcePath = path.join(source, entry.name);
-    const destinationPath = path.join(destination, entry.name);
-
-    if (entry.isDirectory()) {
-      await copyDirectory(sourcePath, destinationPath);
-    } else if (entry.isFile()) {
-      await ensureDir(path.dirname(destinationPath));
-      const data = await fs.readFile(sourcePath);
-      await fs.writeFile(destinationPath, new Uint8Array(data));
+      const destination = path.join(destinationRoot, artifact);
+      fsExtra.copySync(sourcePath, destination, { overwrite: true, errorOnExist: false });
+      mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
     }
   }
+
+  if (mirroredEntries.length > 0) {
+    const sortedEntries = Array.from(new Set(mirroredEntries)).sort();
+    const summary = sortedEntries.join(', ');
+    const message = `Mirrored ${sortedEntries.length} artifact${
+      sortedEntries.length === 1 ? '' : 's'
+    } to Agent OS for ${featureName}: ${summary}`;
+    agentOsLogger.info(message);
+  } else {
+    agentOsLogger.info(`No artifacts mirrored from ${resolvedSource} for ${featureName}.`);
+  }
+}
+
+function listPathsRelativeToRoot(targetPath: string, root: string): string[] {
+  if (!fsExtra.pathExistsSync(targetPath)) {
+    return [];
+  }
+
+  const stats = fsExtra.statSync(targetPath);
+  if (!stats.isDirectory()) {
+    return [path.relative(root, targetPath) || path.basename(targetPath)];
+  }
+
+  const files: string[] = [];
+  const stack: string[] = [targetPath];
+
+  while (stack.length > 0) {
+    const current = stack.pop() as string;
+    const dirents = fsExtra.readdirSync(current, { withFileTypes: true });
+
+    if (dirents.length === 0) {
+      const relativeDir = path.relative(root, current);
+      files.push(relativeDir.endsWith(path.sep) ? relativeDir : `${relativeDir}${path.sep}`);
+      continue;
+    }
+
+    for (const dirent of dirents) {
+      const fullPath = path.join(current, dirent.name);
+      if (dirent.isDirectory()) {
+        stack.push(fullPath);
+      } else if (dirent.isFile()) {
+        files.push(path.relative(root, fullPath));
+      }
+    }
+  }
+
+  return files.sort();
 }
