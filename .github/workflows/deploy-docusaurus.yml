@@ -17,6 +17,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: |
+            docu/package-lock.json
+
+      - name: Cache Docusaurus build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            docu/.docusaurus
+            docu/build
+          key: docusaurus-build-${{ runner.os }}-${{ github.ref_name }}-${{ hashFiles('docu/package-lock.json') }}
+          restore-keys: |
+            docusaurus-build-${{ runner.os }}-${{ github.ref_name }}-
+            docusaurus-build-${{ runner.os }}-
+
       - name: Prepare deployment directory
         run: |
           mkdir -p _site
