@@ -1,12 +1,20 @@
-# Spec Kit – Specification Phase (Agent OS)
+---
+phase: specify
+command: /create-spec
+description: Produce or refresh the feature specification package.
+---
 
-1. Run the Claude CLI to generate or update the feature specification:
+See the [`specify` phase in spec_kit.yml](../../workflows/spec_kit.yml#L10-L23) for orchestration context.
+
+1. Run the CLI command mapped in `.agent-os/command-map.json`:
    ```bash
-   claude /specify "{{ feature }}" "{{ brief | default('') }}"
+   claude /specify "${FEATURE_NAME}" ${REQUEST_FLAGS:-}
    ```
-   - `{{ feature }}` is the folder name under `specs/`.
-   - `{{ brief }}` is optional additional context supplied by the requester.
-2. Wait for the CLI to finish and confirm `specs/{{ feature }}/spec.md` was updated.
-3. Mirror the result into Agent OS storage (the Spec Kit CLI does this automatically):
-   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/spec.md`
-4. Announce completion back to Agent OS with a short summary of notable risks or open questions so the next phase can review them.
+   Use the feature folder name under `specs/` and forward any caller-supplied flags.
+2. Block until `specs/${FEATURE_NAME}/spec.md` exists and the CLI process has exited successfully.
+3. Mirror the updated file to Agent OS storage:
+   ```bash
+   rsync -a "specs/${FEATURE_NAME}/" ".agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/"
+   ```
+4. Append a status JSON log (include start/end timestamps and command exit code) to `.agent-os/product/${FEATURE_NAME}/logs/specify.jsonl`.
+5. Emit a completion event back to the coordinator so the next phase can start.

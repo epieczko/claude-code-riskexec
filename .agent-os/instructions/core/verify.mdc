@@ -1,0 +1,21 @@
+---
+phase: verify
+command: /verify
+description: Perform QA validation and document the release recommendation.
+---
+
+See the [`verify` phase in spec_kit.yml](../../workflows/spec_kit.yml#L70-L89) for orchestration context.
+
+1. Run the mapped CLI command to launch the QA review:
+   ```bash
+   claude /verify "${FEATURE_NAME}" \
+     --spec "specs/${FEATURE_NAME}/spec.md" \
+     --plan "specs/${FEATURE_NAME}/plan.md" \
+     --tasks "specs/${FEATURE_NAME}/tasks.md" \
+     --implementation "specs/${FEATURE_NAME}/implementation"
+   ```
+   Supply additional scope or evidence flags when requested by the coordinator.
+2. Wait until `specs/${FEATURE_NAME}/qa-report.md` is produced and confirm it contains pass/fail findings.
+3. Mirror the QA report (and any attached evidence directories) to `.agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/` for archival.
+4. Append a JSON status entry with timestamps, verdict, and defect counts to `.agent-os/product/${FEATURE_NAME}/logs/verify.jsonl`.
+5. Post the final QA summary so release or remediation workflows can proceed.

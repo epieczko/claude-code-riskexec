@@ -1,4 +1,57 @@
 {
+  "implement": {
+    "agent": "bmad-developer",
+    "cliCommand": "/implement",
+    "agentOsCommand": "/execute-tasks",
+    "instruction": "core/implement.mdc",
+    "inputs": [
+      "specs/{feature}/plan.md",
+      "specs/{feature}/tasks.md"
+    ],
+    "output": "specs/{feature}/implementation"
+  },
+  "plan": {
+    "agent": "bmad-architect",
+    "cliCommand": "/plan",
+    "agentOsCommand": "/plan",
+    "instruction": "core/plan.mdc",
+    "inputs": [
+      "specs/{feature}/spec.md"
+    ],
+    "output": "specs/{feature}/plan.md"
+  },
+  "specify": {
+    "agent": "bmad-analyst",
+    "cliCommand": "/specify",
+    "agentOsCommand": "/create-spec",
+    "instruction": "core/specify.mdc",
+    "inputs": [],
+    "output": "specs/{feature}/spec.md"
+  },
+  "tasks": {
+    "agent": "bmad-pm",
+    "cliCommand": "/tasks",
+    "agentOsCommand": "/create-tasks",
+    "instruction": "core/tasks.mdc",
+    "inputs": [
+      "specs/{feature}/spec.md",
+      "specs/{feature}/plan.md"
+    ],
+    "output": "specs/{feature}/tasks.md"
+  },
+  "verify": {
+    "agent": "bmad-qa",
+    "cliCommand": "/verify",
+    "agentOsCommand": "/verify",
+    "instruction": "core/verify.mdc",
+    "inputs": [
+      "specs/{feature}/spec.md",
+      "specs/{feature}/plan.md",
+      "specs/{feature}/tasks.md",
+      "specs/{feature}/implementation"
+    ],
+    "output": "specs/{feature}/qa-report.md"
+  }
   "/create-spec": { "cli": "/specify", "agent": "bmad-analyst" },
   "/plan-spec": { "cli": "/plan", "agent": "bmad-architect" },
   "/create-tasks": { "cli": "/tasks", "agent": "bmad-pm" },

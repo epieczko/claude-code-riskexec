@@ -1,11 +1,17 @@
-# Spec Kit – Implementation Phase (Agent OS)
+---
+phase: implement
+command: /execute-tasks
+description: Execute the engineering tasks and capture implementation evidence.
+---
 
-1. Execute implementation work for each task via the Claude CLI:
+See the [`implement` phase in spec_kit.yml](../../workflows/spec_kit.yml#L54-L69) for orchestration context.
+
+1. Run the mapped CLI command to begin implementation:
    ```bash
-   claude /implement "{{ feature }}" "{{ task | default('') }}"
+   claude /implement "${FEATURE_NAME}" --plan "specs/${FEATURE_NAME}/plan.md" --tasks "specs/${FEATURE_NAME}/tasks.md"
    ```
-   - Omit `{{ task }}` to iterate sequentially; provide it to resume a specific checklist entry.
-2. Allow the CLI command to finish so the implementation notes are written under `specs/{{ feature }}/implementation/`.
-3. Confirm Agent OS mirrors were updated:
-   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/implementation/`
-4. Reply to Agent OS with the task status, tests executed, and any follow-up actions so downstream QA or verification phases know what changed.
+   Include branch names or feature flags supplied by the coordinator.
+2. Wait until `specs/${FEATURE_NAME}/implementation/` is populated (commits, diffs, or notes) and confirm the CLI exits cleanly.
+3. Mirror the entire implementation directory into `.agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/implementation/` using `rsync -a` so QA has access to artifacts.
+4. Append a JSON status entry with timestamps, repository references, and validation hashes to `.agent-os/product/${FEATURE_NAME}/logs/implement.jsonl`.
+5. Publish an implementation summary and transition control to the QA phase.
