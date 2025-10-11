@@ -3,6 +3,8 @@ skill: spec-kit.tasks
 model: claude-3.7-sonnet
 maxTokens: 8000
 strict: true
+phase: tasks
+phaseLabel: "Tasks (Manage)"
 ---
 
 # /tasks — Spec Kit Phase 3

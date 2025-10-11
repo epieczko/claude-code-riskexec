@@ -84,6 +84,16 @@ Phase 2 of the Spec Kit workflow introduces semi-automated handoffs between `/s
 
 To skip phases or rerun from a checkpoint, use `--resume=plan`, `--resume=tasks`, or `--start-task "Task label"`. Pass `--skip-qa` if you want to defer the `/verify` pass. Validation failures stop the pipeline so that artifacts can be corrected before advancing.
 
+## 🧱 Architecture at a Glance
+
+Whether you're wiring up a new workflow or contributing templates, the BMAD (Specify → Plan → Tasks → Implement → Verify) phases
+drive how this repository is organized:
+
+- **Spec Kit deliverables** live under `specs/<feature>/` and are produced sequentially by the BMAD agents. Each phase handoff is encoded in the matching command (`/specify`, `/plan`, `/tasks`, `/implement`, `/verify`).
+- **Agent and command source** sits in `.claude/` for live usage and in `cli-tool/components/` for CLI distribution. Frontmatter now includes a `phase` label so you can immediately identify where the component fits in the lifecycle.
+- **Documentation** is cataloged in [`docs/SUMMARY.md`](docs/SUMMARY.md) and split across architecture, usage, and internals sections. Start with [`docs/internals/developer-guide.md`](docs/internals/developer-guide.md) for contributor onboarding and [`docs/architecture/Context_Architecture_Overview.md`](docs/architecture/Context_Architecture_Overview.md) for a deeper dive into system design.
+- **Docusaurus site content** mirrors the repository docs under `docu/docs/`, making it easy to surface the same structure on [docs.riskexec.com](https://docs.riskexec.com/).
+
 ## 📖 Documentation
 
 **[📚 docs.riskexec.com](https://docs.riskexec.com/)** - Complete guides, examples, and API reference for all components and tools.

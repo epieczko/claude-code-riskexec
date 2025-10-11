@@ -3,6 +3,8 @@ skill: lint.command
 model: claude-3.7-haiku
 maxTokens: 4000
 strict: true
+phase: verify
+phaseLabel: "Verify (QA)"
 ---
 
 # Python Linter
