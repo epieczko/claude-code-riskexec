@@ -1,4 +1,5 @@
-import { parseTasksChecklist, slugifyTaskTitle } from '../src/lib/tasks';
+import { parseTasksChecklist, parseTasksFromContext, slugifyTaskTitle } from '../src/lib/tasks';
+import { makeTaskContext } from './factories';
 
 describe('parseTasksChecklist', () => {
   it('returns an empty array when no tasks are present', () => {
@@ -21,6 +22,20 @@ describe('parseTasksChecklist', () => {
     const tasks = parseTasksChecklist(markdown);
     expect(tasks).toHaveLength(1);
     expect(tasks[0].title).toBe('Valid task');
+  });
+});
+
+describe('parseTasksFromContext', () => {
+  it('converts stored context tasks into checklist items', () => {
+    const context = makeTaskContext([
+      { title: 'Implement feature', completed: true },
+      { title: 'Write docs' }
+    ]);
+
+    const tasks = parseTasksFromContext(context);
+    expect(tasks).toHaveLength(2);
+    expect(tasks[0]).toMatchObject({ index: 1, title: 'Implement feature', completed: true });
+    expect(tasks[1].raw).toContain('Write docs');
   });
 });
 
