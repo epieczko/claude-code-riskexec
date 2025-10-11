@@ -1,6 +1,7 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { mirrorAgentOsDirectory, mirrorAgentOsFile } from '../lib/agentOs';
 import { extractPlanContext, loadContext, saveContext } from '../lib/contextStore';
 import type { SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
@@ -59,6 +60,18 @@ export class PlanPhase implements PhaseHandler {
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
     await writeFileAtomic(planPath, outputMarkdown);
+    await mirrorAgentOsFile({
+      workspaceRoot: options.workspaceRoot,
+      featureName: options.featureName,
+      relativePath: path.relative(options.featureDir, planPath),
+      content: outputMarkdown
+    });
+    await mirrorAgentOsDirectory({
+      workspaceRoot: options.workspaceRoot,
+      featureName: options.featureName,
+      sourceDir: architectureDir,
+      targetSubdir: 'architecture'
+    });
 
     const contextPath = await saveContext(options.featureName, this.phaseName, extractPlanContext(outputMarkdown), {
       workspaceRoot: options.workspaceRoot

@@ -1,0 +1,11 @@
+# Spec Kit – Implementation Phase
+
+Execute development tasks sequentially, capturing validation evidence for each checklist item.
+
+```bash
+claude /implement "{{ feature }}" "{{ task_label }}"
+```
+
+- Replace `{{ feature }}` with the feature identifier used under `specs/`.
+- Use `{{ task_label }}` to target a specific task when resuming; provide an empty string to continue in order.
+- Each run writes an implementation log under `specs/{{ feature }}/implementation/`.

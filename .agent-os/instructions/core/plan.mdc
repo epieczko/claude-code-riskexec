@@ -1,0 +1,10 @@
+# Spec Kit – Architecture Plan Phase
+
+Generate or refresh the technical plan derived from the approved specification.
+
+```bash
+claude /plan "{{ feature }}"
+```
+
+- Replace `{{ feature }}` with the feature identifier used under `specs/`.
+- The command writes `plan.md` and supporting artifacts under `specs/{{ feature }}/`.

@@ -1,0 +1,11 @@
+# Spec Kit – Specification Phase
+
+Use the Claude CLI to create or update the feature specification so it satisfies the Spec Kit constitution.
+
+```bash
+claude /specify "{{ feature }}" "{{ brief }}"
+```
+
+- Replace `{{ feature }}` with the feature identifier used under `specs/`.
+- Provide `{{ brief }}` when additional context is available; otherwise supply an empty string.
+- The command writes `spec.md` in `specs/{{ feature }}/`.

@@ -1,6 +1,7 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { mirrorAgentOsDirectory } from '../lib/agentOs';
 import { loadContext } from '../lib/contextStore';
 import type { TaskContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
@@ -118,6 +119,13 @@ export class ImplementPhase implements PhaseHandler {
       await writeFileAtomic(outputPath, `${result.outputText.trim()}\n`);
       logPaths.push(outputPath);
     }
+
+    await mirrorAgentOsDirectory({
+      workspaceRoot: options.workspaceRoot,
+      featureName: options.featureName,
+      sourceDir: implementationDir,
+      targetSubdir: 'implementation'
+    });
 
     return {
       phase: this.phaseName,
