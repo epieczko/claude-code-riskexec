@@ -1,10 +1,17 @@
-# Spec Kit – Task Breakdown Phase (Agent OS)
+---
+phase: tasks
+command: /create-tasks
+description: Transform the plan into an ordered backlog with owners and estimates.
+---
 
-1. Launch the Claude CLI to generate the implementation checklist:
+See the [`tasks` phase in spec_kit.yml](../../workflows/spec_kit.yml#L38-L53) for orchestration context.
+
+1. Run the mapped CLI command to produce the task list:
    ```bash
-   claude /tasks "{{ feature }}"
+   claude /tasks "${FEATURE_NAME}" --spec "specs/${FEATURE_NAME}/spec.md" --plan "specs/${FEATURE_NAME}/plan.md"
    ```
-2. Let the command finish so it can read the latest `spec.md` and `plan.md`, then overwrite `specs/{{ feature }}/tasks.md` with the decomposed checklist.
-3. Verify Agent OS mirror paths are refreshed:
-   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/tasks.md`
-4. Send Agent OS a brief status update summarizing task count, QA ownership notes, and any dependencies called out in the checklist.
+   Pass through any prioritization or scheduling flags from the coordinator.
+2. Wait until `specs/${FEATURE_NAME}/tasks.md` is written and verify the file contains at least one task entry.
+3. Mirror the task file to `.agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/` so downstream phases can read it.
+4. Append a JSON status line with timestamps, owner assignments, and validation notes to `.agent-os/product/${FEATURE_NAME}/logs/tasks.jsonl`.
+5. Signal completion to unlock the implementation phase.

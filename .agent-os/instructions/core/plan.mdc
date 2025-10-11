@@ -1,11 +1,20 @@
-# Spec Kit – Architecture Plan Phase (Agent OS)
+---
+phase: plan
+command: /plan
+description: Build an actionable architecture plan from the approved specification.
+---
 
-1. Invoke the Claude CLI to translate the approved specification into a technical plan:
+See the [`plan` phase in spec_kit.yml](../../workflows/spec_kit.yml#L24-L37) for orchestration context.
+
+1. Run the mapped CLI command to generate the plan artifact:
    ```bash
-   claude /plan "{{ feature }}"
+   claude /plan "${FEATURE_NAME}" --spec "specs/${FEATURE_NAME}/spec.md"
    ```
-2. Wait for the CLI execution to complete, ensuring it reads `specs/{{ feature }}/spec.md` and writes the refreshed plan to `specs/{{ feature }}/plan.md` (plus any diagrams under `specs/{{ feature }}/architecture/`).
-3. Confirm the artifacts were mirrored for Agent OS consumption:
-   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/plan.md`
-   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/architecture/`
-4. Report back to Agent OS with a concise plan summary highlighting architecture decisions, risks, and next-step approvals.
+   Include any additional planner flags provided by the coordinator.
+2. Wait for `specs/${FEATURE_NAME}/plan.md` to be created or updated before continuing.
+3. Mirror the result into product storage:
+   ```bash
+   rsync -a "specs/${FEATURE_NAME}/plan.md" ".agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/"
+   ```
+4. Append a JSON status record with timestamps, command arguments, and file checksums to `.agent-os/product/${FEATURE_NAME}/logs/plan.jsonl`.
+5. Notify Agent OS that planning is complete so the task breakdown can start.

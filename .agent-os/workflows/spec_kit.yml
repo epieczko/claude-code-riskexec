@@ -67,3 +67,23 @@ phases:
       checklist:
         - "Unit tests defined"
         - "QA notes captured"
+  - id: verify
+    label: "Quality Assurance"
+    agent: "bmad-qa"
+    command: "/verify"
+    instruction: "core/verify.mdc"
+    input:
+      - "specs/{feature}/spec.md"
+      - "specs/{feature}/plan.md"
+      - "specs/{feature}/tasks.md"
+      - "specs/{feature}/implementation"
+    output: "specs/{feature}/qa-report.md"
+    gate:
+      requires:
+        - "specs/{feature}/implementation"
+        - "specs/{feature}/tasks.md"
+        - "specs/{feature}/plan.md"
+        - "specs/{feature}/spec.md"
+      checklist:
+        - "Regression evidence archived"
+        - "Release recommendation recorded"
