@@ -23,6 +23,8 @@
     "components:validate": "node scripts/validateBmadComponents.js",
     "phase-docs": "ts-node scripts/generatePhaseDocs.ts",
     "workflow:verify": "node scripts/verifyWorkflowConfig.js",
+    "agentos:command-map": "ts-node --project tsconfig.scripts.json scripts/generateAgentOsCommandMap.ts",
+    "agentos:verify": "ts-node --project tsconfig.scripts.json scripts/verifyAgentOSIntegration.ts",
     "format": "prettier -w .",
     "spec-kit:workflow": "node scripts/runSpecKitWorkflow.js",
     "spec-workflow": "node -r ts-node/register src/workflowOrchestrator.ts"

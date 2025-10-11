@@ -42,6 +42,12 @@ describe('Phase handlers', () => {
     const specContent = await fs.readFile(specPath, 'utf8');
     expect(specContent).toContain('First requirement');
 
+    const mirroredSpec = await fs.readFile(
+      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'spec.md'),
+      'utf8'
+    );
+    expect(mirroredSpec).toBe(specContent);
+
     expect(result.details).toMatchObject({ agentCommand: 'mock' });
 
     const contextPath = path.join(featureDir, 'context', 'specify.json');
@@ -79,6 +85,22 @@ describe('Phase handlers', () => {
     const planContent = await fs.readFile(path.join(featureDir, 'plan.md'), 'utf8');
     expect(planContent).toContain('Layered');
     expect(result.details).toMatchObject({ agentCommand: 'mock-plan', specContextLoaded: true });
+
+    const mirroredPlan = await fs.readFile(
+      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'plan.md'),
+      'utf8'
+    );
+    expect(mirroredPlan).toBe(planContent);
+
+    const architectureMirror = path.join(
+      workspaceRoot,
+      '.agent-os',
+      'product',
+      'demo-feature',
+      'architecture'
+    );
+    const architectureStats = await fs.stat(architectureMirror);
+    expect(architectureStats.isDirectory()).toBe(true);
 
     const contextEnvelope = JSON.parse(
       await fs.readFile(path.join(featureDir, 'context', 'plan.json'), 'utf8')
@@ -121,6 +143,12 @@ describe('Phase handlers', () => {
     expect(tasksContent).toContain('- [ ] Do work');
     expect(result.details).toMatchObject({ taskProgress: '1/2 completed (50%)' });
 
+    const mirroredTasks = await fs.readFile(
+      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'tasks.md'),
+      'utf8'
+    );
+    expect(mirroredTasks).toBe(tasksContent);
+
     const contextEnvelope = JSON.parse(
       await fs.readFile(path.join(featureDir, 'context', 'tasks.json'), 'utf8')
     );
@@ -161,5 +189,19 @@ describe('Phase handlers', () => {
     const contents = await Promise.all(result.logPaths!.map(file => fs.readFile(file, 'utf8')));
     expect(contents[0]).toContain('Implementation log for 1');
     expect(contents[1]).toContain('Implementation log for 2');
+
+    const implementationMirror = path.join(
+      workspaceRoot,
+      '.agent-os',
+      'product',
+      'demo-feature',
+      'implementation'
+    );
+    const mirroredFiles = await fs.readdir(implementationMirror);
+    expect(mirroredFiles.sort()).toEqual(result.logPaths!.map(file => path.basename(file)).sort());
+    const mirroredContents = await Promise.all(
+      mirroredFiles.map(name => fs.readFile(path.join(implementationMirror, name), 'utf8'))
+    );
+    expect(mirroredContents).toEqual(contents);
   });
 });
