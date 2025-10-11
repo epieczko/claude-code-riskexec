@@ -61,16 +61,25 @@ export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): P
 
   if (targetSubdir) {
     const destination = path.join(destinationRoot, targetSubdir);
+    if (fsExtra.pathExistsSync(destination)) {
+      fsExtra.removeSync(destination);
+    }
+    await ensureDir(path.dirname(destination));
     fsExtra.copySync(resolvedSource, destination, { overwrite: true, errorOnExist: false });
     mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
   } else {
     for (const artifact of PHASE_ARTIFACTS) {
       const sourcePath = path.join(resolvedSource, artifact);
+      const destination = path.join(destinationRoot, artifact);
+      if (fsExtra.pathExistsSync(destination)) {
+        fsExtra.removeSync(destination);
+      }
+
       if (!fsExtra.pathExistsSync(sourcePath)) {
         continue;
       }
 
-      const destination = path.join(destinationRoot, artifact);
+      await ensureDir(path.dirname(destination));
       fsExtra.copySync(sourcePath, destination, { overwrite: true, errorOnExist: false });
       mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
     }
