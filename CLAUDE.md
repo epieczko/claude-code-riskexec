@@ -372,6 +372,33 @@ Automation triggers for development workflows:
 - **Notifications**: `discord-notifications`, `slack-notifications`, `telegram-notifications`
 - **Performance**: `performance-monitor`, `lint-on-save`, `test-runner`
 
+## Spec Kit & BMAD Workflow (Phase 1)
+
+The repository ships with a lightweight Spec Kit setup that pairs with BMAD role agents to run gated feature development inside Claude Code.
+
+### Directory Layout
+- `specs/constitution.md` — Phase 1 quality rules and review checklist.
+- `specs/<feature>/spec.md` — Functional specification authored during `/specify`.
+- `specs/<feature>/plan.md` — Technical plan from `/plan`.
+- `specs/<feature>/tasks.md` — Task breakdown from `/tasks`.
+
+### Slash Commands
+- `/specify` — Invokes **bmad-analyst** (with PM support) to create or revise the specification.
+- `/plan` — Invokes **bmad-architect** to translate the spec into a technical blueprint.
+- `/tasks` — Invokes **bmad-pm** (with QA partnership) to build the actionable task list.
+- `/implement` — Invokes **bmad-developer** (with QA validation) to execute approved tasks.
+
+Each command accepts an optional `<feature-name>` argument (default `Feature-A`) and reads/writes the corresponding files under `specs/` while enforcing constitution rules.
+
+### Active BMAD Agents
+- **bmad-analyst** — Requirements expert producing traceable specs with explicit open questions.
+- **bmad-pm** — Delivery lead defining milestones, ownership, and acceptance coverage.
+- **bmad-architect** — Technical planner documenting architecture decisions and validation strategy.
+- **bmad-developer** — Implementation specialist executing tasks with test evidence.
+- **bmad-qa** — Quality analyst designing and documenting validation and sign-off.
+
+Refer to `.claude/agents/bmad-team/` for full agent prompts and to `.claude/commands/` for command details. Follow the gated order (Specify → Plan → Tasks → Implement) and obtain approvals at each stage before progressing.
+
 ### Component Installation System
 
 #### CLI Installation Patterns
