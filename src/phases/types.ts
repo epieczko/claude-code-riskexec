@@ -12,6 +12,7 @@ export interface PhaseRunOptions extends PhaseContext {
   specContext?: SpecContext | null;
   planContext?: PlanContext | null;
   taskContext?: TaskContext | null;
+  rebuildContext?: boolean;
 }
 
 export interface PhaseResult {
