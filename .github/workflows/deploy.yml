@@ -17,6 +17,15 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: ESLint
+        run: npm run lint
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
