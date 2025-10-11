@@ -1,0 +1,60 @@
+name: "spec-kit-bmad"
+description: "Default Spec Kit + BMAD workflow automation"
+version: "2.0.0"
+settings:
+  auto_proceed: true
+  stop_on_failure: true
+  feature_root: "specs/{feature}"
+phases:
+  - id: specify
+    label: "Specification"
+    agent: "bmad-analyst"
+    input: []
+    output: "specs/{feature}/spec.md"
+    continue_on_approval: true
+    gate:
+      requires:
+        - docs: "specs/constitution.md"
+      checklist:
+        - "Executive summary reviewed"
+        - "Open questions answered or tracked"
+  - id: plan
+    label: "Architecture Plan"
+    agent: "bmad-architect"
+    input:
+      - "specs/{feature}/spec.md"
+    output: "specs/{feature}/plan.md"
+    gate:
+      requires:
+        - "specs/{feature}/spec.md"
+      checklist:
+        - "Traceability map linked"
+        - "Risks documented"
+  - id: tasks
+    label: "Task Breakdown"
+    agent: "bmad-pm"
+    input:
+      - "specs/{feature}/spec.md"
+      - "specs/{feature}/plan.md"
+    output: "specs/{feature}/tasks.md"
+    gate:
+      requires:
+        - "specs/{feature}/plan.md"
+        - "specs/{feature}/spec.md"
+      checklist:
+        - "QA owner assigned"
+        - "Every requirement mapped to at least one task"
+  - id: implement
+    label: "Implementation"
+    agent: "bmad-developer"
+    input:
+      - "specs/{feature}/plan.md"
+      - "specs/{feature}/tasks.md"
+    output: "specs/{feature}/implementation"
+    gate:
+      requires:
+        - "specs/{feature}/tasks.md"
+        - "specs/{feature}/plan.md"
+      checklist:
+        - "Unit tests defined"
+        - "QA notes captured"

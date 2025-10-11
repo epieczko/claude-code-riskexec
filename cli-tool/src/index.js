@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const fs = require('fs-extra');
 const path = require('path');
 const ora = require('ora');
+const { spawnSync } = require('child_process');
 const { detectProject } = require('./utils');
 const { getTemplateConfig, TEMPLATES_CONFIG } = require('./templates');
 const { createPrompts, interactivePrompts } = require('./prompts');
@@ -126,7 +127,13 @@ async function createClaudeConfig(options = {}) {
     await executeSandbox(options, targetDir);
     return;
   }
-  
+
+  if (shouldRunSpecWorkflow(options)) {
+    const featureName = resolveSpecWorkflowFeature(options);
+    await runSpecWorkflowAutomation(featureName, options);
+    return;
+  }
+
   // Handle multiple components installation (new approach)
   if (options.agent || options.command || options.mcp || options.setting || options.hook) {
     // If --workflow is used with components, treat it as YAML
@@ -380,6 +387,104 @@ async function createClaudeConfig(options = {}) {
   if (options.prompt && !options.sandbox) {
     await handlePromptExecution(options.prompt, targetDir);
   }
+}
+
+function shouldRunSpecWorkflow(options) {
+  if (options.specWorkflow) {
+    return true;
+  }
+
+  if (!options.workflow) {
+    return false;
+  }
+
+  if (options.agent || options.command || options.mcp || options.setting || options.hook) {
+    return false;
+  }
+
+  const value = typeof options.workflow === 'string' ? options.workflow.trim() : '';
+  if (!value) {
+    return false;
+  }
+
+  if (value.startsWith('#')) {
+    return false;
+  }
+
+  if (/\n/.test(value)) {
+    return false;
+  }
+
+  if (/\.ya?ml$/i.test(value)) {
+    return false;
+  }
+
+  const base64Pattern = /^[A-Za-z0-9+/=]+$/;
+  if (value.length > 24 && value.length % 4 === 0 && base64Pattern.test(value)) {
+    return false;
+  }
+
+  return true;
+}
+
+function resolveSpecWorkflowFeature(options) {
+  if (typeof options.specWorkflow === 'string' && options.specWorkflow.trim()) {
+    return options.specWorkflow.trim();
+  }
+
+  if (typeof options.workflow === 'string' && options.workflow.trim()) {
+    return options.workflow.trim();
+  }
+
+  return 'Feature-A';
+}
+
+async function runSpecWorkflowAutomation(featureName, options) {
+  const workspaceRoot = path.resolve(__dirname, '..', '..');
+  const orchestratorPath = path.join(workspaceRoot, 'src', 'workflowOrchestrator.ts');
+
+  let tsNodeRegister;
+  try {
+    tsNodeRegister = require.resolve('ts-node/register');
+  } catch (error) {
+    throw new Error('ts-node is required to run the Spec Kit workflow. Run `npm install` to install dependencies.');
+  }
+
+  const args = ['-r', tsNodeRegister, orchestratorPath, '--feature', featureName];
+
+  if (options.workflowBrief) {
+    args.push('--brief', options.workflowBrief);
+  }
+  if (options.workflowResume) {
+    args.push('--resume-from', options.workflowResume);
+  }
+  if (options.workflowTask) {
+    args.push('--resume-task', options.workflowTask);
+  }
+  if (options.workflowPhases) {
+    args.push('--phases', options.workflowPhases);
+  }
+  if (options.workflowDryRun) {
+    args.push('--dry-run');
+  }
+
+  console.log(chalk.blue(`\n🚀 Running Spec Kit workflow automation for ${featureName}...`));
+
+  const result = spawnSync('node', args, {
+    stdio: 'inherit',
+    cwd: workspaceRoot,
+    env: process.env
+  });
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  if (result.status !== 0) {
+    throw new Error(`Spec Kit workflow exited with status ${result.status}`);
+  }
+
+  console.log(chalk.green('\n✅ Spec Kit workflow complete.'));
 }
 
 // Individual component installation functions
