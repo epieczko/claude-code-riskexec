@@ -1,0 +1,10 @@
+# Spec Kit – Task Breakdown Phase
+
+Create the execution-ready task list with QA notes derived from the plan and specification.
+
+```bash
+claude /tasks "{{ feature }}"
+```
+
+- Replace `{{ feature }}` with the feature identifier used under `specs/`.
+- The command writes `tasks.md` in `specs/{{ feature }}/` with traceable checklist items.
