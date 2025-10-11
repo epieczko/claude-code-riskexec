@@ -2,7 +2,10 @@ import fs from 'fs/promises';
 import path from 'path';
 import { load as loadYaml } from 'js-yaml';
 import { phaseRegistry } from '../src/phases/registry';
-import { AgentOsCommandMapEntry, buildAgentOsCommandMap } from './generateAgentOsCommandMap';
+import {
+  AgentOsCommandMapEntry,
+  buildAgentOsCommandMap,
+} from './generateAgentOsCommandMap';
 
 interface AgentOsWorkflowPhase {
   id: string;
@@ -71,18 +74,35 @@ function compareCommandMaps(
 
 export async function verifyAgentOsIntegration(): Promise<void> {
   const workspaceRoot = path.resolve(__dirname, '..');
-  const workflowPath = path.join(workspaceRoot, '.agent-os', 'workflows', 'spec_kit.yml');
-  const commandMapPath = path.join(workspaceRoot, '.agent-os', 'command-map.json');
-  const instructionsRoot = path.join(workspaceRoot, '.agent-os', 'instructions');
+  const workflowPath = path.join(
+    workspaceRoot,
+    '.agent-os',
+    'workflows',
+    'spec_kit.yml'
+  );
+  const commandMapPath = path.join(
+    workspaceRoot,
+    '.agent-os',
+    'command-map.json'
+  );
+  const instructionsRoot = path.join(
+    workspaceRoot,
+    '.agent-os',
+    'instructions'
+  );
 
-  const [workflowSource, commandMapSource, generatedCommandMap] = await Promise.all([
-    fs.readFile(workflowPath, 'utf8'),
-    fs.readFile(commandMapPath, 'utf8'),
-    buildAgentOsCommandMap(workspaceRoot)
-  ]);
+  const [workflowSource, commandMapSource, generatedCommandMap] =
+    await Promise.all([
+      fs.readFile(workflowPath, 'utf8'),
+      fs.readFile(commandMapPath, 'utf8'),
+      buildAgentOsCommandMap(workspaceRoot),
+    ]);
 
   const workflow = loadYaml(workflowSource) as AgentOsWorkflow;
-  const commandMap = JSON.parse(commandMapSource) as Record<string, AgentOsCommandMapEntry>;
+  const commandMap = JSON.parse(commandMapSource) as Record<
+    string,
+    AgentOsCommandMapEntry
+  >;
 
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -90,7 +110,9 @@ export async function verifyAgentOsIntegration(): Promise<void> {
   for (const phase of workflow.phases ?? []) {
     const registryEntry = phaseRegistry[phase.id];
     if (!registryEntry) {
-      errors.push(`Phase "${phase.id}" from Agent OS workflow is missing from phaseRegistry.`);
+      errors.push(
+        `Phase "${phase.id}" from Agent OS workflow is missing from phaseRegistry.`
+      );
       continue;
     }
 
@@ -100,7 +122,11 @@ export async function verifyAgentOsIntegration(): Promise<void> {
       );
     }
 
-    if (phase.output && registryEntry.output && phase.output !== registryEntry.output) {
+    if (
+      phase.output &&
+      registryEntry.output &&
+      phase.output !== registryEntry.output
+    ) {
       errors.push(
         `Output mismatch for phase "${phase.id}": workflow=${phase.output}, registry=${registryEntry.output}.`
       );
@@ -109,11 +135,13 @@ export async function verifyAgentOsIntegration(): Promise<void> {
     const expectedInputs = Array.isArray(registryEntry.input)
       ? registryEntry.input
       : registryEntry.input
-      ? [registryEntry.input]
-      : [];
+        ? [registryEntry.input]
+        : [];
     const workflowInputs = toArray(phase.input);
     for (const input of expectedInputs) {
-      const hasMatch = workflowInputs.some(candidate => candidate.endsWith(input));
+      const hasMatch = workflowInputs.some((candidate) =>
+        candidate.endsWith(input)
+      );
       if (!hasMatch) {
         errors.push(
           `Input "${input}" from phaseRegistry missing in Agent OS workflow phase "${phase.id}".`
@@ -138,14 +166,27 @@ export async function verifyAgentOsIntegration(): Promise<void> {
     }
 
     const cliCommandName = mapEntry.cliCommand.replace(/^\//, '');
-    if (!(await fileExists(path.join(workspaceRoot, '.claude', 'commands', `${cliCommandName}.md`)))) {
+    if (
+      !(await fileExists(
+        path.join(workspaceRoot, '.claude', 'commands', `${cliCommandName}.md`)
+      ))
+    ) {
       errors.push(
         `CLI command file for phase "${phase.id}" not found: .claude/commands/${cliCommandName}.md.`
       );
     }
 
     const agentOsCommandName = mapEntry.agentOsCommand.replace(/^\//, '');
-    if (!(await fileExists(path.join(workspaceRoot, '.claude', 'commands', `${agentOsCommandName}.md`)))) {
+    if (
+      !(await fileExists(
+        path.join(
+          workspaceRoot,
+          '.claude',
+          'commands',
+          `${agentOsCommandName}.md`
+        )
+      ))
+    ) {
       errors.push(
         `Agent OS command alias for phase "${phase.id}" missing: .claude/commands/${agentOsCommandName}.md.`
       );
@@ -166,7 +207,7 @@ export async function verifyAgentOsIntegration(): Promise<void> {
   errors.push(...compareCommandMaps(generatedCommandMap, commandMap));
 
   const extraEntries = Object.keys(commandMap).filter(
-    phaseId => !(workflow.phases ?? []).some(phase => phase.id === phaseId)
+    (phaseId) => !(workflow.phases ?? []).some((phase) => phase.id === phaseId)
   );
   for (const extra of extraEntries) {
     warnings.push(`Command map contains unused phase "${extra}".`);
@@ -196,7 +237,7 @@ export async function verifyAgentOsIntegration(): Promise<void> {
 }
 
 if (require.main === module) {
-  verifyAgentOsIntegration().catch(error => {
+  verifyAgentOsIntegration().catch((error) => {
     // eslint-disable-next-line no-console
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;

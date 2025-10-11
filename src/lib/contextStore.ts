@@ -53,7 +53,10 @@ export interface LoadContextOptions {
   workspaceRoot?: string;
 }
 
-export type RunMcpCommand = (command: string, payload: unknown) => Promise<unknown>;
+export type RunMcpCommand = (
+  command: string,
+  payload: unknown
+) => Promise<unknown>;
 
 let registeredRunMcpCommand: RunMcpCommand | null = null;
 
@@ -68,7 +71,11 @@ function resolveWorkspaceRoot(options?: { workspaceRoot?: string }): string {
   return process.env.SPEC_KIT_ROOT || process.cwd();
 }
 
-function resolveContextPath(feature: string, phase: string, workspaceRoot?: string): string {
+function resolveContextPath(
+  feature: string,
+  phase: string,
+  workspaceRoot?: string
+): string {
   const root = resolveWorkspaceRoot({ workspaceRoot });
   return path.join(root, 'specs', feature, 'context', `${phase}.json`);
 }
@@ -78,14 +85,20 @@ async function pushToMemory(
   payload: unknown,
   options?: SaveContextOptions
 ): Promise<void> {
-  const runner = options?.runMcpCommand || registeredRunMcpCommand || (process.env.MEMORY_MCP_ENDPOINT ? defaultRunMcpCommand : null);
+  const runner =
+    options?.runMcpCommand ||
+    registeredRunMcpCommand ||
+    (process.env.MEMORY_MCP_ENDPOINT ? defaultRunMcpCommand : null);
   if (!runner) {
     return;
   }
   await runner(command, payload);
 }
 
-async function defaultRunMcpCommand(command: string, payload: unknown): Promise<void> {
+async function defaultRunMcpCommand(
+  command: string,
+  payload: unknown
+): Promise<void> {
   const endpoint = process.env.MEMORY_MCP_ENDPOINT;
   if (!endpoint) {
     return;
@@ -95,13 +108,15 @@ async function defaultRunMcpCommand(command: string, payload: unknown): Promise<
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'x-mcp-command': command
+      'x-mcp-command': command,
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
-    throw new Error(`Memory MCP sync failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Memory MCP sync failed: ${response.status} ${response.statusText}`
+    );
   }
 }
 
@@ -117,18 +132,24 @@ export async function saveContext<T>(
     phase,
     savedAt: new Date().toISOString(),
     schemaVersion: CURRENT_CONTEXT_SCHEMA_VERSION,
-    data
+    data,
   };
 
   await writeFileAtomic(targetPath, `${JSON.stringify(envelope, null, 2)}\n`);
 
-  const shouldSync = options?.syncToMemory ?? process.env.SPEC_KIT_MEMORY_SYNC === '1';
+  const shouldSync =
+    options?.syncToMemory ?? process.env.SPEC_KIT_MEMORY_SYNC === '1';
   if (shouldSync) {
-    const command = options?.memoryCommand || process.env.MEMORY_MCP_COMMAND || 'memory.saveContext';
+    const command =
+      options?.memoryCommand ||
+      process.env.MEMORY_MCP_COMMAND ||
+      'memory.saveContext';
     try {
       await pushToMemory(command, envelope, options);
     } catch (error) {
-      console.warn(`⚠️  Failed to sync context to Memory MCP: ${(error as Error).message}`);
+      console.warn(
+        `⚠️  Failed to sync context to Memory MCP: ${(error as Error).message}`
+      );
     }
   }
 
@@ -159,7 +180,9 @@ export async function loadContextEnvelope<T>(
     }
     return parsed;
   } catch (error) {
-    console.warn(`⚠️  Failed to parse context file ${targetPath}: ${(error as Error).message}`);
+    console.warn(
+      `⚠️  Failed to parse context file ${targetPath}: ${(error as Error).message}`
+    );
     return null;
   }
 }
@@ -198,7 +221,7 @@ function parseCheckboxList(section: string | null): Requirement[] {
   }
   const lines = section.split(/\r?\n/);
   const requirements: Requirement[] = [];
-  lines.forEach(line => {
+  lines.forEach((line) => {
     const match = line.match(/^-\s*\[( |x|X)\]\s*(.+)$/);
     if (match) {
       const completed = match[1].toLowerCase() === 'x';
@@ -206,7 +229,7 @@ function parseCheckboxList(section: string | null): Requirement[] {
       requirements.push({
         id: `req-${requirements.length + 1}`,
         text,
-        completed
+        completed,
       });
     }
   });
@@ -219,13 +242,17 @@ function parseList(section: string | null): string[] {
   }
   return section
     .split(/\r?\n/)
-    .map(line => line.replace(/^[-*+\d.\s]+/, '').trim())
-    .filter(item => item.length > 0);
+    .map((line) => line.replace(/^[-*+\d.\s]+/, '').trim())
+    .filter((item) => item.length > 0);
 }
 
 export function extractSpecContext(markdown: string): SpecContext {
-  const requirements = parseCheckboxList(extractSection(markdown, 'Functional Requirements'));
-  const openQuestionsSection = extractSection(markdown, 'Open Questions') || extractSection(markdown, 'Outstanding Questions');
+  const requirements = parseCheckboxList(
+    extractSection(markdown, 'Functional Requirements')
+  );
+  const openQuestionsSection =
+    extractSection(markdown, 'Open Questions') ||
+    extractSection(markdown, 'Outstanding Questions');
   const openQuestions = parseList(openQuestionsSection);
   return { requirements, openQuestions };
 }
@@ -248,7 +275,7 @@ function parseTaskProgress(tasks: TaskItem[]): string {
   if (!tasks.length) {
     return '0/0 completed (0%)';
   }
-  const completed = tasks.filter(task => task.completed).length;
+  const completed = tasks.filter((task) => task.completed).length;
   const percentage = Math.round((completed / tasks.length) * 100);
   return `${completed}/${tasks.length} completed (${percentage}%)`;
 }
@@ -265,7 +292,7 @@ export function extractTaskContext(markdown: string): TaskContext {
     }
   };
 
-  lines.forEach(line => {
+  lines.forEach((line) => {
     const checkboxMatch = line.match(/^-\s*\[( |x|X)\]\s*(.+)$/);
     if (checkboxMatch) {
       flush();
@@ -277,7 +304,7 @@ export function extractTaskContext(markdown: string): TaskContext {
         completed,
         references: [],
         notes: [],
-        raw: line.trim()
+        raw: line.trim(),
       };
       return;
     }
@@ -303,15 +330,24 @@ export function extractTaskContext(markdown: string): TaskContext {
   return { tasks, progress };
 }
 
-export async function ensureContextSetup(feature: string, workspaceRoot?: string): Promise<void> {
-  const targetDir = path.dirname(resolveContextPath(feature, 'placeholder', workspaceRoot)).replace(/placeholder\.json$/, '');
+export async function ensureContextSetup(
+  feature: string,
+  workspaceRoot?: string
+): Promise<void> {
+  const targetDir = path
+    .dirname(resolveContextPath(feature, 'placeholder', workspaceRoot))
+    .replace(/placeholder\.json$/, '');
   await ensureDir(targetDir);
 }
 
-export async function listStoredContexts(workspaceRoot?: string): Promise<string[]> {
+export async function listStoredContexts(
+  workspaceRoot?: string
+): Promise<string[]> {
   const root = resolveWorkspaceRoot({ workspaceRoot });
   const specsDir = path.join(root, 'specs');
-  const entries = await fs.readdir(specsDir, { withFileTypes: true }).catch(() => []);
+  const entries = await fs
+    .readdir(specsDir, { withFileTypes: true })
+    .catch(() => []);
   const contexts: string[] = [];
 
   for (const entry of entries) {
@@ -322,8 +358,8 @@ export async function listStoredContexts(workspaceRoot?: string): Promise<string
     const contextDir = path.join(specsDir, feature, 'context');
     const files = await fs.readdir(contextDir).catch(() => []);
     files
-      .filter(file => file.endsWith('.json'))
-      .forEach(file => {
+      .filter((file) => file.endsWith('.json'))
+      .forEach((file) => {
         contexts.push(path.join(contextDir, file));
       });
   }

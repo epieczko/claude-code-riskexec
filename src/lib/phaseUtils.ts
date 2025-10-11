@@ -31,21 +31,26 @@ export function resolveFeaturePaths(featureDir: string): FeaturePaths {
     plan: path.join(featureDir, 'plan.md'),
     tasks: path.join(featureDir, 'tasks.md'),
     architectureDir: path.join(featureDir, 'architecture'),
-    implementationDir: path.join(featureDir, 'implementation')
+    implementationDir: path.join(featureDir, 'implementation'),
   };
 }
 
-export async function ensureFeaturePaths(featurePaths: FeaturePaths, extraDirs: string[] = []): Promise<void> {
+export async function ensureFeaturePaths(
+  featurePaths: FeaturePaths,
+  extraDirs: string[] = []
+): Promise<void> {
   await ensureDir(featurePaths.featureDir);
-  await Promise.all(extraDirs.map(dir => ensureDir(dir)));
+  await Promise.all(extraDirs.map((dir) => ensureDir(dir)));
 }
 
-export async function readPhaseFiles(descriptors: PhaseFileDescriptor[]): Promise<PhaseIOResult> {
+export async function readPhaseFiles(
+  descriptors: PhaseFileDescriptor[]
+): Promise<PhaseIOResult> {
   const files: Record<string, string | null> = {};
   const missing: string[] = [];
 
   await Promise.all(
-    descriptors.map(async descriptor => {
+    descriptors.map(async (descriptor) => {
       const content = await readFileIfExists(descriptor.path);
       files[descriptor.key] = content;
       if (!content && descriptor.required) {
@@ -57,9 +62,14 @@ export async function readPhaseFiles(descriptors: PhaseFileDescriptor[]): Promis
   return { files, missing };
 }
 
-export function assertPhasePrerequisites(result: PhaseIOResult, phaseName: string): void {
+export function assertPhasePrerequisites(
+  result: PhaseIOResult,
+  phaseName: string
+): void {
   if (result.missing.length) {
-    const details = result.missing.map(item => ` - ${item}`).join('\n');
-    throw new Error(`Missing required inputs for ${phaseName} phase:\n${details}`);
+    const details = result.missing.map((item) => ` - ${item}`).join('\n');
+    throw new Error(
+      `Missing required inputs for ${phaseName} phase:\n${details}`
+    );
   }
 }

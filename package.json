@@ -12,6 +12,8 @@
     "build": "echo 'Build complete'",
     "start": "vercel dev",
     "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\" \"tests/**/*.{ts,tsx,js,jsx}\" \"scripts/**/*.{ts,js}\"",
     "agent:security-auditor": "security-auditor 'Security audit covering codebase, dependencies, and deployment configuration'",
     "policy:models": "node scripts/model-policy-check.js",
     "policy:router": "node scripts/router-verify.js",

@@ -10,7 +10,11 @@ function formatScope(scope: string): string {
   return scope.toUpperCase();
 }
 
-function formatMessage(level: LogLevel, scope: string, message: string): string {
+function formatMessage(
+  level: LogLevel,
+  scope: string,
+  message: string
+): string {
   const prefix = `[${timestamp()}] [${formatScope(scope)}]`;
   switch (level) {
     case 'info':
@@ -45,7 +49,7 @@ export function createLogger(scope: string): PhaseLogger {
   return {
     info: (message: string) => log('info', scope, message),
     warn: (message: string) => log('warn', scope, message),
-    error: (message: string) => log('error', scope, message)
+    error: (message: string) => log('error', scope, message),
   };
 }
 

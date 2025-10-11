@@ -6,7 +6,10 @@ function validateTasks(content) {
 
   if (!content || !content.trim()) {
     errors.push('Task list is empty.');
-    return buildResult(errors, warnings, { taskCount: 0, missingTraceability: 0 });
+    return buildResult(errors, warnings, {
+      taskCount: 0,
+      missingTraceability: 0,
+    });
   }
 
   const normalizedContent = content.replace(/\r\n/g, '\n');
@@ -24,17 +27,23 @@ function validateTasks(content) {
     errors.push('No checkbox-formatted tasks found (expected "- [ ] Task").');
   }
 
-  const longTasks = tasks.filter(task => task.length > 200);
+  const longTasks = tasks.filter((task) => task.length > 200);
   if (longTasks.length) {
-    warnings.push(`${longTasks.length} tasks exceed the 200 character guideline.`);
+    warnings.push(
+      `${longTasks.length} tasks exceed the 200 character guideline.`
+    );
   }
 
-  const traceabilityGaps = tasks.filter(task => !/Spec:|Plan:|AC:/i.test(task));
+  const traceabilityGaps = tasks.filter(
+    (task) => !/Spec:|Plan:|AC:/i.test(task)
+  );
   if (traceabilityGaps.length) {
-    warnings.push(`${traceabilityGaps.length} tasks are missing explicit traceability tags (Spec:/Plan:/AC:).`);
+    warnings.push(
+      `${traceabilityGaps.length} tasks are missing explicit traceability tags (Spec:/Plan:/AC:).`
+    );
   }
 
-  const qaCoverage = tasks.filter(task => /QA|test/i.test(task)).length;
+  const qaCoverage = tasks.filter((task) => /QA|test/i.test(task)).length;
   if (!qaCoverage) {
     warnings.push('No QA or testing tasks were identified.');
   }
@@ -43,7 +52,7 @@ function validateTasks(content) {
     taskCount: tasks.length,
     longTasks: longTasks.length,
     missingTraceability: traceabilityGaps.length,
-    qaTasks: qaCoverage
+    qaTasks: qaCoverage,
   };
 
   return buildResult(errors, warnings, metrics);
@@ -54,10 +63,10 @@ function buildResult(errors, warnings, metrics) {
     valid: errors.length === 0,
     errors,
     warnings,
-    metrics
+    metrics,
   };
 }
 
 module.exports = {
-  validateTasks
+  validateTasks,
 };

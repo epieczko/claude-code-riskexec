@@ -3,7 +3,9 @@
 import fs from 'fs';
 import path from 'path';
 
-function extractDocblock(content: string): { name: string; comment: string } | null {
+function extractDocblock(
+  content: string
+): { name: string; comment: string } | null {
   const pattern = /\/\*\*([\s\S]*?)\*\/\s*export class (\w+)/m;
   const match = content.match(pattern);
   if (!match) {
@@ -12,14 +14,18 @@ function extractDocblock(content: string): { name: string; comment: string } | n
   const [, rawComment, className] = match;
   const cleaned = rawComment
     .split('\n')
-    .map(line => line.replace(/^\s*\*\s?/, ''))
-    .map(line => line.trimEnd())
+    .map((line) => line.replace(/^\s*\*\s?/, ''))
+    .map((line) => line.trimEnd())
     .join('\n')
     .trim();
   return { name: className, comment: cleaned };
 }
 
-function toMarkdown(entry: { name: string; comment: string; file: string }): string {
+function toMarkdown(entry: {
+  name: string;
+  comment: string;
+  file: string;
+}): string {
   const lines = [`## ${entry.name}`, '', `**Source:** \`${entry.file}\``, ''];
   lines.push(entry.comment);
   lines.push('');
@@ -28,15 +34,25 @@ function toMarkdown(entry: { name: string; comment: string; file: string }): str
 
 function generate(): void {
   const phasesDir = path.join(__dirname, '..', 'src', 'phases');
-  const targetPath = path.join(__dirname, '..', 'docs', 'api', 'phase-modules.md');
+  const targetPath = path.join(
+    __dirname,
+    '..',
+    'docs',
+    'api',
+    'phase-modules.md'
+  );
   const files = fs
     .readdirSync(phasesDir)
-    .filter(name => name.endsWith('Phase.ts'))
-    .filter(name => name !== 'types.ts');
+    .filter((name) => name.endsWith('Phase.ts'))
+    .filter((name) => name !== 'types.ts');
 
-  const sections: string[] = ['# Phase Handlers', '', 'Automatically generated from JSDoc comments in `src/phases`.'];
+  const sections: string[] = [
+    '# Phase Handlers',
+    '',
+    'Automatically generated from JSDoc comments in `src/phases`.',
+  ];
 
-  files.forEach(file => {
+  files.forEach((file) => {
     const fullPath = path.join(phasesDir, file);
     const content = fs.readFileSync(fullPath, 'utf8');
     const docblock = extractDocblock(content);
@@ -47,7 +63,7 @@ function generate(): void {
       toMarkdown({
         name: docblock.name,
         comment: docblock.comment,
-        file: path.relative(path.join(__dirname, '..'), fullPath)
+        file: path.relative(path.join(__dirname, '..'), fullPath),
       })
     );
   });

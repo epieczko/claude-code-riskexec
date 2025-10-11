@@ -1,4 +1,8 @@
-import { parseTasksChecklist, parseTasksFromContext, slugifyTaskTitle } from '../src/lib/tasks';
+import {
+  parseTasksChecklist,
+  parseTasksFromContext,
+  slugifyTaskTitle,
+} from '../src/lib/tasks';
 import { makeTaskContext } from './factories';
 
 describe('parseTasksChecklist', () => {
@@ -12,8 +16,16 @@ describe('parseTasksChecklist', () => {
     const tasks = parseTasksChecklist(markdown);
 
     expect(tasks).toHaveLength(2);
-    expect(tasks[0]).toMatchObject({ index: 1, title: 'Write unit tests', completed: false });
-    expect(tasks[1]).toMatchObject({ index: 2, title: 'Update documentation', completed: true });
+    expect(tasks[0]).toMatchObject({
+      index: 1,
+      title: 'Write unit tests',
+      completed: false,
+    });
+    expect(tasks[1]).toMatchObject({
+      index: 2,
+      title: 'Update documentation',
+      completed: true,
+    });
     expect(tasks[0].raw).toBe('- [ ] Write unit tests');
   });
 
@@ -29,20 +41,28 @@ describe('parseTasksFromContext', () => {
   it('converts stored context tasks into checklist items', () => {
     const context = makeTaskContext([
       { title: 'Implement feature', completed: true },
-      { title: 'Write docs' }
+      { title: 'Write docs' },
     ]);
 
     const tasks = parseTasksFromContext(context);
     expect(tasks).toHaveLength(2);
-    expect(tasks[0]).toMatchObject({ index: 1, title: 'Implement feature', completed: true });
+    expect(tasks[0]).toMatchObject({
+      index: 1,
+      title: 'Implement feature',
+      completed: true,
+    });
     expect(tasks[1].raw).toContain('Write docs');
   });
 });
 
 describe('slugifyTaskTitle', () => {
   it('creates URL-friendly slugs from task titles', () => {
-    expect(slugifyTaskTitle('Implement OAuth flow')).toBe('implement-oauth-flow');
-    expect(slugifyTaskTitle('  Trim --- punctuation!! ')).toBe('trim-punctuation');
+    expect(slugifyTaskTitle('Implement OAuth flow')).toBe(
+      'implement-oauth-flow'
+    );
+    expect(slugifyTaskTitle('  Trim --- punctuation!! ')).toBe(
+      'trim-punctuation'
+    );
   });
 
   it('limits slug length to 80 characters', () => {

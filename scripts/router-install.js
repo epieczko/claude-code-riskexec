@@ -1,24 +1,24 @@
 // scripts/router-install.js
-const fs = require("fs");
-const os = require("os");
-const path = require("path");
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
 // Resolve the source path relative to this script's directory so it does not
 // depend on the current working directory when executed.
-const src = path.resolve(__dirname, "..", ".claude-code-router", "config.json");
-const dstDir = path.join(os.homedir(), ".claude-code-router");
-const dst = path.join(dstDir, "config.json");
+const src = path.resolve(__dirname, '..', '.claude-code-router', 'config.json');
+const dstDir = path.join(os.homedir(), '.claude-code-router');
+const dst = path.join(dstDir, 'config.json');
 
 if (!fs.existsSync(src)) {
-    console.error("Missing .claude-code-router/config.json in repo");
-    process.exit(1);
+  console.error('Missing .claude-code-router/config.json in repo');
+  process.exit(1);
 }
 
 fs.mkdirSync(dstDir, { recursive: true });
 
 if (fs.existsSync(dst)) {
-    console.log(`Found existing ${dst}. Leaving it as is.`);
-    process.exit(0);
+  console.log(`Found existing ${dst}. Leaving it as is.`);
+  process.exit(0);
 }
 
 fs.copyFileSync(src, dst);
@@ -26,11 +26,11 @@ fs.copyFileSync(src, dst);
 fs.chmodSync(dst, 0o600);
 console.log(`Wrote ${dst}`);
 
-console.log("\nSet env vars before running the router:");
-if (process.platform === "win32") {
-    console.log('  PowerShell:  setx ANTHROPIC_API_KEY "<your_key>"');
-    console.log('               setx CCR_APIKEY "<a_local_secret>"');
+console.log('\nSet env vars before running the router:');
+if (process.platform === 'win32') {
+  console.log('  PowerShell:  setx ANTHROPIC_API_KEY "<your_key>"');
+  console.log('               setx CCR_APIKEY "<a_local_secret>"');
 } else {
-    console.log('  export ANTHROPIC_API_KEY="<your_key>"');
-    console.log('  export CCR_APIKEY="<a_local_secret>"');
+  console.log('  export ANTHROPIC_API_KEY="<your_key>"');
+  console.log('  export CCR_APIKEY="<a_local_secret>"');
 }

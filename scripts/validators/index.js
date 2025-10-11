@@ -21,7 +21,7 @@ function validatePhaseOutputs(featureDir) {
   return {
     spec: validateSpec(spec),
     plan: validatePlan(plan, spec),
-    tasks: validateTasks(tasks)
+    tasks: validateTasks(tasks),
   };
 }
 
@@ -29,5 +29,5 @@ module.exports = {
   validateSpec,
   validatePlan,
   validateTasks,
-  validatePhaseOutputs
+  validatePhaseOutputs,
 };

@@ -21,7 +21,11 @@ export class SpecifyPhase implements PhaseHandler {
     const paths = resolveFeaturePaths(options.featureDir);
     await ensureFeaturePaths(paths);
 
-    const constitutionPath = path.join(options.workspaceRoot, 'specs', 'constitution.md');
+    const constitutionPath = path.join(
+      options.workspaceRoot,
+      'specs',
+      'constitution.md'
+    );
     const briefFromFile = await readFileIfExists(paths.idea);
     const brief = options.brief || briefFromFile || '';
 
@@ -29,17 +33,21 @@ export class SpecifyPhase implements PhaseHandler {
       'Create or update the feature specification so it satisfies the Spec Kit constitution.',
       'Return the full Markdown document that should be written to `spec.md`.',
       brief ? `Feature brief:\n${brief}` : null,
-      'Highlight approval checkpoints and list outstanding questions.'
+      'Highlight approval checkpoints and list outstanding questions.',
     ]
       .filter(Boolean)
       .join('\n\n');
 
     const contextFiles = [
-      { path: constitutionPath, label: 'Spec Kit Constitution', optional: false },
+      {
+        path: constitutionPath,
+        label: 'Spec Kit Constitution',
+        optional: false,
+      },
       { path: paths.spec, label: 'Existing Specification', optional: true },
       { path: paths.plan, label: 'Existing Plan', optional: true },
       { path: paths.tasks, label: 'Existing Tasks', optional: true },
-      { path: paths.idea, label: 'Feature Idea', optional: true }
+      { path: paths.idea, label: 'Feature Idea', optional: true },
     ];
 
     const result = await invokeAgent({
@@ -51,8 +59,8 @@ export class SpecifyPhase implements PhaseHandler {
       metadata: {
         phase: this.phaseName,
         featureDirectory: options.featureDir,
-        brief: brief ? brief.slice(0, 240) : undefined
-      }
+        brief: brief ? brief.slice(0, 240) : undefined,
+      },
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
@@ -61,12 +69,17 @@ export class SpecifyPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       relativePath: path.relative(options.featureDir, paths.spec),
-      content: outputMarkdown
+      content: outputMarkdown,
     });
 
-    const contextPath = await saveContext(options.featureName, this.phaseName, extractSpecContext(outputMarkdown), {
-      workspaceRoot: options.workspaceRoot
-    });
+    const contextPath = await saveContext(
+      options.featureName,
+      this.phaseName,
+      extractSpecContext(outputMarkdown),
+      {
+        workspaceRoot: options.workspaceRoot,
+      }
+    );
 
     logger.info(`spec.md generated (${outputMarkdown.length} bytes)`);
 
@@ -76,8 +89,8 @@ export class SpecifyPhase implements PhaseHandler {
       details: {
         briefSource: briefFromFile ? 'idea.md' : options.brief ? 'cli' : 'none',
         agentCommand: result.command,
-        contextPath
-      }
+        contextPath,
+      },
     };
   }
 }

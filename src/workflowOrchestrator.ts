@@ -7,7 +7,7 @@ import {
   loadContext,
   PlanContext,
   SpecContext,
-  TaskContext
+  TaskContext,
 } from './lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './phases/types';
 import { phaseRegistry } from './phases/registry';
@@ -32,7 +32,12 @@ async function appendPhaseTelemetry(
   telemetry: PhaseTelemetryEntry,
   logger: PhaseLogger
 ): Promise<void> {
-  const telemetryPath = path.join(workspaceRoot, '.agent-os', 'product', 'status.json');
+  const telemetryPath = path.join(
+    workspaceRoot,
+    '.agent-os',
+    'product',
+    'status.json'
+  );
 
   try {
     await fs.mkdir(path.dirname(telemetryPath), { recursive: true });
@@ -42,13 +47,17 @@ async function appendPhaseTelemetry(
       const existingContent = await fs.readFile(telemetryPath, 'utf8');
       existing = JSON.parse(existingContent);
       if (!Array.isArray(existing)) {
-        logger.warn(`Existing telemetry file at ${telemetryPath} is not an array. Overwriting.`);
+        logger.warn(
+          `Existing telemetry file at ${telemetryPath} is not an array. Overwriting.`
+        );
         existing = [];
       }
     } catch (error) {
       const err = error as NodeJS.ErrnoException;
       if (err.code && err.code !== 'ENOENT') {
-        logger.warn(`Failed to read telemetry file at ${telemetryPath}: ${err.message}`);
+        logger.warn(
+          `Failed to read telemetry file at ${telemetryPath}: ${err.message}`
+        );
       }
       if (!Array.isArray(existing)) {
         existing = [];
@@ -59,7 +68,9 @@ async function appendPhaseTelemetry(
 
     await fs.writeFile(telemetryPath, JSON.stringify(existing, null, 2));
   } catch (error) {
-    logger.warn(`Failed to write telemetry entry for ${telemetry.phase}: ${(error as Error).message}`);
+    logger.warn(
+      `Failed to write telemetry entry for ${telemetry.phase}: ${(error as Error).message}`
+    );
   }
 }
 
@@ -78,7 +89,7 @@ const phaseHandlers: Record<string, PhaseHandler> = {
   specify: new SpecifyPhase(),
   plan: new PlanPhase(),
   tasks: new TasksPhase(),
-  implement: new ImplementPhase()
+  implement: new ImplementPhase(),
 };
 
 function parseArgv(argv: string[]): WorkflowOptions {
@@ -96,7 +107,12 @@ function parseArgv(argv: string[]): WorkflowOptions {
         options.brief = argv[++i];
         break;
       case '--phases':
-        phases.push(...(argv[++i] || '').split(',').map(part => part.trim()).filter(Boolean));
+        phases.push(
+          ...(argv[++i] || '')
+            .split(',')
+            .map((part) => part.trim())
+            .filter(Boolean)
+        );
         break;
       case '--phase':
         phases.push(argv[++i]);
@@ -143,7 +159,11 @@ function resolvePhases(options: WorkflowOptions): string[] {
   return ['specify', 'plan', 'tasks', 'implement'];
 }
 
-function createPhaseOptions(phase: string, workflowOptions: WorkflowOptions, workspaceRoot: string): PhaseRunOptions {
+function createPhaseOptions(
+  phase: string,
+  workflowOptions: WorkflowOptions,
+  workspaceRoot: string
+): PhaseRunOptions {
   const featureName = workflowOptions.feature || 'Feature-A';
   const featureDir = path.join(workspaceRoot, 'specs', featureName);
   return {
@@ -151,11 +171,14 @@ function createPhaseOptions(phase: string, workflowOptions: WorkflowOptions, wor
     featureDir,
     workspaceRoot,
     brief: workflowOptions.brief,
-    resumeFromTask: workflowOptions.resumeTask
+    resumeFromTask: workflowOptions.resumeTask,
   };
 }
 
-async function readMarkdownIfAvailable(filePath: string, logger: PhaseLogger): Promise<string | null> {
+async function readMarkdownIfAvailable(
+  filePath: string,
+  logger: PhaseLogger
+): Promise<string | null> {
   try {
     return await fs.readFile(filePath, 'utf8');
   } catch (error) {
@@ -197,7 +220,9 @@ async function rebuildTaskContextFromMarkdown(
   return markdown ? extractTaskContext(markdown) : null;
 }
 
-export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseResult[]> {
+export async function runWorkflow(
+  options: WorkflowOptions = {}
+): Promise<PhaseResult[]> {
   const workspaceRoot = options.workspaceRoot || process.cwd();
   const phaseOrder = resolvePhases(options);
   const results: PhaseResult[] = [];
@@ -207,7 +232,8 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
   const workflowLogger = createWorkflowLogger();
   const contextLogger = createLogger('workflow:context');
   const telemetryLogger = createLogger('workflow:telemetry');
-  const rebuildContext = options.rebuildContext ?? process.env.SPEC_KIT_REBUILD_CONTEXT === '1';
+  const rebuildContext =
+    options.rebuildContext ?? process.env.SPEC_KIT_REBUILD_CONTEXT === '1';
   const startTime = Date.now();
   let success = false;
 
@@ -223,45 +249,91 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
         throw new Error(`Missing registry entry for phase ${phaseName}`);
       }
 
-      const phaseOptions = createPhaseOptions(phaseName, options, workspaceRoot);
+      const phaseOptions = createPhaseOptions(
+        phaseName,
+        options,
+        workspaceRoot
+      );
       phaseOptions.rebuildContext = rebuildContext;
       const phaseLogger = createLogger(`workflow:${phaseName}`);
 
       if (phaseName === 'plan') {
         specContext = rebuildContext
-          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : specContext ??
-            (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+          ? await rebuildSpecContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : (specContext ??
+            (await loadContext<SpecContext>(
+              phaseOptions.featureName,
+              'specify',
+              { workspaceRoot }
+            )));
         phaseOptions.specContext = specContext;
       } else if (phaseName === 'tasks') {
         specContext = rebuildContext
-          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : specContext ??
-            (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+          ? await rebuildSpecContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : (specContext ??
+            (await loadContext<SpecContext>(
+              phaseOptions.featureName,
+              'specify',
+              { workspaceRoot }
+            )));
         planContext = rebuildContext
-          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+          ? await rebuildPlanContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : (planContext ??
+            (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', {
+              workspaceRoot,
+            })));
         phaseOptions.specContext = specContext;
         phaseOptions.planContext = planContext;
       } else if (phaseName === 'implement') {
         planContext = rebuildContext
-          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+          ? await rebuildPlanContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : (planContext ??
+            (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', {
+              workspaceRoot,
+            })));
         taskContext = rebuildContext
-          ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : taskContext ??
-            (await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot }));
+          ? await rebuildTaskContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : (taskContext ??
+            (await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', {
+              workspaceRoot,
+            })));
         phaseOptions.planContext = planContext;
         phaseOptions.taskContext = taskContext;
       }
 
       if (options.dryRun) {
-        results.push({ phase: phaseName, outputPath: 'dry-run', details: { skipped: true } });
+        results.push({
+          phase: phaseName,
+          outputPath: 'dry-run',
+          details: { skipped: true },
+        });
         continue;
       }
 
       const phaseStart = Date.now();
-      phaseLogger.info(`Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
+      phaseLogger.info(
+        `Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`
+      );
       let result: PhaseResult;
       try {
         result = await handler.run(phaseOptions);
@@ -274,7 +346,7 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
             startTime: new Date(phaseStart).toISOString(),
             endTime: new Date(failureEnd).toISOString(),
             durationMs: failureEnd - phaseStart,
-            result: 'failure'
+            result: 'failure',
           },
           telemetryLogger
         );
@@ -291,38 +363,68 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
           startTime: new Date(phaseStart).toISOString(),
           endTime: new Date(phaseEnd).toISOString(),
           durationMs: phaseEnd - phaseStart,
-          result: 'success'
+          result: 'success',
         },
         telemetryLogger
       );
 
       if (phaseName === 'specify') {
         specContext = rebuildContext
-          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot });
+          ? await rebuildSpecContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : await loadContext<SpecContext>(
+              phaseOptions.featureName,
+              'specify',
+              { workspaceRoot }
+            );
       } else if (phaseName === 'plan') {
         planContext = rebuildContext
-          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot });
+          ? await rebuildPlanContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : await loadContext<PlanContext>(phaseOptions.featureName, 'plan', {
+              workspaceRoot,
+            });
       } else if (phaseName === 'tasks') {
         taskContext = rebuildContext
-          ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-          : await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot });
+          ? await rebuildTaskContextFromMarkdown(
+              phaseOptions.featureName,
+              workspaceRoot,
+              contextLogger
+            )
+          : await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', {
+              workspaceRoot,
+            });
       }
     }
 
-    workflowLogger.info(`Workflow completed for ${options.feature ?? 'Feature-A'}`);
+    workflowLogger.info(
+      `Workflow completed for ${options.feature ?? 'Feature-A'}`
+    );
     success = true;
     return results;
   } finally {
     if (!options.dryRun) {
       const runtimeMs = Date.now() - startTime;
       const requirementCount = specContext?.requirements?.length ?? 0;
-      const completedRequirements = specContext?.requirements?.filter(req => req.completed).length ?? 0;
+      const completedRequirements =
+        specContext?.requirements?.filter((req) => req.completed).length ?? 0;
       const taskCount = taskContext?.tasks?.length ?? 0;
-      const completedTasks = taskContext?.tasks?.filter(task => task.completed).length ?? 0;
-      const coverageSource = taskCount > 0 ? [completedTasks, taskCount] : [completedRequirements, requirementCount];
-      const coveragePct = coverageSource[1] > 0 ? (coverageSource[0] / coverageSource[1]) * 100 : 0;
+      const completedTasks =
+        taskContext?.tasks?.filter((task) => task.completed).length ?? 0;
+      const coverageSource =
+        taskCount > 0
+          ? [completedTasks, taskCount]
+          : [completedRequirements, requirementCount];
+      const coveragePct =
+        coverageSource[1] > 0
+          ? (coverageSource[0] / coverageSource[1]) * 100
+          : 0;
 
       try {
         await recordMetrics(
@@ -331,19 +433,21 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
             runtimeMs,
             success,
             details: {
-              phases: results.map(result => result.phase),
+              phases: results.map((result) => result.phase),
               resumeFrom: options.resumeFrom ?? null,
               resumeTask: options.resumeTask ?? null,
               completedTasks,
               taskCount,
               completedRequirements,
-              requirementCount
-            }
+              requirementCount,
+            },
           },
           { feature: options.feature ?? 'Feature-A', phase: 'workflow' }
         );
       } catch (error) {
-        workflowLogger.warn(`Failed to record analytics metrics: ${(error as Error).message}`);
+        workflowLogger.warn(
+          `Failed to record analytics metrics: ${(error as Error).message}`
+        );
       }
     }
   }
@@ -354,7 +458,7 @@ if (require.main === module) {
     .then(() => {
       createWorkflowLogger().info('Workflow finished successfully.');
     })
-    .catch(error => {
+    .catch((error) => {
       createWorkflowLogger().error(`Workflow failed: ${error.message}`);
       process.exit(1);
     });
