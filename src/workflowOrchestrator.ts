@@ -6,6 +6,7 @@ import SpecifyPhase from './phases/SpecifyPhase';
 import PlanPhase from './phases/PlanPhase';
 import TasksPhase from './phases/TasksPhase';
 import ImplementPhase from './phases/ImplementPhase';
+import { createWorkflowLogger, createLogger } from './lib/logger';
 
 export interface WorkflowOptions {
   feature?: string;
@@ -102,6 +103,7 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
   let specContext: SpecContext | null = null;
   let planContext: PlanContext | null = null;
   let taskContext: TaskContext | null = null;
+  const workflowLogger = createWorkflowLogger();
 
   for (const phaseName of phaseOrder) {
     const handler = phaseHandlers[phaseName];
@@ -115,6 +117,7 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
     }
 
     const phaseOptions = createPhaseOptions(phaseName, options, workspaceRoot);
+    const phaseLogger = createLogger(`workflow:${phaseName}`);
 
     if (phaseName === 'plan') {
       specContext = specContext ?? (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
@@ -136,9 +139,9 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
       continue;
     }
 
-    console.log(`\n▶ Running ${phaseName} phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
+    phaseLogger.info(`Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
     const result = await handler.run(phaseOptions);
-    console.log(`✅ ${phaseName} complete → ${result.outputPath}`);
+    phaseLogger.info(`Phase complete → ${result.outputPath}`);
     results.push(result);
 
     if (phaseName === 'specify') {
@@ -150,16 +153,18 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
     }
   }
 
+  workflowLogger.info(`Workflow completed for ${options.feature ?? 'Feature-A'}`);
+
   return results;
 }
 
 if (require.main === module) {
   runWorkflow(parseArgv(process.argv.slice(2)))
     .then(() => {
-      console.log('\n🎉 Workflow finished successfully.');
+      createWorkflowLogger().info('Workflow finished successfully.');
     })
     .catch(error => {
-      console.error(`\n❌ Workflow failed: ${error.message}`);
+      createWorkflowLogger().error(`Workflow failed: ${error.message}`);
       process.exit(1);
     });
 }

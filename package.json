@@ -21,6 +21,8 @@
     "router:code": "npx @musistudio/claude-code-router code",
     "router:ui": "npx @musistudio/claude-code-router ui",
     "components:validate": "node scripts/validateBmadComponents.js",
+    "phase-docs": "ts-node scripts/generatePhaseDocs.ts",
+    "workflow:verify": "node scripts/verifyWorkflowConfig.js",
     "format": "prettier -w .",
     "spec-kit:workflow": "node scripts/runSpecKitWorkflow.js",
     "spec-workflow": "node -r ts-node/register src/workflowOrchestrator.ts"
@@ -49,7 +51,8 @@
     "prettier": "^3.2.5",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "yaml": "^2.8.1"
   },
   "keywords": [
     "claude-code",

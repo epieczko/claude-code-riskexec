@@ -1,28 +1,43 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
-import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { writeFileAtomic } from '../lib/files';
 import { mirrorAgentOsDirectory, mirrorAgentOsFile } from '../lib/agentOs';
 import { extractPlanContext, loadContext, saveContext } from '../lib/contextStore';
 import type { SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
+import {
+  assertPhasePrerequisites,
+  ensureFeaturePaths,
+  readPhaseFiles,
+  resolveFeaturePaths
+} from '../lib/phaseUtils';
+import { createPhaseLogger } from '../lib/logger';
 
+/**
+ * Handles the plan phase by translating an approved specification into a detailed
+ * architecture plan. The phase requires an existing `spec.md` and optionally
+ * considers prior `plan.md` and `tasks.md` drafts. Successful execution writes a
+ * refreshed `plan.md`, mirrors artifacts to Agent OS, and persists derived plan
+ * context for downstream phases.
+ */
 export class PlanPhase implements PhaseHandler {
   public readonly phaseName = 'plan';
 
   public async run(options: PhaseRunOptions): Promise<PhaseResult> {
-    await ensureDir(options.featureDir);
+    const logger = createPhaseLogger(this.phaseName);
+    const paths = resolveFeaturePaths(options.featureDir);
+    await ensureFeaturePaths(paths, [paths.architectureDir]);
 
-    const specPath = path.join(options.featureDir, 'spec.md');
-    const planPath = path.join(options.featureDir, 'plan.md');
-    const tasksPath = path.join(options.featureDir, 'tasks.md');
-    const architectureDir = path.join(options.featureDir, 'architecture');
+    const io = await readPhaseFiles([
+      { key: 'spec', path: paths.spec, description: 'Specification', required: true },
+      { key: 'plan', path: paths.plan, description: 'Existing plan draft' },
+      { key: 'tasks', path: paths.tasks, description: 'Existing task draft' }
+    ]);
 
-    const specContent = await readFileIfExists(specPath);
-    if (!specContent) {
-      throw new Error(`Missing spec at ${specPath}. Run the specify phase first.`);
-    }
+    assertPhasePrerequisites(io, this.phaseName);
 
-    const existingTasks = await readFileIfExists(tasksPath);
+    const specContent = io.files.spec as string;
+    const existingTasks = io.files.tasks;
     const specContext: SpecContext | null =
       options.specContext ??
       (await loadContext<SpecContext>(options.featureName, 'specify', { workspaceRoot: options.workspaceRoot }));
@@ -37,10 +52,14 @@ export class PlanPhase implements PhaseHandler {
       .join('\n\n');
 
     const contextFiles = [
-      { path: specPath, label: 'Specification', optional: false },
-      { path: planPath, label: 'Existing Plan', optional: true },
-      { path: tasksPath, label: 'Existing Tasks', optional: true },
-      { path: path.join(options.workspaceRoot, 'specs', 'constitution.md'), label: 'Spec Kit Constitution', optional: true }
+      { path: paths.spec, label: 'Specification', optional: false },
+      { path: paths.plan, label: 'Existing Plan', optional: true },
+      { path: paths.tasks, label: 'Existing Tasks', optional: true },
+      {
+        path: path.join(options.workspaceRoot, 'specs', 'constitution.md'),
+        label: 'Spec Kit Constitution',
+        optional: true
+      }
     ];
 
     const result = await invokeAgent({
@@ -51,7 +70,7 @@ export class PlanPhase implements PhaseHandler {
       contextFiles,
       metadata: {
         phase: this.phaseName,
-        architectureDir,
+        architectureDir: paths.architectureDir,
         featureDirectory: options.featureDir,
         specRequirements: specContext ? String(specContext.requirements.length) : undefined,
         openQuestions: specContext ? String(specContext.openQuestions.length) : undefined
@@ -59,17 +78,17 @@ export class PlanPhase implements PhaseHandler {
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
-    await writeFileAtomic(planPath, outputMarkdown);
+    await writeFileAtomic(paths.plan, outputMarkdown);
     await mirrorAgentOsFile({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      relativePath: path.relative(options.featureDir, planPath),
+      relativePath: path.relative(options.featureDir, paths.plan),
       content: outputMarkdown
     });
     await mirrorAgentOsDirectory({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      sourceDir: architectureDir,
+      sourceDir: paths.architectureDir,
       targetSubdir: 'architecture'
     });
 
@@ -77,9 +96,11 @@ export class PlanPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot
     });
 
+    logger.info(`plan.md updated (${outputMarkdown.length} bytes)`);
+
     return {
       phase: this.phaseName,
-      outputPath: planPath,
+      outputPath: paths.plan,
       details: {
         agentCommand: result.command,
         contextPath,

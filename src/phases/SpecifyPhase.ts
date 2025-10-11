@@ -1,24 +1,28 @@
-import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
-import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { readFileIfExists, writeFileAtomic } from '../lib/files';
 import { mirrorAgentOsFile } from '../lib/agentOs';
 import { extractSpecContext, saveContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
+import { ensureFeaturePaths, resolveFeaturePaths } from '../lib/phaseUtils';
+import path from 'path';
+import { createPhaseLogger } from '../lib/logger';
 
+/**
+ * Generates or updates the specification for a feature by combining any provided
+ * brief, existing drafts, and the Spec Kit constitution. The resulting
+ * specification is written to `spec.md`, synchronized with Agent OS, and stored
+ * in the context repository for later phases.
+ */
 export class SpecifyPhase implements PhaseHandler {
   public readonly phaseName = 'specify';
 
   public async run(options: PhaseRunOptions): Promise<PhaseResult> {
-    const featureDir = options.featureDir;
-    await ensureDir(featureDir);
+    const logger = createPhaseLogger(this.phaseName);
+    const paths = resolveFeaturePaths(options.featureDir);
+    await ensureFeaturePaths(paths);
 
-    const ideaPath = path.join(featureDir, 'idea.md');
-    const specPath = path.join(featureDir, 'spec.md');
-    const planPath = path.join(featureDir, 'plan.md');
-    const tasksPath = path.join(featureDir, 'tasks.md');
     const constitutionPath = path.join(options.workspaceRoot, 'specs', 'constitution.md');
-
-    const briefFromFile = await readFileIfExists(ideaPath);
+    const briefFromFile = await readFileIfExists(paths.idea);
     const brief = options.brief || briefFromFile || '';
 
     const prompt = [
@@ -32,10 +36,10 @@ export class SpecifyPhase implements PhaseHandler {
 
     const contextFiles = [
       { path: constitutionPath, label: 'Spec Kit Constitution', optional: false },
-      { path: specPath, label: 'Existing Specification', optional: true },
-      { path: planPath, label: 'Existing Plan', optional: true },
-      { path: tasksPath, label: 'Existing Tasks', optional: true },
-      { path: ideaPath, label: 'Feature Idea', optional: true }
+      { path: paths.spec, label: 'Existing Specification', optional: true },
+      { path: paths.plan, label: 'Existing Plan', optional: true },
+      { path: paths.tasks, label: 'Existing Tasks', optional: true },
+      { path: paths.idea, label: 'Feature Idea', optional: true }
     ];
 
     const result = await invokeAgent({
@@ -46,17 +50,17 @@ export class SpecifyPhase implements PhaseHandler {
       contextFiles,
       metadata: {
         phase: this.phaseName,
-        featureDirectory: featureDir,
+        featureDirectory: options.featureDir,
         brief: brief ? brief.slice(0, 240) : undefined
       }
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
-    await writeFileAtomic(specPath, outputMarkdown);
+    await writeFileAtomic(paths.spec, outputMarkdown);
     await mirrorAgentOsFile({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
-      relativePath: path.relative(options.featureDir, specPath),
+      relativePath: path.relative(options.featureDir, paths.spec),
       content: outputMarkdown
     });
 
@@ -64,9 +68,11 @@ export class SpecifyPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot
     });
 
+    logger.info(`spec.md generated (${outputMarkdown.length} bytes)`);
+
     return {
       phase: this.phaseName,
-      outputPath: specPath,
+      outputPath: paths.spec,
       details: {
         briefSource: briefFromFile ? 'idea.md' : options.brief ? 'cli' : 'none',
         agentCommand: result.command,

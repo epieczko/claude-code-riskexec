@@ -29,7 +29,8 @@ export async function mirrorAgentOsFile(options: MirrorFileOptions): Promise<str
     relativePath
   );
   await ensureDir(path.dirname(targetPath));
-  await fs.writeFile(targetPath, content);
+  const payload = typeof content === 'string' ? content : new Uint8Array(content);
+  await fs.writeFile(targetPath, payload);
   return targetPath;
 }
 
@@ -73,7 +74,7 @@ async function copyDirectory(source: string, destination: string): Promise<void>
     } else if (entry.isFile()) {
       await ensureDir(path.dirname(destinationPath));
       const data = await fs.readFile(sourcePath);
-      await fs.writeFile(destinationPath, data);
+      await fs.writeFile(destinationPath, new Uint8Array(data));
     }
   }
 }
