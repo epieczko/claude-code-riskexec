@@ -8,6 +8,43 @@
 
 **Ready-to-use configurations for Anthropic's Claude Code.** A comprehensive collection of AI agents, custom commands, settings, hooks, external integrations (MCPs), and project templates to enhance your development workflow.
 
+## Why RiskExec Exists
+
+Most AI code assistants focus on generating snippets. RiskExec goes further — it turns AI collaboration into a governed, measurable development workflow. By integrating three pillars — Spec Kit, BMAD, and Agent OS — RiskExec transforms Claude Code into a complete agentic software-development system.
+
+### The Power Trio
+
+- **🧱 Spec Kit** formalizes how ideas become structured requirements. It defines specs, plans, and tasks so every output has traceability and quality standards ("constitution rules").
+- **⚙️ BMAD Method** encodes the engineering lifecycle as agents: Build, Measure, Analyze, Decide. These roles act like a virtual team (Analyst → Architect → PM → Developer → QA) that hand off deliverables automatically.
+- **🧠 Agent OS** provides orchestration and memory. It runs BMAD agents, monitors telemetry, and synchronizes outputs (`.agent-os/product/`) so everything is observable and replayable.
+
+Together they give you:
+
+- End-to-end, agent-driven delivery from idea → tested code.
+- Audit-ready artifacts (specs, plans, tasks, tests).
+- Continuous learning — agents analyze metrics and adjust decisions automatically.
+
+### How to Use It
+
+```bash
+# Run the complete workflow for a new feature
+npx claude-code-riskexec --workflow Feature-Login
+```
+
+The system will:
+
+1. Generate a specification (`/specify`).
+2. Design the architecture (`/plan`).
+3. Produce tasks (`/tasks`).
+4. Implement and test (`/implement`).
+5. Verify outcomes (`/verify`).
+
+All results are stored under `.agent-os/product/Feature-Login/` with telemetry for review.
+
+### Why It Matters
+
+This framework turns AI development from ad-hoc prompting into a repeatable, measurable engineering process — bridging product intent, technical execution, and compliance.
+
 ## Browse & Install Components and Templates
 
 **[Browse All Templates](https://riskexec.com)** - Interactive web interface to explore and install 100+ agents, commands, settings, hooks, and MCPs.
