@@ -1,0 +1,6 @@
+{
+  "name": "spec-kit-auto-chain",
+  "when": "post-tool",
+  "action": "command",
+  "command": "node scripts/specKitPhaseTransition.js"
+}

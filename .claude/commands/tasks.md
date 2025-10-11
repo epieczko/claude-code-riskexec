@@ -24,12 +24,12 @@ Generate or refine the task list located at `specs/<feature-name>/tasks.md`, lin
 ## Process
 
 1. Activate **bmad-pm** as the primary persona and loop in **bmad-qa** when defining validation tasks.
-2. Load `spec.md`, `plan.md`, and the constitution to maintain traceability and gated progression.
+2. Use the Read tool up front to ingest the constitution plus the feature's `spec.md` and `plan.md` so downstream automation can rely on persisted artifacts without restating them in chat.
 3. Decompose the plan into discrete, testable tasks with checkbox status indicators.
 4. Tag each task with references to relevant spec requirements, plan decisions, and expected deliverables.
 5. Group tasks into milestones with exit criteria aligned to acceptance tests.
 6. Capture dependencies, risks, and QA collaboration notes.
-7. Write the completed task list back to `specs/<feature-name>/tasks.md`.
+7. Write the completed task list back to `specs/<feature-name>/tasks.md`, preserving prior metadata or status notes when present.
 
 ## Output Checklist
 

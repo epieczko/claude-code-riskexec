@@ -25,11 +25,11 @@ Perform implementation work for the selected task while strictly adhering to the
 ## Process
 
 1. Activate **bmad-developer** as the primary agent and keep **bmad-qa** available for validation.
-2. Load `spec.md`, `plan.md`, `tasks.md`, and any relevant code files.
-3. Restate the task goal, success criteria, and planned validation steps before editing code.
-4. Execute the work incrementally, using Read/Write/Terminal tools to modify files and run tests.
-5. Document commands executed, test evidence collected, and files touched.
-6. Coordinate with **bmad-qa** to confirm acceptance criteria coverage or to design follow-up tests.
+2. Immediately read `spec.md`, `plan.md`, `tasks.md`, and constitution excerpts so the developer has context even when the command is invoked automatically with only a task identifier.
+3. Restate the task goal, success criteria, and planned validation steps before editing code. When `task-id` is provided, quote the exact checklist line and confirm its acceptance criteria coverage.
+4. Execute the work incrementally, using Read/Write/Terminal tools to modify files and run tests. Pause after each major edit so automation scripts can run validation commands (e.g., unit tests) before moving on.
+5. Document commands executed, test evidence collected, and files touched. Include explicit callouts for any tests run by external orchestration so QA reviews have a clear audit trail.
+6. Coordinate with **bmad-qa** to confirm acceptance criteria coverage or to design follow-up tests. Update `tasks.md` to mark completion status when appropriate.
 7. Summarize completion status, remaining follow-ups, and readiness for review.
 
 ## Output Checklist
