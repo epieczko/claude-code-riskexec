@@ -32,10 +32,13 @@ export interface TaskContext {
   progress: string;
 }
 
+export const CURRENT_CONTEXT_SCHEMA_VERSION = 1;
+
 export interface ContextEnvelope<T> {
   feature: string;
   phase: string;
   savedAt: string;
+  schemaVersion: number;
   data: T;
 }
 
@@ -113,6 +116,7 @@ export async function saveContext<T>(
     feature,
     phase,
     savedAt: new Date().toISOString(),
+    schemaVersion: CURRENT_CONTEXT_SCHEMA_VERSION,
     data
   };
 
@@ -144,6 +148,15 @@ export async function loadContextEnvelope<T>(
 
   try {
     const parsed = JSON.parse(content) as ContextEnvelope<T>;
+    if (typeof parsed.schemaVersion !== 'number') {
+      console.warn(
+        `⚠️  Context file ${targetPath} missing schemaVersion; assuming compatibility with current schema ${CURRENT_CONTEXT_SCHEMA_VERSION}.`
+      );
+    } else if (parsed.schemaVersion !== CURRENT_CONTEXT_SCHEMA_VERSION) {
+      console.warn(
+        `⚠️  Context file ${targetPath} schema version ${parsed.schemaVersion} differs from current schema ${CURRENT_CONTEXT_SCHEMA_VERSION}.`
+      );
+    }
     return parsed;
   } catch (error) {
     console.warn(`⚠️  Failed to parse context file ${targetPath}: ${(error as Error).message}`);
