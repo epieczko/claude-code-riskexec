@@ -1,0 +1,24 @@
+---
+command: /specify
+description: Convert a feature idea into structured requirements using the BMAD Analyst.
+argument-hint: [feature-name]
+agent: bmad-analyst
+allowed-tools: Read, Write, Edit
+model: claude-3.7-sonnet
+---
+
+# /specify – Requirements Intake
+
+Activate **@bmad/roles/bmad-analyst.md** to capture the requirements for **$ARGUMENTS**.
+
+1. Gather all referenced context (feature brief, user research, analytics) before drafting.
+2. Conduct clarification Q&A to resolve gaps or hidden assumptions.
+3. Write the requirements package to `specs/$ARGUMENTS/requirements.md` using the template:
+   - Executive summary & user persona
+   - Functional requirements and constraints
+   - Non-functional expectations (performance, compliance, observability)
+   - Success metrics and validation checkpoints
+   - Open questions & risks for architecture review
+4. Summarize notable decisions and blockers at the end of the document.
+
+Return a link to the generated requirements file and highlight any follow-up needed for the Architect.

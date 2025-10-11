@@ -343,12 +343,6 @@
       "description": ""
     },
     {
-      "name": "command-expert",
-      "path": "development-tools/command-expert",
-      "category": "development-tools",
-      "description": ""
-    },
-    {
       "name": "context-manager",
       "path": "development-tools/context-manager",
       "category": "development-tools",
@@ -935,8 +929,38 @@
       "path": "web-tools/web-accessibility-checker",
       "category": "web-tools",
       "description": ""
+    },
+    {
+      "name": "bmad-analyst",
+      "path": "bmad/roles/bmad-analyst",
+      "category": "bmad",
+      "description": "Converts feature ideas into phase-ready requirements."
+    },
+    {
+      "name": "bmad-architect",
+      "path": "bmad/roles/bmad-architect",
+      "category": "bmad",
+      "description": "Designs system architecture and delivery plan for approved specs."
+    },
+    {
+      "name": "bmad-pm",
+      "path": "bmad/roles/bmad-pm",
+      "category": "bmad",
+      "description": "Creates milestones and task backlogs aligned to architecture."
+    },
+    {
+      "name": "bmad-developer",
+      "path": "bmad/roles/bmad-developer",
+      "category": "bmad",
+      "description": "Implements backlog tasks and documents delivery notes."
+    },
+    {
+      "name": "bmad-qa",
+      "path": "bmad/roles/bmad-qa",
+      "category": "bmad",
+      "description": "Validates outputs, records evidence, and manages release readiness."
     }
   ],
   "version": "1.0.0",
-  "total": 156
+  "total": 160
 }
