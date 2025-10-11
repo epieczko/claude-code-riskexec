@@ -1,3 +1,5 @@
+import { PlanContext, SpecContext, TaskContext } from '../lib/contextStore';
+
 export interface PhaseContext {
   featureName: string;
   featureDir: string;
@@ -7,6 +9,9 @@ export interface PhaseContext {
 export interface PhaseRunOptions extends PhaseContext {
   brief?: string;
   resumeFromTask?: string;
+  specContext?: SpecContext | null;
+  planContext?: PlanContext | null;
+  taskContext?: TaskContext | null;
 }
 
 export interface PhaseResult {

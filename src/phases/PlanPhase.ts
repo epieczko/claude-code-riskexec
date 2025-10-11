@@ -1,6 +1,8 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { extractPlanContext, loadContext, saveContext } from '../lib/contextStore';
+import type { SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
 
 export class PlanPhase implements PhaseHandler {
@@ -20,6 +22,9 @@ export class PlanPhase implements PhaseHandler {
     }
 
     const existingTasks = await readFileIfExists(tasksPath);
+    const specContext: SpecContext | null =
+      options.specContext ??
+      (await loadContext<SpecContext>(options.featureName, 'specify', { workspaceRoot: options.workspaceRoot }));
 
     const prompt = [
       'Translate the approved specification into a technical plan.',
@@ -46,17 +51,26 @@ export class PlanPhase implements PhaseHandler {
       metadata: {
         phase: this.phaseName,
         architectureDir,
-        featureDirectory: options.featureDir
+        featureDirectory: options.featureDir,
+        specRequirements: specContext ? String(specContext.requirements.length) : undefined,
+        openQuestions: specContext ? String(specContext.openQuestions.length) : undefined
       }
     });
 
-    await writeFileAtomic(planPath, `${result.outputText.trim()}\n`);
+    const outputMarkdown = `${result.outputText.trim()}\n`;
+    await writeFileAtomic(planPath, outputMarkdown);
+
+    const contextPath = await saveContext(options.featureName, this.phaseName, extractPlanContext(outputMarkdown), {
+      workspaceRoot: options.workspaceRoot
+    });
 
     return {
       phase: this.phaseName,
       outputPath: planPath,
       details: {
-        agentCommand: result.command
+        agentCommand: result.command,
+        contextPath,
+        specContextLoaded: Boolean(specContext)
       }
     };
   }
