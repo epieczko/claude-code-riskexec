@@ -10,7 +10,9 @@ function main() {
     return;
   }
 
-  const toolName = normalize(process.env.CLAUDE_TOOL_NAME || process.argv[2] || '');
+  const toolName = normalize(
+    process.env.CLAUDE_TOOL_NAME || process.argv[2] || ''
+  );
   const args = process.env.CLAUDE_TOOL_ARGUMENTS || process.argv[3] || '';
   if (!toolName) {
     return;
@@ -24,11 +26,13 @@ function main() {
   const featureName = extractFirstArgument(args) || 'Feature-A';
   const cliBinary = process.env.CLAUDE_CLI || 'claude';
 
-  console.log(`↪ Auto chaining ${toolName} → ${nextCommand} for ${featureName}`);
+  console.log(
+    `↪ Auto chaining ${toolName} → ${nextCommand} for ${featureName}`
+  );
   const result = spawnSync(cliBinary, [nextCommand, featureName], {
     stdio: 'inherit',
     shell: false,
-    env: process.env
+    env: process.env,
   });
 
   if (result.error) {

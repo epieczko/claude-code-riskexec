@@ -25,7 +25,7 @@ function parseArgs(argv: string[]): CleanupOptions {
     days: 14,
     mode: 'archive',
     verbose: false,
-    dryRun: false
+    dryRun: false,
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -60,9 +60,13 @@ function parseArgs(argv: string[]): CleanupOptions {
   return options;
 }
 
-async function collectContextFiles(options: CleanupOptions): Promise<ContextFile[]> {
+async function collectContextFiles(
+  options: CleanupOptions
+): Promise<ContextFile[]> {
   const specsDir = path.join(options.workspaceRoot, 'specs');
-  const featureDirs = await fs.readdir(specsDir, { withFileTypes: true }).catch(() => []);
+  const featureDirs = await fs
+    .readdir(specsDir, { withFileTypes: true })
+    .catch(() => []);
   const contextFiles: ContextFile[] = [];
 
   for (const dirent of featureDirs) {
@@ -75,7 +79,9 @@ async function collectContextFiles(options: CleanupOptions): Promise<ContextFile
     }
 
     const contextDir = path.join(specsDir, feature, 'context');
-    const files = await fs.readdir(contextDir, { withFileTypes: true }).catch(() => []);
+    const files = await fs
+      .readdir(contextDir, { withFileTypes: true })
+      .catch(() => []);
     for (const file of files) {
       if (!file.isFile() || !file.name.endsWith('.json')) {
         continue;
@@ -86,7 +92,7 @@ async function collectContextFiles(options: CleanupOptions): Promise<ContextFile
         feature,
         phase: path.basename(file.name, '.json'),
         filePath,
-        mtimeMs: stat.mtimeMs
+        mtimeMs: stat.mtimeMs,
       });
     }
   }
@@ -94,30 +100,48 @@ async function collectContextFiles(options: CleanupOptions): Promise<ContextFile
   return contextFiles;
 }
 
-async function archiveFile(context: ContextFile, options: CleanupOptions): Promise<void> {
-  const archiveDir = path.join(path.dirname(path.dirname(context.filePath)), 'context-archive');
+async function archiveFile(
+  context: ContextFile,
+  options: CleanupOptions
+): Promise<void> {
+  const archiveDir = path.join(
+    path.dirname(path.dirname(context.filePath)),
+    'context-archive'
+  );
   await ensureDir(archiveDir);
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const destination = path.join(archiveDir, `${context.phase}-${timestamp}.json`);
+  const destination = path.join(
+    archiveDir,
+    `${context.phase}-${timestamp}.json`
+  );
 
   if (options.verbose || options.dryRun) {
-    console.log(`${options.dryRun ? '[dry-run] ' : ''}Archive ${context.filePath} → ${destination}`);
+    console.log(
+      `${options.dryRun ? '[dry-run] ' : ''}Archive ${context.filePath} → ${destination}`
+    );
   }
   if (!options.dryRun) {
     await fs.rename(context.filePath, destination);
   }
 }
 
-async function purgeFile(context: ContextFile, options: CleanupOptions): Promise<void> {
+async function purgeFile(
+  context: ContextFile,
+  options: CleanupOptions
+): Promise<void> {
   if (options.verbose || options.dryRun) {
-    console.log(`${options.dryRun ? '[dry-run] ' : ''}Remove ${context.filePath}`);
+    console.log(
+      `${options.dryRun ? '[dry-run] ' : ''}Remove ${context.filePath}`
+    );
   }
   if (!options.dryRun) {
     await fs.unlink(context.filePath);
   }
 }
 
-export async function cleanupContext(options: CleanupOptions): Promise<{ processed: number }> {
+export async function cleanupContext(
+  options: CleanupOptions
+): Promise<{ processed: number }> {
   const contexts = await collectContextFiles(options);
   const cutoff = Date.now() - options.days * 24 * 60 * 60 * 1000;
   let processed = 0;
@@ -135,7 +159,9 @@ export async function cleanupContext(options: CleanupOptions): Promise<{ process
   }
 
   if (options.verbose) {
-    console.log(`Processed ${processed} context snapshot${processed === 1 ? '' : 's'}.`);
+    console.log(
+      `Processed ${processed} context snapshot${processed === 1 ? '' : 's'}.`
+    );
   }
 
   return { processed };
@@ -145,7 +171,9 @@ async function main(): Promise<void> {
   const options = parseArgs(process.argv.slice(2));
   try {
     const { processed } = await cleanupContext(options);
-    console.log(`Context cleanup complete. ${processed} file${processed === 1 ? '' : 's'} handled.`);
+    console.log(
+      `Context cleanup complete. ${processed} file${processed === 1 ? '' : 's'} handled.`
+    );
   } catch (error) {
     console.error(`Context cleanup failed: ${(error as Error).message}`);
     process.exitCode = 1;

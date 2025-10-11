@@ -26,7 +26,9 @@ describe('file helpers', () => {
     await writeFileAtomic(targetFile, 'hello world');
 
     await expect(readFileIfExists(targetFile)).resolves.toBe('hello world');
-    await expect(readFileIfExists(path.join(tempDir, 'missing.txt'))).resolves.toBeNull();
+    await expect(
+      readFileIfExists(path.join(tempDir, 'missing.txt'))
+    ).resolves.toBeNull();
   });
 
   it('writes files atomically by creating parent directories automatically', async () => {

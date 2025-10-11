@@ -9,7 +9,7 @@ import type { TaskContext } from '../src/lib/contextStore';
 import { invokeAgent } from '../src/lib/invokeAgent';
 
 jest.mock('../src/lib/invokeAgent', () => ({
-  invokeAgent: jest.fn()
+  invokeAgent: jest.fn(),
 }));
 
 const invokeAgentMock = invokeAgent as jest.MockedFunction<typeof invokeAgent>;
@@ -31,19 +31,30 @@ describe('Phase handlers', () => {
   it('SpecifyPhase writes spec file and stores parsed context', async () => {
     invokeAgentMock.mockResolvedValue({
       ok: true,
-      outputText: '# Spec\n\n## Functional Requirements\n- [ ] First requirement\n\n## Open Questions\n- Need more research\n',
-      command: 'mock'
+      outputText:
+        '# Spec\n\n## Functional Requirements\n- [ ] First requirement\n\n## Open Questions\n- Need more research\n',
+      command: 'mock',
     });
 
     const phase = new SpecifyPhase();
-    const result = await phase.run({ featureName: 'demo-feature', featureDir, workspaceRoot });
+    const result = await phase.run({
+      featureName: 'demo-feature',
+      featureDir,
+      workspaceRoot,
+    });
 
     const specPath = path.join(featureDir, 'spec.md');
     const specContent = await fs.readFile(specPath, 'utf8');
     expect(specContent).toContain('First requirement');
 
     const mirroredSpec = await fs.readFile(
-      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'spec.md'),
+      path.join(
+        workspaceRoot,
+        '.agent-os',
+        'product',
+        'demo-feature',
+        'spec.md'
+      ),
       'utf8'
     );
     expect(mirroredSpec).toBe(specContent);
@@ -63,8 +74,9 @@ describe('Phase handlers', () => {
 
     invokeAgentMock.mockResolvedValue({
       ok: true,
-      outputText: '# Plan\n\n## Architecture Decisions\n- Layered\n\n## Risks & Mitigations\n- Scope creep\n',
-      command: 'mock-plan'
+      outputText:
+        '# Plan\n\n## Architecture Decisions\n- Layered\n\n## Risks & Mitigations\n- Scope creep\n',
+      command: 'mock-plan',
     });
 
     const phase = new PlanPhase();
@@ -72,22 +84,40 @@ describe('Phase handlers', () => {
       featureName: 'demo-feature',
       featureDir,
       workspaceRoot,
-      specContext: { requirements: [{ id: '1', text: 'R', completed: false }], openQuestions: ['Q'] }
+      specContext: {
+        requirements: [{ id: '1', text: 'R', completed: false }],
+        openQuestions: ['Q'],
+      },
     });
 
     expect(invokeAgentMock).toHaveBeenCalledWith(
       expect.objectContaining({
         agent: 'bmad-architect',
-        metadata: expect.objectContaining({ specRequirements: '1', openQuestions: '1' })
+        metadata: expect.objectContaining({
+          specRequirements: '1',
+          openQuestions: '1',
+        }),
       })
     );
 
-    const planContent = await fs.readFile(path.join(featureDir, 'plan.md'), 'utf8');
+    const planContent = await fs.readFile(
+      path.join(featureDir, 'plan.md'),
+      'utf8'
+    );
     expect(planContent).toContain('Layered');
-    expect(result.details).toMatchObject({ agentCommand: 'mock-plan', specContextLoaded: true });
+    expect(result.details).toMatchObject({
+      agentCommand: 'mock-plan',
+      specContextLoaded: true,
+    });
 
     const mirroredPlan = await fs.readFile(
-      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'plan.md'),
+      path.join(
+        workspaceRoot,
+        '.agent-os',
+        'product',
+        'demo-feature',
+        'plan.md'
+      ),
       'utf8'
     );
     expect(mirroredPlan).toBe(planContent);
@@ -116,7 +146,7 @@ describe('Phase handlers', () => {
     invokeAgentMock.mockResolvedValue({
       ok: true,
       outputText: '# Tasks\n\n- [ ] Do work\n  - src/file.ts\n- [x] Verify\n',
-      command: 'mock-tasks'
+      command: 'mock-tasks',
     });
 
     const phase = new TasksPhase();
@@ -124,8 +154,11 @@ describe('Phase handlers', () => {
       featureName: 'demo-feature',
       featureDir,
       workspaceRoot,
-      specContext: { requirements: [{ id: '1', text: 'R', completed: false }], openQuestions: [] },
-      planContext: { architecture: ['Layered'], risks: ['Scope'] }
+      specContext: {
+        requirements: [{ id: '1', text: 'R', completed: false }],
+        openQuestions: [],
+      },
+      planContext: { architecture: ['Layered'], risks: ['Scope'] },
     });
 
     expect(invokeAgentMock).toHaveBeenCalledWith(
@@ -134,17 +167,28 @@ describe('Phase handlers', () => {
         metadata: expect.objectContaining({
           specRequirements: '1',
           architectureDecisions: '1',
-          knownRisks: '1'
-        })
+          knownRisks: '1',
+        }),
       })
     );
 
-    const tasksContent = await fs.readFile(path.join(featureDir, 'tasks.md'), 'utf8');
+    const tasksContent = await fs.readFile(
+      path.join(featureDir, 'tasks.md'),
+      'utf8'
+    );
     expect(tasksContent).toContain('- [ ] Do work');
-    expect(result.details).toMatchObject({ taskProgress: '1/2 completed (50%)' });
+    expect(result.details).toMatchObject({
+      taskProgress: '1/2 completed (50%)',
+    });
 
     const mirroredTasks = await fs.readFile(
-      path.join(workspaceRoot, '.agent-os', 'product', 'demo-feature', 'tasks.md'),
+      path.join(
+        workspaceRoot,
+        '.agent-os',
+        'product',
+        'demo-feature',
+        'tasks.md'
+      ),
       'utf8'
     );
     expect(mirroredTasks).toBe(tasksContent);
@@ -160,20 +204,38 @@ describe('Phase handlers', () => {
     await fs.mkdir(featureDir, { recursive: true });
     await fs.writeFile(path.join(featureDir, 'spec.md'), '# Spec\n', 'utf8');
     await fs.writeFile(path.join(featureDir, 'plan.md'), '# Plan\n', 'utf8');
-    await fs.writeFile(path.join(featureDir, 'tasks.md'), '# Tasks\n- [ ] Alpha\n- [ ] Beta\n', 'utf8');
+    await fs.writeFile(
+      path.join(featureDir, 'tasks.md'),
+      '# Tasks\n- [ ] Alpha\n- [ ] Beta\n',
+      'utf8'
+    );
 
     const mockContext: TaskContext = {
       tasks: [
-        { id: '1', title: 'Alpha', completed: false, references: [], notes: [], raw: '- [ ] Alpha' },
-        { id: '2', title: 'Beta', completed: false, references: [], notes: [], raw: '- [ ] Beta' }
+        {
+          id: '1',
+          title: 'Alpha',
+          completed: false,
+          references: [],
+          notes: [],
+          raw: '- [ ] Alpha',
+        },
+        {
+          id: '2',
+          title: 'Beta',
+          completed: false,
+          references: [],
+          notes: [],
+          raw: '- [ ] Beta',
+        },
       ],
-      progress: '0/2 completed (0%)'
+      progress: '0/2 completed (0%)',
     };
 
-    invokeAgentMock.mockImplementation(async options => ({
+    invokeAgentMock.mockImplementation(async (options) => ({
       ok: true,
       outputText: `# Implementation log for ${options.metadata?.taskIndex}`,
-      command: 'mock-impl'
+      command: 'mock-impl',
     }));
 
     const phase = new ImplementPhase();
@@ -181,12 +243,14 @@ describe('Phase handlers', () => {
       featureName: 'demo-feature',
       featureDir,
       workspaceRoot,
-      taskContext: mockContext
+      taskContext: mockContext,
     });
 
     expect(invokeAgentMock).toHaveBeenCalledTimes(2);
     expect(result.logPaths).toHaveLength(2);
-    const contents = await Promise.all(result.logPaths!.map(file => fs.readFile(file, 'utf8')));
+    const contents = await Promise.all(
+      result.logPaths!.map((file) => fs.readFile(file, 'utf8'))
+    );
     expect(contents[0]).toContain('Implementation log for 1');
     expect(contents[1]).toContain('Implementation log for 2');
 
@@ -198,9 +262,13 @@ describe('Phase handlers', () => {
       'implementation'
     );
     const mirroredFiles = await fs.readdir(implementationMirror);
-    expect(mirroredFiles.sort()).toEqual(result.logPaths!.map(file => path.basename(file)).sort());
+    expect(mirroredFiles.sort()).toEqual(
+      result.logPaths!.map((file) => path.basename(file)).sort()
+    );
     const mirroredContents = await Promise.all(
-      mirroredFiles.map(name => fs.readFile(path.join(implementationMirror, name), 'utf8'))
+      mirroredFiles.map((name) =>
+        fs.readFile(path.join(implementationMirror, name), 'utf8')
+      )
     );
     expect(mirroredContents).toEqual(contents);
   });

@@ -1,19 +1,26 @@
-import { extractPlanContext, extractSpecContext, extractTaskContext } from '../src/lib/contextStore';
+import {
+  extractPlanContext,
+  extractSpecContext,
+  extractTaskContext,
+} from '../src/lib/contextStore';
 import {
   makePlanContext,
   makePlanMarkdown,
   makeSpecContext,
   makeSpecMarkdown,
   makeTaskContext,
-  makeTasksMarkdown
+  makeTasksMarkdown,
 } from './factories';
 
 describe('Context parsing helpers', () => {
   it('parses specification requirements and questions', () => {
-    const specContext = makeSpecContext([
-      { text: 'Users can sign in', completed: true },
-      { text: 'Users can reset passwords' }
-    ], ['What about SSO?', 'Need audit logging?']);
+    const specContext = makeSpecContext(
+      [
+        { text: 'Users can sign in', completed: true },
+        { text: 'Users can reset passwords' },
+      ],
+      ['What about SSO?', 'Need audit logging?']
+    );
 
     const context = extractSpecContext(makeSpecMarkdown(specContext));
 
@@ -28,10 +35,10 @@ describe('Context parsing helpers', () => {
   });
 
   it('parses plan architecture and risks sections', () => {
-    const planContext = makePlanContext(['Use modular services', 'Share auth module'], [
-      'Migration complexity',
-      'Third-party downtime'
-    ]);
+    const planContext = makePlanContext(
+      ['Use modular services', 'Share auth module'],
+      ['Migration complexity', 'Third-party downtime']
+    );
 
     const context = extractPlanContext(makePlanMarkdown(planContext));
 
@@ -44,9 +51,9 @@ describe('Context parsing helpers', () => {
         title: 'Implement login',
         completed: false,
         references: ['src/auth/login.ts'],
-        notes: ['Ensure OAuth fallback']
+        notes: ['Ensure OAuth fallback'],
       },
-      { title: 'Write tests', completed: true, notes: ['Document edge cases'] }
+      { title: 'Write tests', completed: true, notes: ['Document edge cases'] },
     ]);
 
     const context = extractTaskContext(markdown);
@@ -55,9 +62,9 @@ describe('Context parsing helpers', () => {
         title: 'Implement login',
         completed: false,
         references: ['src/auth/login.ts'],
-        notes: ['Ensure OAuth fallback']
+        notes: ['Ensure OAuth fallback'],
       },
-      { title: 'Write tests', completed: true, notes: ['Document edge cases'] }
+      { title: 'Write tests', completed: true, notes: ['Document edge cases'] },
     ]);
 
     expect(context.tasks).toHaveLength(2);

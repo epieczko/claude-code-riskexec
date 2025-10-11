@@ -1,14 +1,18 @@
 import { invokeAgent } from '../lib/invokeAgent';
 import { writeFileAtomic } from '../lib/files';
 import { mirrorAgentOsFile } from '../lib/agentOs';
-import { extractTaskContext, loadContext, saveContext } from '../lib/contextStore';
+import {
+  extractTaskContext,
+  loadContext,
+  saveContext,
+} from '../lib/contextStore';
 import type { PlanContext, SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
 import {
   assertPhasePrerequisites,
   ensureFeaturePaths,
   readPhaseFiles,
-  resolveFeaturePaths
+  resolveFeaturePaths,
 } from '../lib/phaseUtils';
 import path from 'path';
 import { createPhaseLogger } from '../lib/logger';
@@ -28,9 +32,19 @@ export class TasksPhase implements PhaseHandler {
     await ensureFeaturePaths(paths);
 
     const io = await readPhaseFiles([
-      { key: 'spec', path: paths.spec, description: 'Specification', required: true },
-      { key: 'plan', path: paths.plan, description: 'Implementation plan', required: true },
-      { key: 'tasks', path: paths.tasks, description: 'Existing task list' }
+      {
+        key: 'spec',
+        path: paths.spec,
+        description: 'Specification',
+        required: true,
+      },
+      {
+        key: 'plan',
+        path: paths.plan,
+        description: 'Implementation plan',
+        required: true,
+      },
+      { key: 'tasks', path: paths.tasks, description: 'Existing task list' },
     ]);
 
     assertPhasePrerequisites(io, this.phaseName);
@@ -39,22 +53,26 @@ export class TasksPhase implements PhaseHandler {
     const plan = io.files.plan as string;
     const specContext: SpecContext | null =
       options.specContext ??
-      (await loadContext<SpecContext>(options.featureName, 'specify', { workspaceRoot: options.workspaceRoot }));
+      (await loadContext<SpecContext>(options.featureName, 'specify', {
+        workspaceRoot: options.workspaceRoot,
+      }));
     const planContext: PlanContext | null =
       options.planContext ??
-      (await loadContext<PlanContext>(options.featureName, 'plan', { workspaceRoot: options.workspaceRoot }));
+      (await loadContext<PlanContext>(options.featureName, 'plan', {
+        workspaceRoot: options.workspaceRoot,
+      }));
 
     const prompt = [
       'Break the plan into executable tasks with QA acceptance notes.',
       'Ensure each task traces back to specific requirements and architectural decisions.',
       'Use Markdown checklists and include QA/validation hooks for each item.',
-      'Return the content for tasks.md.'
+      'Return the content for tasks.md.',
     ].join('\n\n');
 
     const contextFiles = [
       { path: paths.spec, label: 'Specification', optional: false },
       { path: paths.plan, label: 'Implementation Plan', optional: false },
-      { path: paths.tasks, label: 'Existing Task List', optional: true }
+      { path: paths.tasks, label: 'Existing Task List', optional: true },
     ];
 
     const result = await invokeAgent({
@@ -66,10 +84,14 @@ export class TasksPhase implements PhaseHandler {
       metadata: {
         phase: this.phaseName,
         featureDirectory: options.featureDir,
-        specRequirements: specContext ? String(specContext.requirements.length) : undefined,
-        architectureDecisions: planContext ? String(planContext.architecture.length) : undefined,
-        knownRisks: planContext ? String(planContext.risks.length) : undefined
-      }
+        specRequirements: specContext
+          ? String(specContext.requirements.length)
+          : undefined,
+        architectureDecisions: planContext
+          ? String(planContext.architecture.length)
+          : undefined,
+        knownRisks: planContext ? String(planContext.risks.length) : undefined,
+      },
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
@@ -78,13 +100,18 @@ export class TasksPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       relativePath: path.relative(options.featureDir, paths.tasks),
-      content: outputMarkdown
+      content: outputMarkdown,
     });
 
     const taskContext = extractTaskContext(outputMarkdown);
-    const contextPath = await saveContext(options.featureName, this.phaseName, taskContext, {
-      workspaceRoot: options.workspaceRoot
-    });
+    const contextPath = await saveContext(
+      options.featureName,
+      this.phaseName,
+      taskContext,
+      {
+        workspaceRoot: options.workspaceRoot,
+      }
+    );
 
     logger.info(`tasks.md created with ${taskContext.tasks.length} tasks`);
 
@@ -96,8 +123,8 @@ export class TasksPhase implements PhaseHandler {
         contextPath,
         planContextLoaded: Boolean(planContext),
         specContextLoaded: Boolean(specContext),
-        taskProgress: taskContext.progress
-      }
+        taskProgress: taskContext.progress,
+      },
     };
   }
 }

@@ -1,7 +1,7 @@
 const REQUIRED_SECTIONS = [
   '## Architecture Overview',
   '## Implementation Strategy',
-  '## Validation Strategy'
+  '## Validation Strategy',
 ];
 
 function validatePlan(content, specContent = '') {
@@ -10,12 +10,17 @@ function validatePlan(content, specContent = '') {
 
   if (!content || !content.trim()) {
     errors.push('Plan is empty.');
-    return buildResult(errors, warnings, { wordCount: 0, missingSections: REQUIRED_SECTIONS });
+    return buildResult(errors, warnings, {
+      wordCount: 0,
+      missingSections: REQUIRED_SECTIONS,
+    });
   }
 
   const normalizedContent = content.replace(/\r\n/g, '\n');
   const wordCount = normalizedContent.split(/\s+/).filter(Boolean).length;
-  const missingSections = REQUIRED_SECTIONS.filter(section => !normalizedContent.includes(section));
+  const missingSections = REQUIRED_SECTIONS.filter(
+    (section) => !normalizedContent.includes(section)
+  );
 
   if (missingSections.length) {
     errors.push(`Missing required sections: ${missingSections.join(', ')}`);
@@ -26,16 +31,23 @@ function validatePlan(content, specContent = '') {
   }
 
   const acceptanceCriteria = extractAcceptanceCriteria(specContent);
-  const unmetCriteria = acceptanceCriteria.filter(criterion => {
+  const unmetCriteria = acceptanceCriteria.filter((criterion) => {
     const key = deriveKeyword(criterion);
     if (!key) return false;
     return !normalizedContent.toLowerCase().includes(key);
   });
 
-  if (acceptanceCriteria.length && unmetCriteria.length === acceptanceCriteria.length) {
-    warnings.push('Plan does not explicitly reference acceptance criteria from the specification.');
+  if (
+    acceptanceCriteria.length &&
+    unmetCriteria.length === acceptanceCriteria.length
+  ) {
+    warnings.push(
+      'Plan does not explicitly reference acceptance criteria from the specification.'
+    );
   } else if (unmetCriteria.length) {
-    warnings.push(`Plan is missing references for ${unmetCriteria.length} acceptance criteria.`);
+    warnings.push(
+      `Plan is missing references for ${unmetCriteria.length} acceptance criteria.`
+    );
   }
 
   if (!/risk|mitigation|fallback/i.test(normalizedContent)) {
@@ -45,8 +57,9 @@ function validatePlan(content, specContent = '') {
   const metrics = {
     wordCount,
     missingSections,
-    acceptanceCriteriaReferenced: acceptanceCriteria.length - unmetCriteria.length,
-    acceptanceCriteriaTotal: acceptanceCriteria.length
+    acceptanceCriteriaReferenced:
+      acceptanceCriteria.length - unmetCriteria.length,
+    acceptanceCriteriaTotal: acceptanceCriteria.length,
   };
 
   return buildResult(errors, warnings, metrics);
@@ -80,7 +93,7 @@ function deriveKeyword(criterion) {
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
-    .filter(word => word.length > 3);
+    .filter((word) => word.length > 3);
 
   return cleaned[0] || '';
 }
@@ -90,10 +103,10 @@ function buildResult(errors, warnings, metrics) {
     valid: errors.length === 0,
     errors,
     warnings,
-    metrics
+    metrics,
   };
 }
 
 module.exports = {
-  validatePlan
+  validatePlan,
 };

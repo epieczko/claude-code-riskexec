@@ -16,12 +16,17 @@ const DEFAULT_PHASE_TO_COMMAND = {
   plan: '/plan',
   tasks: '/tasks',
   implement: '/implement',
-  verify: '/verify'
+  verify: '/verify',
 };
 let phaseCommandMap = { ...DEFAULT_PHASE_TO_COMMAND };
 
 function loadAgentOsCommandMapSafe() {
-  const commandMapPath = path.join(__dirname, '..', '.agent-os', 'command-map.json');
+  const commandMapPath = path.join(
+    __dirname,
+    '..',
+    '.agent-os',
+    'command-map.json'
+  );
   try {
     const source = fs.readFileSync(commandMapPath, 'utf8');
     return JSON.parse(source);
@@ -44,13 +49,19 @@ function buildPhaseCommandMap(useAgentOsAliases) {
   const agentOsLogger = createLogger('workflow:agent-os');
   const commandMap = loadAgentOsCommandMapSafe();
   if (!commandMap) {
-    agentOsLogger.warn('Agent OS mode requested but command-map.json was not found. Falling back to CLI commands.');
+    agentOsLogger.warn(
+      'Agent OS mode requested but command-map.json was not found. Falling back to CLI commands.'
+    );
     return { ...DEFAULT_PHASE_TO_COMMAND };
   }
 
   const resolved = { ...DEFAULT_PHASE_TO_COMMAND };
   for (const [phase, entry] of Object.entries(commandMap)) {
-    if (entry && typeof entry.agentOsCommand === 'string' && entry.agentOsCommand.trim()) {
+    if (
+      entry &&
+      typeof entry.agentOsCommand === 'string' &&
+      entry.agentOsCommand.trim()
+    ) {
       resolved[phase] = entry.agentOsCommand;
     }
   }
@@ -65,7 +76,8 @@ function main() {
   const brief = options.brief || options._[1] || '';
   const resumePhase = options.resume ? options.resume.toLowerCase() : null;
   const skipQA = options['skip-qa'] || false;
-  const autoTestCommand = options['test-command'] || process.env.SPEC_KIT_TEST_COMMAND || '';
+  const autoTestCommand =
+    options['test-command'] || process.env.SPEC_KIT_TEST_COMMAND || '';
   const workflowLogger = createWorkflowLogger();
 
   const featureDir = path.join(process.cwd(), 'specs', featureName);
@@ -90,7 +102,9 @@ function main() {
     workflowLogger.info(`Resuming from phase: ${resumePhase}`);
   }
   if (autoTestCommand) {
-    workflowLogger.info(`Tests will run after each implementation task using: ${autoTestCommand}`);
+    workflowLogger.info(
+      `Tests will run after each implementation task using: ${autoTestCommand}`
+    );
   }
 
   const queue = ['specify', 'plan', 'tasks', 'implement'];
@@ -112,7 +126,13 @@ function main() {
         runCommand(phase, [featureName]);
         validatePhase(featureDir, 'tasks');
       } else if (phase === 'implement') {
-        runImplementationPhase(featureDir, featureName, autoTestCommand, options['start-task'], phaseLogger);
+        runImplementationPhase(
+          featureDir,
+          featureName,
+          autoTestCommand,
+          options['start-task'],
+          phaseLogger
+        );
       } else if (phase === 'verify') {
         runCommand(phase, [featureName]);
         phaseLogger.info('QA review triggered');
@@ -127,14 +147,22 @@ function main() {
   workflowLogger.info('Workflow completed successfully.');
 }
 
-function runImplementationPhase(featureDir, featureName, testCommand, startTaskLabel, logger) {
+function runImplementationPhase(
+  featureDir,
+  featureName,
+  testCommand,
+  startTaskLabel,
+  logger
+) {
   const tasks = parseTasks(featureDir);
   if (!tasks.length) {
-    throw new Error('No tasks found in tasks.md — cannot continue implementation.');
+    throw new Error(
+      'No tasks found in tasks.md — cannot continue implementation.'
+    );
   }
 
   const startIndex = startTaskLabel
-    ? tasks.findIndex(task => task.title.includes(startTaskLabel))
+    ? tasks.findIndex((task) => task.title.includes(startTaskLabel))
     : 0;
 
   if (startTaskLabel && startIndex === -1) {
@@ -153,8 +181,8 @@ function runImplementationPhase(featureDir, featureName, testCommand, startTaskL
       env: {
         SPEC_KIT_TASK_INDEX: String(i + 1),
         SPEC_KIT_TASK_TOTAL: String(tasks.length),
-        SPEC_KIT_TASK_ID: task.title
-      }
+        SPEC_KIT_TASK_ID: task.title,
+      },
     });
 
     if (testCommand) {
@@ -167,11 +195,13 @@ function runTestCommand(command) {
   createLogger('workflow:tests').info(`Running tests: ${command}`);
   const result = spawnSync(command, {
     stdio: 'inherit',
-    shell: true
+    shell: true,
   });
 
   if (result.status !== 0) {
-    throw new Error('Automated tests failed. Resolve issues before proceeding.');
+    throw new Error(
+      'Automated tests failed. Resolve issues before proceeding.'
+    );
   }
 }
 
@@ -193,15 +223,17 @@ function runCommand(phase, args, options = {}) {
 
   const cliBinary = process.env.CLAUDE_CLI || 'claude';
   const finalArgs = [command, ...args];
-  createLogger(`workflow:${phase}`).info(`Executing ${cliBinary} ${finalArgs.join(' ')}`);
+  createLogger(`workflow:${phase}`).info(
+    `Executing ${cliBinary} ${finalArgs.join(' ')}`
+  );
 
   const result = spawnSync(cliBinary, finalArgs, {
     stdio: 'inherit',
     shell: false,
     env: {
       ...process.env,
-      ...options.env
-    }
+      ...options.env,
+    },
   });
 
   if (result.error) {
@@ -222,8 +254,12 @@ function validatePhase(featureDir, phaseKey) {
 
   const validatorLogger = createLogger(`workflow:validate:${phaseKey}`);
   validatorLogger.info(`Validation ${result.valid ? 'pass' : 'fail'}`);
-  result.errors.forEach(error => validatorLogger.error(`Validation error: ${error}`));
-  result.warnings.forEach(warning => validatorLogger.warn(`Validation warning: ${warning}`));
+  result.errors.forEach((error) =>
+    validatorLogger.error(`Validation error: ${error}`)
+  );
+  result.warnings.forEach((warning) =>
+    validatorLogger.warn(`Validation warning: ${warning}`)
+  );
 
   if (!result.valid) {
     throw new Error('Validation failed. Fix issues before continuing.');

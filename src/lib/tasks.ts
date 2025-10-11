@@ -23,7 +23,7 @@ export function parseTasksChecklist(markdown: string): TaskItem[] {
       index: tasks.length + 1,
       title,
       raw: line.trim(),
-      completed: mark.toLowerCase() === 'x'
+      completed: mark.toLowerCase() === 'x',
     });
   }
 
@@ -35,7 +35,7 @@ export function parseTasksFromContext(context: TaskContext): TaskItem[] {
     index: idx + 1,
     title: task.title,
     raw: task.raw || task.title,
-    completed: Boolean(task.completed)
+    completed: Boolean(task.completed),
   }));
 }
 

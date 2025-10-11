@@ -30,7 +30,9 @@ function formatContextSection(label: string, content: string): string {
   return [`## ${label}`, '```markdown', content.trim(), '```', ''].join('\n');
 }
 
-async function readContextFiles(files: AgentContextFile[] | undefined): Promise<string> {
+async function readContextFiles(
+  files: AgentContextFile[] | undefined
+): Promise<string> {
   if (!files || !files.length) {
     return '';
   }
@@ -40,10 +42,14 @@ async function readContextFiles(files: AgentContextFile[] | undefined): Promise<
     try {
       const resolved = path.resolve(file.path);
       const content = await fs.readFile(resolved, 'utf8');
-      sections.push(formatContextSection(file.label || path.basename(resolved), content));
+      sections.push(
+        formatContextSection(file.label || path.basename(resolved), content)
+      );
     } catch (error) {
       if (!file.optional) {
-        throw new Error(`Failed to load context file ${file.path}: ${(error as Error).message}`);
+        throw new Error(
+          `Failed to load context file ${file.path}: ${(error as Error).message}`
+        );
       }
     }
   }
@@ -73,7 +79,7 @@ function runCli(agent: string, payloadPath: string): InvokeAgentResult {
   const result = spawnSync(cliBinary, args, {
     stdio: ['ignore', 'pipe', 'pipe'],
     env: process.env,
-    encoding: 'utf8'
+    encoding: 'utf8',
   });
 
   if (result.error) {
@@ -82,7 +88,9 @@ function runCli(agent: string, payloadPath: string): InvokeAgentResult {
 
   if (result.status !== 0) {
     const stderr = (result.stderr || '').trim();
-    throw new Error(`Agent invocation failed (${result.status}): ${stderr || 'unknown error'}`);
+    throw new Error(
+      `Agent invocation failed (${result.status}): ${stderr || 'unknown error'}`
+    );
   }
 
   const output = (result.stdout || '').trim();
@@ -90,11 +98,13 @@ function runCli(agent: string, payloadPath: string): InvokeAgentResult {
     ok: true,
     outputText: output,
     raw: output,
-    command
+    command,
   };
 }
 
-export async function invokeAgent(options: InvokeAgentOptions): Promise<InvokeAgentResult> {
+export async function invokeAgent(
+  options: InvokeAgentOptions
+): Promise<InvokeAgentResult> {
   const executor = process.env.SPEC_KIT_AGENT_EXECUTOR || 'cli';
   const context = await readContextFiles(options.contextFiles);
   const prompt = buildPrompt(options, context);
@@ -104,11 +114,14 @@ export async function invokeAgent(options: InvokeAgentOptions): Promise<InvokeAg
       ok: true,
       outputText: prompt,
       raw: prompt,
-      command: 'noop'
+      command: 'noop',
     };
   }
 
-  const tempFile = path.join(os.tmpdir(), `spec-kit-${Date.now()}-${Math.random().toString(16).slice(2)}.md`);
+  const tempFile = path.join(
+    os.tmpdir(),
+    `spec-kit-${Date.now()}-${Math.random().toString(16).slice(2)}.md`
+  );
   await fs.writeFile(tempFile, prompt, 'utf8');
 
   try {
@@ -117,7 +130,7 @@ export async function invokeAgent(options: InvokeAgentOptions): Promise<InvokeAg
         ok: true,
         outputText: `# Mock response from ${options.agent}\n\n${prompt}`,
         raw: prompt,
-        command: 'mock'
+        command: 'mock',
       };
     }
 

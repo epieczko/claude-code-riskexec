@@ -1,5 +1,9 @@
 import path from 'path';
-import type { PlanContext, SpecContext, TaskContext } from '../src/lib/contextStore';
+import type {
+  PlanContext,
+  SpecContext,
+  TaskContext,
+} from '../src/lib/contextStore';
 
 type RequirementInput = string | { text: string; completed?: boolean };
 
@@ -22,18 +26,20 @@ export function makeSpecContext(
       return {
         id: `req-${index + 1}`,
         text: req.text,
-        completed: Boolean(req.completed)
+        completed: Boolean(req.completed),
       };
     }),
-    openQuestions: [...openQuestions]
+    openQuestions: [...openQuestions],
   };
 }
 
 export function makeSpecMarkdown(context: SpecContext): string {
   const requirements = context.requirements
-    .map(req => `- [${req.completed ? 'x' : ' '}] ${req.text}`)
+    .map((req) => `- [${req.completed ? 'x' : ' '}] ${req.text}`)
     .join('\n');
-  const questions = context.openQuestions.map(question => `- ${question}`).join('\n');
+  const questions = context.openQuestions
+    .map((question) => `- ${question}`)
+    .join('\n');
   const sections = [
     '# Feature Spec',
     '',
@@ -41,7 +47,7 @@ export function makeSpecMarkdown(context: SpecContext): string {
     requirements,
     '',
     '## Open Questions',
-    questions
+    questions,
   ];
   return sections.join('\n').trim() + '\n';
 }
@@ -54,8 +60,10 @@ export function makePlanContext(
 }
 
 export function makePlanMarkdown(context: PlanContext): string {
-  const architecture = context.architecture.map(item => `- ${item}`).join('\n');
-  const risks = context.risks.map(item => `- ${item}`).join('\n');
+  const architecture = context.architecture
+    .map((item) => `- ${item}`)
+    .join('\n');
+  const risks = context.risks.map((item) => `- ${item}`).join('\n');
   const sections = [
     '# Implementation Plan',
     '',
@@ -63,7 +71,7 @@ export function makePlanMarkdown(context: PlanContext): string {
     architecture,
     '',
     '## Risks & Mitigations',
-    risks
+    risks,
   ];
   return sections.join('\n').trim() + '\n';
 }
@@ -76,24 +84,24 @@ export function makeTaskContext(tasks: TaskInput[] = []): TaskContext {
       completed: Boolean(task.completed),
       references: task.references ? [...task.references] : [],
       notes: task.notes ? [...task.notes] : [],
-      raw: `- [${task.completed ? 'x' : ' '}] ${task.title}`
+      raw: `- [${task.completed ? 'x' : ' '}] ${task.title}`,
     })),
     progress: tasks.length
-      ? `${tasks.filter(task => task.completed).length}/${tasks.length} completed (${Math.round(
-          (tasks.filter(task => task.completed).length / tasks.length) * 100
+      ? `${tasks.filter((task) => task.completed).length}/${tasks.length} completed (${Math.round(
+          (tasks.filter((task) => task.completed).length / tasks.length) * 100
         )}%)`
-      : '0/0 completed (0%)'
+      : '0/0 completed (0%)',
   };
 }
 
 export function makeTasksMarkdown(tasks: TaskInput[] = []): string {
   const lines: string[] = ['# Tasks', ''];
-  tasks.forEach(task => {
+  tasks.forEach((task) => {
     lines.push(`- [${task.completed ? 'x' : ' '}] ${task.title}`);
-    task.references?.forEach(reference => {
+    task.references?.forEach((reference) => {
       lines.push(`  - ${reference}`);
     });
-    task.notes?.forEach(note => {
+    task.notes?.forEach((note) => {
       lines.push(`  ${note}`);
     });
   });

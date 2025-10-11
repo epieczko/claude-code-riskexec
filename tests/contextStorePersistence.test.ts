@@ -8,7 +8,7 @@ import {
   loadContext,
   loadContextEnvelope,
   registerRunMcpCommand,
-  saveContext
+  saveContext,
 } from '../src/lib/contextStore';
 import { makeSpecContext } from './factories';
 
@@ -32,7 +32,7 @@ describe('context store persistence', () => {
       workspaceRoot,
       syncToMemory: true,
       runMcpCommand: runner,
-      memoryCommand: 'memory.save'
+      memoryCommand: 'memory.save',
     });
 
     expect(await fs.stat(contextPath)).toBeTruthy();
@@ -41,16 +41,24 @@ describe('context store persistence', () => {
       expect.objectContaining({ feature, phase: 'specify', data: context })
     );
 
-    const envelope = await loadContextEnvelope<typeof context>(feature, 'specify', { workspaceRoot });
+    const envelope = await loadContextEnvelope<typeof context>(
+      feature,
+      'specify',
+      { workspaceRoot }
+    );
     expect(envelope).not.toBeNull();
     expect(envelope?.schemaVersion).toBe(CURRENT_CONTEXT_SCHEMA_VERSION);
 
-    const loaded = await loadContext<typeof context>(feature, 'specify', { workspaceRoot });
+    const loaded = await loadContext<typeof context>(feature, 'specify', {
+      workspaceRoot,
+    });
     expect(loaded).toEqual(context);
   });
 
   it('handles missing and malformed context files gracefully', async () => {
-    const missing = await loadContextEnvelope(feature, 'plan', { workspaceRoot });
+    const missing = await loadContextEnvelope(feature, 'plan', {
+      workspaceRoot,
+    });
     expect(missing).toBeNull();
 
     const contextDir = path.join(workspaceRoot, 'specs', feature, 'context');
@@ -58,7 +66,9 @@ describe('context store persistence', () => {
     const targetPath = path.join(contextDir, 'plan.json');
     await fs.writeFile(targetPath, '{ invalid json');
 
-    const malformed = await loadContextEnvelope(feature, 'plan', { workspaceRoot });
+    const malformed = await loadContextEnvelope(feature, 'plan', {
+      workspaceRoot,
+    });
     expect(malformed).toBeNull();
   });
 
@@ -68,7 +78,13 @@ describe('context store persistence', () => {
     const contextPath = path.join(contextDir, 'tasks.json');
     await fs.writeFile(
       contextPath,
-      JSON.stringify({ feature, phase: 'tasks', savedAt: new Date().toISOString(), schemaVersion: 1, data: {} })
+      JSON.stringify({
+        feature,
+        phase: 'tasks',
+        savedAt: new Date().toISOString(),
+        schemaVersion: 1,
+        data: {},
+      })
     );
 
     const contexts = await listStoredContexts(workspaceRoot);

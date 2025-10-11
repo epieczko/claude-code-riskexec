@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> claude-code-riskexec@1.21.1 build
+> echo 'Build complete'
+
+Build complete

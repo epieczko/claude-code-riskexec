@@ -1,0 +1,457 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> claude-code-riskexec@1.21.1 test
+> jest
+
+PASS tests/PhaseHandlers.test.ts
+  ● Console
+
+    console.log
+      [2025-10-11T20:10:58.707Z] [PHASE:SPECIFY] spec.md generated (99 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.728Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for demo-feature: architecture/
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.731Z] [PHASE:PLAN] plan.md updated (82 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.741Z] [PHASE:TASKS] tasks.md created with 2 tasks
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.750Z] [PHASE:IMPLEMENT] Task 1/2 complete → task-1-alpha.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.751Z] [PHASE:IMPLEMENT] Task 2/2 complete → task-2-beta.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:58.752Z] [AGENT-OS] Mirrored 2 artifacts to Agent OS for demo-feature: implementation/task-1-alpha.md, implementation/task-2-beta.md
+
+      at log (src/lib/logger.ts:34:13)
+
+PASS tests/WorkflowIntegration.test.ts
+  ● Console
+
+    console.log
+      [2025-10-11T20:10:59.143Z] [WORKFLOW:SPECIFY] Starting phase for integration-feature (agent: bmad-analyst)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.152Z] [PHASE:SPECIFY] spec.md generated (108 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.152Z] [WORKFLOW:SPECIFY] Phase complete → /tmp/workflow-integration-jPUmnW/specs/integration-feature/spec.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.154Z] [WORKFLOW:PLAN] Starting phase for integration-feature (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.156Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for integration-feature: architecture/
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.156Z] [PHASE:PLAN] plan.md updated (96 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.157Z] [WORKFLOW:PLAN] Phase complete → /tmp/workflow-integration-jPUmnW/specs/integration-feature/plan.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.157Z] [WORKFLOW:TASKS] Starting phase for integration-feature (agent: bmad-pm)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.159Z] [PHASE:TASKS] tasks.md created with 2 tasks
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.160Z] [WORKFLOW:TASKS] Phase complete → /tmp/workflow-integration-jPUmnW/specs/integration-feature/tasks.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.160Z] [WORKFLOW:IMPLEMENT] Starting phase for integration-feature (agent: bmad-developer)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.161Z] [PHASE:IMPLEMENT] Task 1/2 complete → task-1-implement-api.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.162Z] [PHASE:IMPLEMENT] Task 2/2 complete → task-2-write-unit-tests.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.163Z] [AGENT-OS] Mirrored 2 artifacts to Agent OS for integration-feature: implementation/task-1-implement-api.md, implementation/task-2-write-unit-tests.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.163Z] [WORKFLOW:IMPLEMENT] Phase complete → /tmp/workflow-integration-jPUmnW/specs/integration-feature/implementation
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.164Z] [WORKFLOW] Workflow completed for integration-feature
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.169Z] [WORKFLOW:PLAN] Starting phase for resume-feature (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.173Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for resume-feature: architecture/
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.173Z] [PHASE:PLAN] plan.md updated (49 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.173Z] [WORKFLOW:PLAN] Phase complete → /tmp/workflow-integration-JleA2f/specs/resume-feature/plan.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.175Z] [WORKFLOW:TASKS] Starting phase for resume-feature (agent: bmad-pm)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.176Z] [PHASE:TASKS] tasks.md created with 2 tasks
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.176Z] [WORKFLOW:TASKS] Phase complete → /tmp/workflow-integration-JleA2f/specs/resume-feature/tasks.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.177Z] [WORKFLOW:IMPLEMENT] Starting phase for resume-feature (agent: bmad-developer)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.177Z] [PHASE:IMPLEMENT] Task 1/2 complete → task-1-implement-feature.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.178Z] [PHASE:IMPLEMENT] Task 2/2 complete → task-2-write-docs.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.179Z] [AGENT-OS] Mirrored 2 artifacts to Agent OS for resume-feature: implementation/task-1-implement-feature.md, implementation/task-2-write-docs.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.179Z] [WORKFLOW:IMPLEMENT] Phase complete → /tmp/workflow-integration-JleA2f/specs/resume-feature/implementation
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.179Z] [WORKFLOW] Workflow completed for resume-feature
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.182Z] [WORKFLOW:SPECIFY] Starting phase for resume-task (agent: bmad-analyst)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.183Z] [PHASE:SPECIFY] spec.md generated (53 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.183Z] [WORKFLOW:SPECIFY] Phase complete → /tmp/workflow-integration-cpWErK/specs/resume-task/spec.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.184Z] [WORKFLOW:PLAN] Starting phase for resume-task (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.185Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for resume-task: architecture/
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.186Z] [PHASE:PLAN] plan.md updated (41 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.186Z] [WORKFLOW:PLAN] Phase complete → /tmp/workflow-integration-cpWErK/specs/resume-task/plan.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.187Z] [WORKFLOW:TASKS] Starting phase for resume-task (agent: bmad-pm)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.188Z] [PHASE:TASKS] tasks.md created with 3 tasks
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.188Z] [WORKFLOW:TASKS] Phase complete → /tmp/workflow-integration-cpWErK/specs/resume-task/tasks.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.189Z] [WORKFLOW:IMPLEMENT] Starting phase for resume-task (agent: bmad-developer)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.190Z] [PHASE:IMPLEMENT] Task 2/3 complete → task-2-write-docs.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.190Z] [PHASE:IMPLEMENT] Task 3/3 complete → task-3-ship-release.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.191Z] [AGENT-OS] Mirrored 2 artifacts to Agent OS for resume-task: implementation/task-2-write-docs.md, implementation/task-3-ship-release.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.191Z] [WORKFLOW:IMPLEMENT] Phase complete → /tmp/workflow-integration-cpWErK/specs/resume-task/implementation
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.192Z] [WORKFLOW] Workflow completed for resume-task
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.194Z] [WORKFLOW:SPECIFY] Starting phase for failure-feature (agent: bmad-analyst)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.203Z] [PHASE:SPECIFY] spec.md generated (7 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.203Z] [WORKFLOW:SPECIFY] Phase complete → /tmp/workflow-integration-zQRHuy/specs/failure-feature/spec.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.204Z] [WORKFLOW:PLAN] Starting phase for failure-feature (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.224Z] [WORKFLOW] Workflow completed for dry-run-feature
+
+      at log (src/lib/logger.ts:34:13)
+
+PASS tests/WorkflowTelemetry.test.ts
+  ● Console
+
+    console.log
+      [2025-10-11T20:10:59.357Z] [WORKFLOW:SPECIFY] Starting phase for telemetry-feature (agent: bmad-analyst)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.368Z] [PHASE:SPECIFY] spec.md generated (80 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.368Z] [WORKFLOW:SPECIFY] Phase complete → /tmp/workflow-telemetry-3ZgJBm/specs/telemetry-feature/spec.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.369Z] [WORKFLOW:PLAN] Starting phase for telemetry-feature (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.370Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for telemetry-feature: architecture/
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.371Z] [PHASE:PLAN] plan.md updated (45 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.371Z] [WORKFLOW:PLAN] Phase complete → /tmp/workflow-telemetry-3ZgJBm/specs/telemetry-feature/plan.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.372Z] [WORKFLOW:TASKS] Starting phase for telemetry-feature (agent: bmad-pm)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.373Z] [PHASE:TASKS] tasks.md created with 1 tasks
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.373Z] [WORKFLOW:TASKS] Phase complete → /tmp/workflow-telemetry-3ZgJBm/specs/telemetry-feature/tasks.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.374Z] [WORKFLOW:IMPLEMENT] Starting phase for telemetry-feature (agent: bmad-developer)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.375Z] [PHASE:IMPLEMENT] Task 1/1 complete → task-1-task-1.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.376Z] [AGENT-OS] Mirrored 1 artifact to Agent OS for telemetry-feature: implementation/task-1-task-1.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.376Z] [WORKFLOW:IMPLEMENT] Phase complete → /tmp/workflow-telemetry-3ZgJBm/specs/telemetry-feature/implementation
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.377Z] [WORKFLOW] Workflow completed for telemetry-feature
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.383Z] [WORKFLOW:SPECIFY] Starting phase for failure-telemetry-feature (agent: bmad-analyst)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.384Z] [PHASE:SPECIFY] spec.md generated (80 bytes)
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.385Z] [WORKFLOW:SPECIFY] Phase complete → /tmp/workflow-telemetry-Y6Lw2c/specs/failure-telemetry-feature/spec.md
+
+      at log (src/lib/logger.ts:34:13)
+
+    console.log
+      [2025-10-11T20:10:59.385Z] [WORKFLOW:PLAN] Starting phase for failure-telemetry-feature (agent: bmad-architect)
+
+      at log (src/lib/logger.ts:34:13)
+
+PASS tests/contextStorePersistence.test.ts
+  ● Console
+
+    console.warn
+      ⚠️  Failed to parse context file /tmp/context-store-0CcoGO/specs/context-feature/context/plan.json: Expected property name or '}' in JSON at position 2 (line 1 column 3)
+
+      160 |     return parsed;
+      161 |   } catch (error) {
+    > 162 |     console.warn(`⚠️  Failed to parse context file ${targetPath}: ${(error as Error).message}`);
+          |             ^
+      163 |     return null;
+      164 |   }
+      165 | }
+
+      at warn (src/lib/contextStore.ts:162:13)
+      at Object.<anonymous> (tests/contextStorePersistence.test.ts:61:23)
+
+PASS tests/AgentOsMirror.test.ts
+  ● Console
+
+    console.log
+      [2025-10-11T20:10:59.651Z] [AGENT-OS] Mirrored 5 artifacts to Agent OS for demo-feature: implementation/task-1.md, implementation/task-2.md, plan.md, spec.md, tasks.md
+
+      at log (src/lib/logger.ts:34:13)
+
+PASS tests/ContextParsing.test.ts
+PASS tests/agentOs.test.ts
+  ● Console
+
+    console.log
+      [2025-10-11T20:10:59.850Z] [AGENT-OS] Mirrored 2 artifacts to Agent OS for test-feature: source/nested/child.txt, source/root.txt
+
+      at log (src/lib/logger.ts:34:13)
+
+PASS tests/tasksParser.test.ts
+PASS tests/files.test.ts
+PASS tests/Registry.test.ts
+--------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                         
+--------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+All files                 |   83.93 |    62.73 |   82.27 |    84.6 |                                                           
+ src                      |   64.63 |    58.97 |   46.66 |      65 |                                                           
+  workflowOrchestrator.ts |   64.63 |    58.97 |   46.66 |      65 | 45-46,51,54,62,85-128,133,139,159-197,218,223,346,353-359 
+ src/lib                  |   88.62 |    64.86 |   89.09 |   89.71 |                                                           
+  agentOs.ts              |   92.53 |    67.85 |     100 |   92.53 | 48,54,70,87,93                                            
+  contextStore.ts         |   89.36 |    66.66 |   89.28 |   90.57 | 68,83,89-104,131,152,156,249,319                          
+  files.ts                |   93.75 |       50 |     100 |   93.75 | 17                                                        
+  logger.ts               |      72 |     37.5 |      80 |      72 | 19-23,30,32,47-48                                         
+  phaseUtils.ts           |   81.81 |    71.42 |   85.71 |      85 | 52,62-63                                                  
+  tasks.ts                |   94.73 |    66.66 |     100 |     100 | 21-37                                                     
+ src/phases               |    98.4 |    67.44 |     100 |   98.37 |                                                           
+  ImplementPhase.ts       |   95.23 |    57.14 |     100 |      95 | 49,56                                                     
+  PlanPhase.ts            |     100 |     87.5 |     100 |     100 | 49                                                        
+  SpecifyPhase.ts         |     100 |    63.63 |     100 |     100 | 31-77                                                     
+  TasksPhase.ts           |     100 |       70 |     100 |     100 | 44,70-71                                                  
+  registry.ts             |     100 |      100 |     100 |     100 |                                                           
+--------------------------|---------|----------|---------|---------|-----------------------------------------------------------
+
+Test Suites: 10 passed, 10 total
+Tests:       33 passed, 33 total
+Snapshots:   0 total
+Time:        4.118 s
+Ran all test suites.

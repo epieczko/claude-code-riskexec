@@ -26,10 +26,14 @@ interface AgentOsWorkflow {
 }
 
 function sortRecord<T>(record: Record<string, T>): Record<string, T> {
-  return Object.fromEntries(Object.entries(record).sort(([a], [b]) => a.localeCompare(b)));
+  return Object.fromEntries(
+    Object.entries(record).sort(([a], [b]) => a.localeCompare(b))
+  );
 }
 
-async function readCliCommands(commandsDir: string): Promise<Record<string, string>> {
+async function readCliCommands(
+  commandsDir: string
+): Promise<Record<string, string>> {
   const entries = await fs.readdir(commandsDir, { withFileTypes: true });
   const commandMap: Record<string, string> = {};
 
@@ -46,12 +50,17 @@ async function readCliCommands(commandsDir: string): Promise<Record<string, stri
 export async function buildAgentOsCommandMap(
   workspaceRoot = path.resolve(__dirname, '..')
 ): Promise<Record<string, AgentOsCommandMapEntry>> {
-  const workflowPath = path.join(workspaceRoot, '.agent-os', 'workflows', 'spec_kit.yml');
+  const workflowPath = path.join(
+    workspaceRoot,
+    '.agent-os',
+    'workflows',
+    'spec_kit.yml'
+  );
   const commandsDir = path.join(workspaceRoot, '.claude', 'commands');
 
   const [workflowSource, cliCommandMap] = await Promise.all([
     fs.readFile(workflowPath, 'utf8'),
-    readCliCommands(commandsDir)
+    readCliCommands(commandsDir),
   ]);
 
   const workflow = loadYaml(workflowSource) as AgentOsWorkflow;
@@ -63,8 +72,8 @@ export async function buildAgentOsCommandMap(
     const inputs = Array.isArray(phase.input)
       ? phase.input
       : phase.input
-      ? [phase.input]
-      : [];
+        ? [phase.input]
+        : [];
 
     map[phase.id] = {
       agent: phase.agent,
@@ -72,7 +81,7 @@ export async function buildAgentOsCommandMap(
       agentOsCommand: phase.command,
       instruction: phase.instruction ?? '',
       inputs,
-      output: phase.output ?? registryEntry?.output ?? ''
+      output: phase.output ?? registryEntry?.output ?? '',
     };
   }
 
@@ -90,7 +99,7 @@ async function writeAgentOsCommandMap(): Promise<void> {
 }
 
 if (require.main === module) {
-  writeAgentOsCommandMap().catch(error => {
+  writeAgentOsCommandMap().catch((error) => {
     // eslint-disable-next-line no-console
     console.error('Failed to generate Agent OS command map:', error);
     process.exitCode = 1;

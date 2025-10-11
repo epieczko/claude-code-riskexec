@@ -2,14 +2,18 @@ import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { writeFileAtomic } from '../lib/files';
 import { mirrorAgentOsDirectory, mirrorAgentOsFile } from '../lib/agentOs';
-import { extractPlanContext, loadContext, saveContext } from '../lib/contextStore';
+import {
+  extractPlanContext,
+  loadContext,
+  saveContext,
+} from '../lib/contextStore';
 import type { SpecContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
 import {
   assertPhasePrerequisites,
   ensureFeaturePaths,
   readPhaseFiles,
-  resolveFeaturePaths
+  resolveFeaturePaths,
 } from '../lib/phaseUtils';
 import { createPhaseLogger } from '../lib/logger';
 
@@ -29,9 +33,14 @@ export class PlanPhase implements PhaseHandler {
     await ensureFeaturePaths(paths, [paths.architectureDir]);
 
     const io = await readPhaseFiles([
-      { key: 'spec', path: paths.spec, description: 'Specification', required: true },
+      {
+        key: 'spec',
+        path: paths.spec,
+        description: 'Specification',
+        required: true,
+      },
       { key: 'plan', path: paths.plan, description: 'Existing plan draft' },
-      { key: 'tasks', path: paths.tasks, description: 'Existing task draft' }
+      { key: 'tasks', path: paths.tasks, description: 'Existing task draft' },
     ]);
 
     assertPhasePrerequisites(io, this.phaseName);
@@ -40,13 +49,17 @@ export class PlanPhase implements PhaseHandler {
     const existingTasks = io.files.tasks;
     const specContext: SpecContext | null =
       options.specContext ??
-      (await loadContext<SpecContext>(options.featureName, 'specify', { workspaceRoot: options.workspaceRoot }));
+      (await loadContext<SpecContext>(options.featureName, 'specify', {
+        workspaceRoot: options.workspaceRoot,
+      }));
 
     const prompt = [
       'Translate the approved specification into a technical plan.',
       'Document architecture decisions, integration points, risks, and validation strategy.',
       'Return Markdown ready for plan.md and reference any supplemental diagrams saved under architecture/.',
-      existingTasks ? 'Review the current tasks.md draft to ensure the plan aligns with downstream execution.' : null
+      existingTasks
+        ? 'Review the current tasks.md draft to ensure the plan aligns with downstream execution.'
+        : null,
     ]
       .filter(Boolean)
       .join('\n\n');
@@ -58,8 +71,8 @@ export class PlanPhase implements PhaseHandler {
       {
         path: path.join(options.workspaceRoot, 'specs', 'constitution.md'),
         label: 'Spec Kit Constitution',
-        optional: true
-      }
+        optional: true,
+      },
     ];
 
     const result = await invokeAgent({
@@ -72,9 +85,13 @@ export class PlanPhase implements PhaseHandler {
         phase: this.phaseName,
         architectureDir: paths.architectureDir,
         featureDirectory: options.featureDir,
-        specRequirements: specContext ? String(specContext.requirements.length) : undefined,
-        openQuestions: specContext ? String(specContext.openQuestions.length) : undefined
-      }
+        specRequirements: specContext
+          ? String(specContext.requirements.length)
+          : undefined,
+        openQuestions: specContext
+          ? String(specContext.openQuestions.length)
+          : undefined,
+      },
     });
 
     const outputMarkdown = `${result.outputText.trim()}\n`;
@@ -83,18 +100,23 @@ export class PlanPhase implements PhaseHandler {
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       relativePath: path.relative(options.featureDir, paths.plan),
-      content: outputMarkdown
+      content: outputMarkdown,
     });
     await mirrorAgentOsDirectory({
       workspaceRoot: options.workspaceRoot,
       featureName: options.featureName,
       sourceDir: paths.architectureDir,
-      targetSubdir: path.relative(options.featureDir, paths.architectureDir)
+      targetSubdir: path.relative(options.featureDir, paths.architectureDir),
     });
 
-    const contextPath = await saveContext(options.featureName, this.phaseName, extractPlanContext(outputMarkdown), {
-      workspaceRoot: options.workspaceRoot
-    });
+    const contextPath = await saveContext(
+      options.featureName,
+      this.phaseName,
+      extractPlanContext(outputMarkdown),
+      {
+        workspaceRoot: options.workspaceRoot,
+      }
+    );
 
     logger.info(`plan.md updated (${outputMarkdown.length} bytes)`);
 
@@ -104,8 +126,8 @@ export class PlanPhase implements PhaseHandler {
       details: {
         agentCommand: result.command,
         contextPath,
-        specContextLoaded: Boolean(specContext)
-      }
+        specContextLoaded: Boolean(specContext),
+      },
     };
   }
 }

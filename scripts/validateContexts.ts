@@ -2,21 +2,37 @@ import fs from 'fs/promises';
 import path from 'path';
 import process from 'process';
 
-import { CURRENT_CONTEXT_SCHEMA_VERSION, listStoredContexts } from '../src/lib/contextStore';
-import type { PlanContext, SpecContext, TaskContext } from '../src/lib/contextStore';
+import {
+  CURRENT_CONTEXT_SCHEMA_VERSION,
+  listStoredContexts,
+} from '../src/lib/contextStore';
+import type {
+  PlanContext,
+  SpecContext,
+  TaskContext,
+} from '../src/lib/contextStore';
 
 interface ValidationResult {
   file: string;
   messages: string[];
 }
 
-type Validator = (data: unknown, envelope: { phase: string; file: string }) => string[];
+type Validator = (
+  data: unknown,
+  envelope: { phase: string; file: string }
+) => string[];
 
 function isStringArray(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every(item => typeof item === 'string');
+  return (
+    Array.isArray(value) && value.every((item) => typeof item === 'string')
+  );
 }
 
-function validateRequirement(requirement: unknown, index: number, file: string): string[] {
+function validateRequirement(
+  requirement: unknown,
+  index: number,
+  file: string
+): string[] {
   if (typeof requirement !== 'object' || requirement === null) {
     return [`${file} → requirements[${index}] must be an object`];
   }
@@ -25,13 +41,19 @@ function validateRequirement(requirement: unknown, index: number, file: string):
   const candidate = requirement as Partial<SpecContext['requirements'][number]>;
 
   if (typeof candidate.id !== 'string' || !candidate.id.trim()) {
-    messages.push(`${file} → requirements[${index}].id must be a non-empty string`);
+    messages.push(
+      `${file} → requirements[${index}].id must be a non-empty string`
+    );
   }
   if (typeof candidate.text !== 'string' || !candidate.text.trim()) {
-    messages.push(`${file} → requirements[${index}].text must be a non-empty string`);
+    messages.push(
+      `${file} → requirements[${index}].text must be a non-empty string`
+    );
   }
   if (typeof candidate.completed !== 'boolean') {
-    messages.push(`${file} → requirements[${index}].completed must be a boolean`);
+    messages.push(
+      `${file} → requirements[${index}].completed must be a boolean`
+    );
   }
 
   return messages;
@@ -79,7 +101,11 @@ const planValidator: Validator = (data, { file }) => {
   return messages;
 };
 
-function validateTaskItem(task: unknown, index: number, file: string): string[] {
+function validateTaskItem(
+  task: unknown,
+  index: number,
+  file: string
+): string[] {
   if (typeof task !== 'object' || task === null) {
     return [`${file} → data.tasks[${index}] must be an object`];
   }
@@ -88,22 +114,32 @@ function validateTaskItem(task: unknown, index: number, file: string): string[] 
   const candidate = task as Partial<TaskContext['tasks'][number]>;
 
   if (typeof candidate.id !== 'string' || !candidate.id.trim()) {
-    messages.push(`${file} → data.tasks[${index}].id must be a non-empty string`);
+    messages.push(
+      `${file} → data.tasks[${index}].id must be a non-empty string`
+    );
   }
   if (typeof candidate.title !== 'string' || !candidate.title.trim()) {
-    messages.push(`${file} → data.tasks[${index}].title must be a non-empty string`);
+    messages.push(
+      `${file} → data.tasks[${index}].title must be a non-empty string`
+    );
   }
   if (typeof candidate.completed !== 'boolean') {
     messages.push(`${file} → data.tasks[${index}].completed must be a boolean`);
   }
   if (!isStringArray(candidate.references)) {
-    messages.push(`${file} → data.tasks[${index}].references must be an array of strings`);
+    messages.push(
+      `${file} → data.tasks[${index}].references must be an array of strings`
+    );
   }
   if (!isStringArray(candidate.notes)) {
-    messages.push(`${file} → data.tasks[${index}].notes must be an array of strings`);
+    messages.push(
+      `${file} → data.tasks[${index}].notes must be an array of strings`
+    );
   }
   if (typeof candidate.raw !== 'string' || !candidate.raw.trim()) {
-    messages.push(`${file} → data.tasks[${index}].raw must be a non-empty string`);
+    messages.push(
+      `${file} → data.tasks[${index}].raw must be a non-empty string`
+    );
   }
 
   return messages;
@@ -135,7 +171,7 @@ const taskValidator: Validator = (data, { file }) => {
 const validators: Record<string, Validator> = {
   specify: specValidator,
   plan: planValidator,
-  tasks: taskValidator
+  tasks: taskValidator,
 };
 
 async function validateFile(file: string): Promise<ValidationResult | null> {
@@ -148,7 +184,9 @@ async function validateFile(file: string): Promise<ValidationResult | null> {
   } catch (error) {
     return {
       file,
-      messages: [`${file} → failed to read or parse JSON: ${(error as Error).message}`]
+      messages: [
+        `${file} → failed to read or parse JSON: ${(error as Error).message}`,
+      ],
     };
   }
 
@@ -198,7 +236,9 @@ async function main(): Promise<void> {
     .catch(() => false);
 
   if (!exists) {
-    console.warn(`No specs directory found at ${specsDir}; nothing to validate.`);
+    console.warn(
+      `No specs directory found at ${specsDir}; nothing to validate.`
+    );
     return;
   }
 
@@ -210,23 +250,29 @@ async function main(): Promise<void> {
   }
 
   const results = await Promise.all(files.map(validateFile));
-  const failures = results.filter((result): result is ValidationResult => Boolean(result && result.messages.length));
+  const failures = results.filter((result): result is ValidationResult =>
+    Boolean(result && result.messages.length)
+  );
 
   if (failures.length) {
     console.error('Context validation failed:\n');
-    failures.forEach(result => {
-      result.messages.forEach(message => console.error(` - ${message}`));
+    failures.forEach((result) => {
+      result.messages.forEach((message) => console.error(` - ${message}`));
     });
     process.exitCode = 1;
     return;
   }
 
-  console.log(`Validated ${files.length} context file${files.length === 1 ? '' : 's'} successfully.`);
+  console.log(
+    `Validated ${files.length} context file${files.length === 1 ? '' : 's'} successfully.`
+  );
 }
 
 if (require.main === module) {
-  main().catch(error => {
-    console.error(`Context validation encountered an error: ${(error as Error).message}`);
+  main().catch((error) => {
+    console.error(
+      `Context validation encountered an error: ${(error as Error).message}`
+    );
     process.exit(1);
   });
 }

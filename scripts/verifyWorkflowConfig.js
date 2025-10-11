@@ -19,20 +19,24 @@ function readWorkflowConfig() {
 function normalizeRegistryInputs(input) {
   if (!input) return [];
   const list = Array.isArray(input) ? input : [input];
-  return list.map(entry => (entry.includes('/') ? entry : `specs/{feature}/${entry}`));
+  return list.map((entry) =>
+    entry.includes('/') ? entry : `specs/{feature}/${entry}`
+  );
 }
 
 function compareArrays(expected, actual) {
   if (expected.length !== actual.length) {
     return false;
   }
-  return expected.every(value => actual.includes(value));
+  return expected.every((value) => actual.includes(value));
 }
 
 function main() {
   const config = readWorkflowConfig();
   const yamlPhases = config.phases || [];
-  const yamlMap = Object.fromEntries(yamlPhases.map(phase => [phase.id, phase]));
+  const yamlMap = Object.fromEntries(
+    yamlPhases.map((phase) => [phase.id, phase])
+  );
   const registryPhases = Object.keys(phaseRegistry);
   const mismatches = [];
 
@@ -43,31 +47,43 @@ function main() {
       mismatches.push(`Phase "${phaseId}" missing from workflow.yml`);
       return;
     }
-    const yamlIndex = yamlPhases.findIndex(phase => phase.id === phaseId);
+    const yamlIndex = yamlPhases.findIndex((phase) => phase.id === phaseId);
     if (yamlIndex !== index) {
-      mismatches.push(`Phase order mismatch for "${phaseId}" (registry index ${index}, YAML index ${yamlIndex})`);
+      mismatches.push(
+        `Phase order mismatch for "${phaseId}" (registry index ${index}, YAML index ${yamlIndex})`
+      );
     }
     if (yamlEntry.agent !== registryEntry.agent) {
-      mismatches.push(`Agent mismatch for "${phaseId}": registry=${registryEntry.agent}, yaml=${yamlEntry.agent}`);
+      mismatches.push(
+        `Agent mismatch for "${phaseId}": registry=${registryEntry.agent}, yaml=${yamlEntry.agent}`
+      );
     }
     if (yamlEntry.output !== registryEntry.output) {
-      mismatches.push(`Output mismatch for "${phaseId}": registry=${registryEntry.output}, yaml=${yamlEntry.output}`);
+      mismatches.push(
+        `Output mismatch for "${phaseId}": registry=${registryEntry.output}, yaml=${yamlEntry.output}`
+      );
     }
     const registryInputs = normalizeRegistryInputs(registryEntry.input);
-    const yamlInputs = Array.isArray(yamlEntry.input) ? yamlEntry.input : yamlEntry.input ? [yamlEntry.input] : [];
+    const yamlInputs = Array.isArray(yamlEntry.input)
+      ? yamlEntry.input
+      : yamlEntry.input
+        ? [yamlEntry.input]
+        : [];
     if (!compareArrays(registryInputs, yamlInputs)) {
-      mismatches.push(`Input mismatch for "${phaseId}": registry=${registryInputs.join(', ') || 'none'}, yaml=${yamlInputs.join(', ') || 'none'}`);
+      mismatches.push(
+        `Input mismatch for "${phaseId}": registry=${registryInputs.join(', ') || 'none'}, yaml=${yamlInputs.join(', ') || 'none'}`
+      );
     }
   });
 
-  yamlPhases.forEach(phase => {
+  yamlPhases.forEach((phase) => {
     if (!phaseRegistry[phase.id]) {
       mismatches.push(`workflow.yml lists unknown phase "${phase.id}"`);
     }
   });
 
   if (mismatches.length) {
-    mismatches.forEach(message => logger.error(message));
+    mismatches.forEach((message) => logger.error(message));
     process.exitCode = 1;
     return;
   }

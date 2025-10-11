@@ -29,15 +29,22 @@ type FetchFunction = (
   }
 ) => Promise<{ ok: boolean; status: number; statusText: string }>;
 
-async function defaultAnalyticsRunner(command: string, payload: unknown): Promise<void> {
+async function defaultAnalyticsRunner(
+  command: string,
+  payload: unknown
+): Promise<void> {
   const endpoint = process.env.ANALYTICS_MCP_ENDPOINT;
   if (!endpoint) {
     return;
   }
 
-  const fetchFn: FetchFunction | undefined = (globalThis as { fetch?: FetchFunction }).fetch;
+  const fetchFn: FetchFunction | undefined = (
+    globalThis as { fetch?: FetchFunction }
+  ).fetch;
   if (!fetchFn) {
-    console.warn('⚠️  Analytics MCP endpoint configured but fetch is unavailable in this runtime.');
+    console.warn(
+      '⚠️  Analytics MCP endpoint configured but fetch is unavailable in this runtime.'
+    );
     return;
   }
 
@@ -45,21 +52,27 @@ async function defaultAnalyticsRunner(command: string, payload: unknown): Promis
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'x-mcp-command': command
+      'x-mcp-command': command,
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
-    throw new Error(`Analytics MCP sync failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Analytics MCP sync failed: ${response.status} ${response.statusText}`
+    );
   }
 }
 
-function formatMetricsLog(metrics: AnalyticsMetrics, feature?: string, phase?: string): string {
+function formatMetricsLog(
+  metrics: AnalyticsMetrics,
+  feature?: string,
+  phase?: string
+): string {
   const parts = [
     `coverage=${metrics.coveragePct.toFixed(1)}%`,
     `runtime=${metrics.runtimeMs}ms`,
-    `status=${metrics.success ? 'success' : 'failure'}`
+    `status=${metrics.success ? 'success' : 'failure'}`,
   ];
   if (feature) {
     parts.push(`feature=${feature}`);
@@ -80,19 +93,27 @@ export async function recordMetrics(
     timestamp,
     feature: options.feature,
     phase: options.phase,
-    details: metrics.details ?? {}
+    details: metrics.details ?? {},
   };
 
   console.log(formatMetricsLog(metrics, options.feature, options.phase));
 
-  const command = options.command || process.env.ANALYTICS_MCP_COMMAND || 'analytics.recordMetrics';
-  const runner = options.runner ?? registeredRunner ?? (process.env.ANALYTICS_MCP_ENDPOINT ? defaultAnalyticsRunner : null);
+  const command =
+    options.command ||
+    process.env.ANALYTICS_MCP_COMMAND ||
+    'analytics.recordMetrics';
+  const runner =
+    options.runner ??
+    registeredRunner ??
+    (process.env.ANALYTICS_MCP_ENDPOINT ? defaultAnalyticsRunner : null);
 
   if (runner) {
     try {
       await runner(command, payload);
     } catch (error) {
-      console.warn(`⚠️  Failed to push analytics metrics: ${(error as Error).message}`);
+      console.warn(
+        `⚠️  Failed to push analytics metrics: ${(error as Error).message}`
+      );
     }
   }
 

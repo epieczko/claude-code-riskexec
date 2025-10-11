@@ -24,7 +24,9 @@ interface MirrorDirectoryOptions {
   targetSubdir?: string;
 }
 
-export async function mirrorAgentOsFile(options: MirrorFileOptions): Promise<string> {
+export async function mirrorAgentOsFile(
+  options: MirrorFileOptions
+): Promise<string> {
   const { workspaceRoot, featureName, relativePath, content } = options;
   const targetPath = path.resolve(
     workspaceRoot,
@@ -34,12 +36,15 @@ export async function mirrorAgentOsFile(options: MirrorFileOptions): Promise<str
     relativePath
   );
   await ensureDir(path.dirname(targetPath));
-  const payload = typeof content === 'string' ? content : new Uint8Array(content);
+  const payload =
+    typeof content === 'string' ? content : new Uint8Array(content);
   await fs.writeFile(targetPath, payload);
   return targetPath;
 }
 
-export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): Promise<void> {
+export async function mirrorAgentOsDirectory(
+  options: MirrorDirectoryOptions
+): Promise<void> {
   const { workspaceRoot, featureName, sourceDir, targetSubdir } = options;
   const resolvedSource = path.resolve(sourceDir);
   try {
@@ -54,15 +59,25 @@ export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): P
     throw error;
   }
 
-  const destinationRoot = path.resolve(workspaceRoot, AGENT_OS_ROOT, PRODUCT_SUBDIR, featureName);
+  const destinationRoot = path.resolve(
+    workspaceRoot,
+    AGENT_OS_ROOT,
+    PRODUCT_SUBDIR,
+    featureName
+  );
   await ensureDir(destinationRoot);
 
   const mirroredEntries: string[] = [];
 
   if (targetSubdir) {
     const destination = path.join(destinationRoot, targetSubdir);
-    fsExtra.copySync(resolvedSource, destination, { overwrite: true, errorOnExist: false });
-    mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
+    fsExtra.copySync(resolvedSource, destination, {
+      overwrite: true,
+      errorOnExist: false,
+    });
+    mirroredEntries.push(
+      ...listPathsRelativeToRoot(destination, destinationRoot)
+    );
   } else {
     for (const artifact of PHASE_ARTIFACTS) {
       const sourcePath = path.join(resolvedSource, artifact);
@@ -71,8 +86,13 @@ export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): P
       }
 
       const destination = path.join(destinationRoot, artifact);
-      fsExtra.copySync(sourcePath, destination, { overwrite: true, errorOnExist: false });
-      mirroredEntries.push(...listPathsRelativeToRoot(destination, destinationRoot));
+      fsExtra.copySync(sourcePath, destination, {
+        overwrite: true,
+        errorOnExist: false,
+      });
+      mirroredEntries.push(
+        ...listPathsRelativeToRoot(destination, destinationRoot)
+      );
     }
   }
 
@@ -84,7 +104,9 @@ export async function mirrorAgentOsDirectory(options: MirrorDirectoryOptions): P
     } to Agent OS for ${featureName}: ${summary}`;
     agentOsLogger.info(message);
   } else {
-    agentOsLogger.info(`No artifacts mirrored from ${resolvedSource} for ${featureName}.`);
+    agentOsLogger.info(
+      `No artifacts mirrored from ${resolvedSource} for ${featureName}.`
+    );
   }
 }
 
@@ -107,7 +129,11 @@ function listPathsRelativeToRoot(targetPath: string, root: string): string[] {
 
     if (dirents.length === 0) {
       const relativeDir = path.relative(root, current);
-      files.push(relativeDir.endsWith(path.sep) ? relativeDir : `${relativeDir}${path.sep}`);
+      files.push(
+        relativeDir.endsWith(path.sep)
+          ? relativeDir
+          : `${relativeDir}${path.sep}`
+      );
       continue;
     }
 

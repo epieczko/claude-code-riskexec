@@ -24,10 +24,17 @@ describe('Agent OS mirroring helpers', () => {
       workspaceRoot,
       featureName,
       relativePath: path.join('docs', 'plan.md'),
-      content: '# Plan\n'
+      content: '# Plan\n',
     });
 
-    const expectedPath = path.join(workspaceRoot, '.agent-os', 'product', featureName, 'docs', 'plan.md');
+    const expectedPath = path.join(
+      workspaceRoot,
+      '.agent-os',
+      'product',
+      featureName,
+      'docs',
+      'plan.md'
+    );
     expect(resultPath).toBe(expectedPath);
     const mirroredContent = await fs.readFile(expectedPath, 'utf8');
     expect(mirroredContent).toBe('# Plan\n');
@@ -43,19 +50,32 @@ describe('Agent OS mirroring helpers', () => {
       workspaceRoot,
       featureName,
       sourceDir,
-      targetSubdir: path.basename(sourceDir)
+      targetSubdir: path.basename(sourceDir),
     });
 
-    const destination = path.join(workspaceRoot, '.agent-os', 'product', featureName, path.basename(sourceDir));
+    const destination = path.join(
+      workspaceRoot,
+      '.agent-os',
+      'product',
+      featureName,
+      path.basename(sourceDir)
+    );
     const mirroredFiles = await fs.readdir(destination);
     expect(mirroredFiles.sort()).toEqual(['nested', 'root.txt']);
-    const childContent = await fs.readFile(path.join(destination, 'nested', 'child.txt'), 'utf8');
+    const childContent = await fs.readFile(
+      path.join(destination, 'nested', 'child.txt'),
+      'utf8'
+    );
     expect(childContent).toBe('child file');
   });
 
   it('ignores missing directories without throwing', async () => {
     await expect(
-      mirrorAgentOsDirectory({ workspaceRoot, featureName, sourceDir: path.join(workspaceRoot, 'missing') })
+      mirrorAgentOsDirectory({
+        workspaceRoot,
+        featureName,
+        sourceDir: path.join(workspaceRoot, 'missing'),
+      })
     ).resolves.toBeUndefined();
   });
 });
