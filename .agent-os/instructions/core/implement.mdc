@@ -8,9 +8,9 @@ See the [`implement` phase in spec_kit.yml](../../workflows/spec_kit.yml#L54-L69
 
 1. Run the mapped CLI command to begin implementation:
    ```bash
-   claude /implement "${FEATURE_NAME}" --plan "specs/${FEATURE_NAME}/plan.md" --tasks "specs/${FEATURE_NAME}/tasks.md"
+   claude /implement "${FEATURE_NAME}"
    ```
-   Include branch names or feature flags supplied by the coordinator.
+   Incorporate branch names or feature flags supplied by the coordinator via follow-up instructions.
 2. Wait until `specs/${FEATURE_NAME}/implementation/` is populated (commits, diffs, or notes) and confirm the CLI exits cleanly.
 3. Mirror the entire implementation directory into `.agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/implementation/` using `rsync -a` so QA has access to artifacts.
 4. Append a JSON status entry with timestamps, repository references, and validation hashes to `.agent-os/product/${FEATURE_NAME}/logs/implement.jsonl`.
