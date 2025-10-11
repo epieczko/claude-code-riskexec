@@ -1,4 +1,5 @@
 import path from 'path';
+import { loadContext, PlanContext, SpecContext, TaskContext } from './lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './phases/types';
 import { phaseRegistry } from './phases/registry';
 import SpecifyPhase from './phases/SpecifyPhase';
@@ -98,6 +99,9 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
   const workspaceRoot = options.workspaceRoot || process.cwd();
   const phaseOrder = resolvePhases(options);
   const results: PhaseResult[] = [];
+  let specContext: SpecContext | null = null;
+  let planContext: PlanContext | null = null;
+  let taskContext: TaskContext | null = null;
 
   for (const phaseName of phaseOrder) {
     const handler = phaseHandlers[phaseName];
@@ -112,6 +116,21 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
 
     const phaseOptions = createPhaseOptions(phaseName, options, workspaceRoot);
 
+    if (phaseName === 'plan') {
+      specContext = specContext ?? (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+      phaseOptions.specContext = specContext;
+    } else if (phaseName === 'tasks') {
+      specContext = specContext ?? (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+      planContext = planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+      phaseOptions.specContext = specContext;
+      phaseOptions.planContext = planContext;
+    } else if (phaseName === 'implement') {
+      planContext = planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+      taskContext = taskContext ?? (await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot }));
+      phaseOptions.planContext = planContext;
+      phaseOptions.taskContext = taskContext;
+    }
+
     if (options.dryRun) {
       results.push({ phase: phaseName, outputPath: 'dry-run', details: { skipped: true } });
       continue;
@@ -121,6 +140,14 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
     const result = await handler.run(phaseOptions);
     console.log(`✅ ${phaseName} complete → ${result.outputPath}`);
     results.push(result);
+
+    if (phaseName === 'specify') {
+      specContext = await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot });
+    } else if (phaseName === 'plan') {
+      planContext = await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot });
+    } else if (phaseName === 'tasks') {
+      taskContext = await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot });
+    }
   }
 
   return results;

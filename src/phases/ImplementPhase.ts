@@ -1,6 +1,8 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { loadContext } from '../lib/contextStore';
+import type { TaskContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
 
 interface ParsedTask {
@@ -24,6 +26,14 @@ function parseTasks(content: string): ParsedTask[] {
     }
   });
   return tasks;
+}
+
+function parseTasksFromContext(context: TaskContext): ParsedTask[] {
+  return context.tasks.map((task, index) => ({
+    index: index + 1,
+    label: task.title,
+    raw: task.raw || task.title
+  }));
 }
 
 function slugify(input: string): string {
@@ -55,7 +65,11 @@ export class ImplementPhase implements PhaseHandler {
 
     await ensureDir(implementationDir);
 
-    const tasks = parseTasks(tasksMarkdown);
+    const storedTaskContext: TaskContext | null =
+      options.taskContext ??
+      (await loadContext<TaskContext>(options.featureName, 'tasks', { workspaceRoot: options.workspaceRoot }));
+
+    const tasks = storedTaskContext ? parseTasksFromContext(storedTaskContext) : parseTasks(tasksMarkdown);
     if (!tasks.length) {
       throw new Error('No tasks found in tasks.md. Ensure the file contains checklist items.');
     }
@@ -94,7 +108,8 @@ export class ImplementPhase implements PhaseHandler {
           phase: this.phaseName,
           taskLabel: task.label,
           taskIndex: String(task.index),
-          taskTotal: String(tasks.length)
+          taskTotal: String(tasks.length),
+          taskSource: storedTaskContext ? 'context-store' : 'markdown'
         }
       });
 
@@ -109,7 +124,8 @@ export class ImplementPhase implements PhaseHandler {
       outputPath: implementationDir,
       logPaths,
       details: {
-        tasksExecuted: logPaths.length
+        tasksExecuted: logPaths.length,
+        tasksFromContext: Boolean(storedTaskContext)
       }
     };
   }

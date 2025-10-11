@@ -1,6 +1,7 @@
 import path from 'path';
 import { invokeAgent } from '../lib/invokeAgent';
 import { ensureDir, readFileIfExists, writeFileAtomic } from '../lib/files';
+import { extractSpecContext, saveContext } from '../lib/contextStore';
 import { PhaseHandler, PhaseResult, PhaseRunOptions } from './types';
 
 export class SpecifyPhase implements PhaseHandler {
@@ -49,14 +50,20 @@ export class SpecifyPhase implements PhaseHandler {
       }
     });
 
-    await writeFileAtomic(specPath, `${result.outputText.trim()}\n`);
+    const outputMarkdown = `${result.outputText.trim()}\n`;
+    await writeFileAtomic(specPath, outputMarkdown);
+
+    const contextPath = await saveContext(options.featureName, this.phaseName, extractSpecContext(outputMarkdown), {
+      workspaceRoot: options.workspaceRoot
+    });
 
     return {
       phase: this.phaseName,
       outputPath: specPath,
       details: {
         briefSource: briefFromFile ? 'idea.md' : options.brief ? 'cli' : 'none',
-        agentCommand: result.command
+        agentCommand: result.command,
+        contextPath
       }
     };
   }
