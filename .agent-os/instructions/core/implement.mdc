@@ -1,11 +1,11 @@
-# Spec Kit – Implementation Phase
+# Spec Kit – Implementation Phase (Agent OS)
 
-Execute development tasks sequentially, capturing validation evidence for each checklist item.
-
-```bash
-claude /implement "{{ feature }}" "{{ task_label }}"
-```
-
-- Replace `{{ feature }}` with the feature identifier used under `specs/`.
-- Use `{{ task_label }}` to target a specific task when resuming; provide an empty string to continue in order.
-- Each run writes an implementation log under `specs/{{ feature }}/implementation/`.
+1. Execute implementation work for each task via the Claude CLI:
+   ```bash
+   claude /implement "{{ feature }}" "{{ task | default('') }}"
+   ```
+   - Omit `{{ task }}` to iterate sequentially; provide it to resume a specific checklist entry.
+2. Allow the CLI command to finish so the implementation notes are written under `specs/{{ feature }}/implementation/`.
+3. Confirm Agent OS mirrors were updated:
+   - `.agent-os/product/{{ feature }}/specs/{{ feature }}/implementation/`
+4. Reply to Agent OS with the task status, tests executed, and any follow-up actions so downstream QA or verification phases know what changed.

@@ -144,6 +144,13 @@ export async function verifyAgentOsIntegration(): Promise<void> {
       );
     }
 
+    const agentOsCommandName = mapEntry.agentOsCommand.replace(/^\//, '');
+    if (!(await fileExists(path.join(workspaceRoot, '.claude', 'commands', `${agentOsCommandName}.md`)))) {
+      errors.push(
+        `Agent OS command alias for phase "${phase.id}" missing: .claude/commands/${agentOsCommandName}.md.`
+      );
+    }
+
     if (mapEntry.instruction) {
       const instructionPath = path.join(instructionsRoot, mapEntry.instruction);
       if (!(await fileExists(instructionPath))) {
