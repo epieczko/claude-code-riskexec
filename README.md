@@ -31,6 +31,23 @@ npx claude-code-riskexec@latest --hook pre-commit-validation
 npx claude-code-riskexec@latest --mcp postgresql-integration
 ```
 
+## 🔄 End-to-End Workflow
+
+```
+SpecKit → BMAD → CLI → Agent OS → Artifacts & Metrics
+```
+
+Run the entire pipeline with a single command when you need to orchestrate Spec Kit deliverables, BMAD phase automation, and Agent OS handoffs:
+
+```bash
+npx claude-code-riskexec --workflow Feature-X
+```
+
+The CLI drops Agent OS-ready bundles into `.agent-os/`, syncs live telemetry (artifacts, metrics, and run manifests), and pushes execution summaries back to your observability stack so downstream agents can reason over the latest context.
+
+- Dive deeper into the hands-on flow in [docs/usage/WORKFLOW_GUIDE.md](docs/usage/WORKFLOW_GUIDE.md).
+- Learn how the runtime contracts with Agent OS modules are wired in [docs/architecture/Agent%20OS%20Integration.md](docs/architecture/Agent%20OS%20Integration.md).
+
 ## What You Get
 
 | Component        | Description                                                                    | Examples                                                          |
