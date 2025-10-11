@@ -1,36 +1,68 @@
 import { extractPlanContext, extractSpecContext, extractTaskContext } from '../src/lib/contextStore';
+import {
+  makePlanContext,
+  makePlanMarkdown,
+  makeSpecContext,
+  makeSpecMarkdown,
+  makeTaskContext,
+  makeTasksMarkdown
+} from './factories';
 
 describe('Context parsing helpers', () => {
   it('parses specification requirements and questions', () => {
-    const markdown = `# Feature Spec\n\n## Functional Requirements\n- [x] Users can sign in\n- [ ] Users can reset passwords\n\n## Open Questions\n- What about SSO?\n- Need audit logging?\n`;
-    const context = extractSpecContext(markdown);
+    const specContext = makeSpecContext([
+      { text: 'Users can sign in', completed: true },
+      { text: 'Users can reset passwords' }
+    ], ['What about SSO?', 'Need audit logging?']);
 
-    expect(context.requirements).toHaveLength(2);
-    expect(context.requirements[0]).toMatchObject({ text: 'Users can sign in', completed: true });
-    expect(context.requirements[1]).toMatchObject({ text: 'Users can reset passwords', completed: false });
-    expect(context.openQuestions).toEqual(['What about SSO?', 'Need audit logging?']);
+    const context = extractSpecContext(makeSpecMarkdown(specContext));
+
+    expect(context.requirements).toEqual(specContext.requirements);
+    expect(context.openQuestions).toEqual(specContext.openQuestions);
+  });
+
+  it('supports alternate questions heading names', () => {
+    const markdown = `# Feature Spec\n\n## Functional Requirements\n- [ ] Capture metrics\n\n## Outstanding Questions\n- How do we track latency?\n`;
+    const context = extractSpecContext(markdown);
+    expect(context.openQuestions).toEqual(['How do we track latency?']);
   });
 
   it('parses plan architecture and risks sections', () => {
-    const markdown = `# Plan\n\n## Architecture Decisions\n- Use modular services\n- Share auth module\n\n## Risks & Mitigations\n- Migration complexity\n- Third-party downtime\n`;
-    const context = extractPlanContext(markdown);
+    const planContext = makePlanContext(['Use modular services', 'Share auth module'], [
+      'Migration complexity',
+      'Third-party downtime'
+    ]);
 
-    expect(context.architecture).toEqual(['Use modular services', 'Share auth module']);
-    expect(context.risks).toEqual(['Migration complexity', 'Third-party downtime']);
+    const context = extractPlanContext(makePlanMarkdown(planContext));
+
+    expect(context).toEqual(planContext);
   });
 
   it('parses task checklists including references and notes', () => {
-    const markdown = `# Tasks\n\n- [ ] Implement login\n  - src/auth/login.ts\n  Ensure OAuth fallback\n- [x] Write tests\n  Document edge cases\n`;
+    const markdown = makeTasksMarkdown([
+      {
+        title: 'Implement login',
+        completed: false,
+        references: ['src/auth/login.ts'],
+        notes: ['Ensure OAuth fallback']
+      },
+      { title: 'Write tests', completed: true, notes: ['Document edge cases'] }
+    ]);
+
     const context = extractTaskContext(markdown);
+    const expectedContext = makeTaskContext([
+      {
+        title: 'Implement login',
+        completed: false,
+        references: ['src/auth/login.ts'],
+        notes: ['Ensure OAuth fallback']
+      },
+      { title: 'Write tests', completed: true, notes: ['Document edge cases'] }
+    ]);
 
     expect(context.tasks).toHaveLength(2);
-    expect(context.tasks[0]).toMatchObject({
-      title: 'Implement login',
-      completed: false,
-      references: ['src/auth/login.ts'],
-      notes: ['Ensure OAuth fallback']
-    });
+    expect(context.tasks[0]).toMatchObject(expectedContext.tasks[0]);
     expect(context.tasks[1].completed).toBe(true);
-    expect(context.progress).toBe('1/2 completed (50%)');
+    expect(context.progress).toBe(expectedContext.progress);
   });
 });

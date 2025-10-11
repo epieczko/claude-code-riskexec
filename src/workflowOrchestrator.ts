@@ -17,6 +17,7 @@ import TasksPhase from './phases/TasksPhase';
 import ImplementPhase from './phases/ImplementPhase';
 import { createWorkflowLogger, createLogger } from './lib/logger';
 import type { PhaseLogger } from './lib/logger';
+import { recordMetrics } from './lib/metrics';
 
 export interface WorkflowOptions {
   feature?: string;
@@ -162,78 +163,114 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
   const workflowLogger = createWorkflowLogger();
   const contextLogger = createLogger('workflow:context');
   const rebuildContext = options.rebuildContext ?? process.env.SPEC_KIT_REBUILD_CONTEXT === '1';
+  const startTime = Date.now();
+  let success = false;
 
-  for (const phaseName of phaseOrder) {
-    const handler = phaseHandlers[phaseName];
-    if (!handler) {
-      throw new Error(`Unsupported phase: ${phaseName}`);
+  try {
+    for (const phaseName of phaseOrder) {
+      const handler = phaseHandlers[phaseName];
+      if (!handler) {
+        throw new Error(`Unsupported phase: ${phaseName}`);
+      }
+
+      const registryEntry = phaseRegistry[phaseName];
+      if (!registryEntry) {
+        throw new Error(`Missing registry entry for phase ${phaseName}`);
+      }
+
+      const phaseOptions = createPhaseOptions(phaseName, options, workspaceRoot);
+      phaseOptions.rebuildContext = rebuildContext;
+      const phaseLogger = createLogger(`workflow:${phaseName}`);
+
+      if (phaseName === 'plan') {
+        specContext = rebuildContext
+          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : specContext ??
+            (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+        phaseOptions.specContext = specContext;
+      } else if (phaseName === 'tasks') {
+        specContext = rebuildContext
+          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : specContext ??
+            (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
+        planContext = rebuildContext
+          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+        phaseOptions.specContext = specContext;
+        phaseOptions.planContext = planContext;
+      } else if (phaseName === 'implement') {
+        planContext = rebuildContext
+          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
+        taskContext = rebuildContext
+          ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : taskContext ??
+            (await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot }));
+        phaseOptions.planContext = planContext;
+        phaseOptions.taskContext = taskContext;
+      }
+
+      if (options.dryRun) {
+        results.push({ phase: phaseName, outputPath: 'dry-run', details: { skipped: true } });
+        continue;
+      }
+
+      phaseLogger.info(`Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
+      const result = await handler.run(phaseOptions);
+      phaseLogger.info(`Phase complete → ${result.outputPath}`);
+      results.push(result);
+
+      if (phaseName === 'specify') {
+        specContext = rebuildContext
+          ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot });
+      } else if (phaseName === 'plan') {
+        planContext = rebuildContext
+          ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot });
+      } else if (phaseName === 'tasks') {
+        taskContext = rebuildContext
+          ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
+          : await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot });
+      }
     }
 
-    const registryEntry = phaseRegistry[phaseName];
-    if (!registryEntry) {
-      throw new Error(`Missing registry entry for phase ${phaseName}`);
-    }
+    workflowLogger.info(`Workflow completed for ${options.feature ?? 'Feature-A'}`);
+    success = true;
+    return results;
+  } finally {
+    if (!options.dryRun) {
+      const runtimeMs = Date.now() - startTime;
+      const requirementCount = specContext?.requirements?.length ?? 0;
+      const completedRequirements = specContext?.requirements?.filter(req => req.completed).length ?? 0;
+      const taskCount = taskContext?.tasks?.length ?? 0;
+      const completedTasks = taskContext?.tasks?.filter(task => task.completed).length ?? 0;
+      const coverageSource = taskCount > 0 ? [completedTasks, taskCount] : [completedRequirements, requirementCount];
+      const coveragePct = coverageSource[1] > 0 ? (coverageSource[0] / coverageSource[1]) * 100 : 0;
 
-    const phaseOptions = createPhaseOptions(phaseName, options, workspaceRoot);
-    phaseOptions.rebuildContext = rebuildContext;
-    const phaseLogger = createLogger(`workflow:${phaseName}`);
-
-    if (phaseName === 'plan') {
-      specContext = rebuildContext
-        ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : specContext ??
-          (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
-      phaseOptions.specContext = specContext;
-    } else if (phaseName === 'tasks') {
-      specContext = rebuildContext
-        ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : specContext ??
-          (await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot }));
-      planContext = rebuildContext
-        ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
-      phaseOptions.specContext = specContext;
-      phaseOptions.planContext = planContext;
-    } else if (phaseName === 'implement') {
-      planContext = rebuildContext
-        ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : planContext ?? (await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot }));
-      taskContext = rebuildContext
-        ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : taskContext ??
-          (await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot }));
-      phaseOptions.planContext = planContext;
-      phaseOptions.taskContext = taskContext;
-    }
-
-    if (options.dryRun) {
-      results.push({ phase: phaseName, outputPath: 'dry-run', details: { skipped: true } });
-      continue;
-    }
-
-    phaseLogger.info(`Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
-    const result = await handler.run(phaseOptions);
-    phaseLogger.info(`Phase complete → ${result.outputPath}`);
-    results.push(result);
-
-    if (phaseName === 'specify') {
-      specContext = rebuildContext
-        ? await rebuildSpecContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : await loadContext<SpecContext>(phaseOptions.featureName, 'specify', { workspaceRoot });
-    } else if (phaseName === 'plan') {
-      planContext = rebuildContext
-        ? await rebuildPlanContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : await loadContext<PlanContext>(phaseOptions.featureName, 'plan', { workspaceRoot });
-    } else if (phaseName === 'tasks') {
-      taskContext = rebuildContext
-        ? await rebuildTaskContextFromMarkdown(phaseOptions.featureName, workspaceRoot, contextLogger)
-        : await loadContext<TaskContext>(phaseOptions.featureName, 'tasks', { workspaceRoot });
+      try {
+        await recordMetrics(
+          {
+            coveragePct,
+            runtimeMs,
+            success,
+            details: {
+              phases: results.map(result => result.phase),
+              resumeFrom: options.resumeFrom ?? null,
+              resumeTask: options.resumeTask ?? null,
+              completedTasks,
+              taskCount,
+              completedRequirements,
+              requirementCount
+            }
+          },
+          { feature: options.feature ?? 'Feature-A', phase: 'workflow' }
+        );
+      } catch (error) {
+        workflowLogger.warn(`Failed to record analytics metrics: ${(error as Error).message}`);
+      }
     }
   }
-
-  workflowLogger.info(`Workflow completed for ${options.feature ?? 'Feature-A'}`);
-
-  return results;
 }
 
 if (require.main === module) {
