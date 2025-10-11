@@ -24,11 +24,11 @@ Create or update the technical plan at `specs/<feature-name>/plan.md`, ensuring 
 ## Process
 
 1. Activate **bmad-architect** as the lead persona (optionally collaborate with **bmad-analyst** for clarifications).
-2. Load the current `spec.md`, existing plan (if any), `tasks.md`, and constitution guidelines.
+2. Immediately read `specs/constitution.md` and the feature's `spec.md`, `plan.md`, and `tasks.md` (where present) so the command remains deterministic when invoked by hooks or orchestration.
 3. Document architecture decisions, module responsibilities, integration points, and sequencing.
 4. Reference the relevant specification requirements for each plan component.
 5. Define validation and observability strategy, including QA touchpoints.
-6. Write the resulting plan back to `specs/<feature-name>/plan.md`.
+6. Write the resulting plan back to `specs/<feature-name>/plan.md` and ensure it references the specification sections that each plan component satisfies.
 7. Flag any blockers preventing `/tasks` from proceeding and list open decisions that require stakeholder input.
 
 ## Output Checklist

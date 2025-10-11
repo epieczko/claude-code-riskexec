@@ -25,11 +25,11 @@ Draft or refine the functional specification located at `specs/<feature-name>/sp
 ## Process
 
 1. Activate the **bmad-analyst** agent as the lead persona.
-2. Load context from the constitution plus any existing `spec.md`, `plan.md`, and `tasks.md` for the feature.
+2. Before drafting, call the Read tool to load `specs/constitution.md` plus the feature's existing `spec.md`, `plan.md`, and `tasks.md` (if present) so the agent always works from persisted context even when the command is triggered by automation.
 3. Collaborate with the **bmad-pm** agent to confirm user value framing and acceptance criteria coverage.
 4. Identify missing information, assumptions, and risks; ask for clarification when necessary.
 5. Produce a Markdown specification with the required sections and traceability cues.
-6. Use the Write tool to overwrite `specs/<feature-name>/spec.md` with the latest draft (unless user prefers manual copy).
+6. Use the Write tool to overwrite `specs/<feature-name>/spec.md` with the latest draft (unless the user prefers manual copy) and ensure the file remains the single source of truth for downstream phases.
 7. Summarize outstanding questions and highlight the readiness gate before advancing to `/plan`.
 
 ## Output Checklist

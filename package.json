@@ -20,7 +20,8 @@
     "router:verify": "node ./scripts/router-verify.js",
     "router:code": "npx @musistudio/claude-code-router code",
     "router:ui": "npx @musistudio/claude-code-router ui",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "spec-kit:workflow": "node scripts/runSpecKitWorkflow.js"
   },
   "dependencies": {
     "@vercel/postgres": "^0.10.0",

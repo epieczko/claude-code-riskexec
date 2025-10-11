@@ -73,6 +73,16 @@ Comprehensive diagnostics to ensure your Claude Code installation is optimized.
 npx claude-code-riskexec@latest --health-check
 ```
 
+### 🧭 Spec Kit Phase Automation
+
+Phase 2 of the Spec Kit workflow introduces semi-automated handoffs between `/specify`, `/plan`, `/tasks`, `/implement`, and the new `/verify` QA review. This repository now ships with orchestration helpers so you can drive the entire sequence with a single script or opt-in hooks:
+
+- `scripts/runSpecKitWorkflow.js` — Node-based runner that executes each command in order, runs constitution-aware validators after every phase, and optionally executes your test suite between implementation tasks. Launch it with `node scripts/runSpecKitWorkflow.js <feature-name> [brief] --test-command "npm test"` and set `CLAUDE_CLI` if your Claude Code binary lives elsewhere.
+- `scripts/specKitPhaseTransition.js` — Lightweight hook target used by `.claude/hooks/post-tool.spec-kit-auto-chain.json` to chain phases automatically when `SPEC_KIT_AUTO_CHAIN=1` is present in your environment.
+- `scripts/validators/*` — Specification, plan, and task validators that enforce constitution rules (required sections, traceability tags, ambiguous language checks, etc.). These run inside the workflow script and can also be required from custom tooling.
+
+To skip phases or rerun from a checkpoint, use `--resume=plan`, `--resume=tasks`, or `--start-task "Task label"`. Pass `--skip-qa` if you want to defer the `/verify` pass. Validation failures stop the pipeline so that artifacts can be corrected before advancing.
+
 ## 📖 Documentation
 
 **[📚 docs.riskexec.com](https://docs.riskexec.com/)** - Complete guides, examples, and API reference for all components and tools.
