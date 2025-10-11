@@ -8,9 +8,9 @@ See the [`plan` phase in spec_kit.yml](../../workflows/spec_kit.yml#L24-L37) for
 
 1. Run the mapped CLI command to generate the plan artifact:
    ```bash
-   claude /plan "${FEATURE_NAME}" --spec "specs/${FEATURE_NAME}/spec.md"
+   claude /plan "${FEATURE_NAME}"
    ```
-   Include any additional planner flags provided by the coordinator.
+   Provide any additional planner context requested by the coordinator through follow-up prompts.
 2. Wait for `specs/${FEATURE_NAME}/plan.md` to be created or updated before continuing.
 3. Mirror the result into product storage:
    ```bash

@@ -8,9 +8,9 @@ See the [`tasks` phase in spec_kit.yml](../../workflows/spec_kit.yml#L38-L53) fo
 
 1. Run the mapped CLI command to produce the task list:
    ```bash
-   claude /tasks "${FEATURE_NAME}" --spec "specs/${FEATURE_NAME}/spec.md" --plan "specs/${FEATURE_NAME}/plan.md"
+   claude /tasks "${FEATURE_NAME}"
    ```
-   Pass through any prioritization or scheduling flags from the coordinator.
+   Capture any prioritization guidance from the coordinator through subsequent prompts.
 2. Wait until `specs/${FEATURE_NAME}/tasks.md` is written and verify the file contains at least one task entry.
 3. Mirror the task file to `.agent-os/product/${FEATURE_NAME}/specs/${FEATURE_NAME}/` so downstream phases can read it.
 4. Append a JSON status line with timestamps, owner assignments, and validation notes to `.agent-os/product/${FEATURE_NAME}/logs/tasks.jsonl`.
