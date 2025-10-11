@@ -52,4 +52,9 @@
     ],
     "output": "specs/{feature}/qa-report.md"
   }
+  "/create-spec": { "cli": "/specify", "agent": "bmad-analyst" },
+  "/plan-spec": { "cli": "/plan", "agent": "bmad-architect" },
+  "/create-tasks": { "cli": "/tasks", "agent": "bmad-pm" },
+  "/execute-tasks": { "cli": "/implement", "agent": "bmad-developer" },
+  "/verify-implementation": { "cli": "/verify", "agent": "bmad-qa" }
 }
