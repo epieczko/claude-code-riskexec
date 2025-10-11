@@ -19,6 +19,50 @@ import { createWorkflowLogger, createLogger } from './lib/logger';
 import type { PhaseLogger } from './lib/logger';
 import { recordMetrics } from './lib/metrics';
 
+interface PhaseTelemetryEntry {
+  phase: string;
+  startTime: string;
+  endTime: string;
+  durationMs: number;
+  result: 'success' | 'failure';
+}
+
+async function appendPhaseTelemetry(
+  workspaceRoot: string,
+  telemetry: PhaseTelemetryEntry,
+  logger: PhaseLogger
+): Promise<void> {
+  const telemetryPath = path.join(workspaceRoot, '.agent-os', 'product', 'status.json');
+
+  try {
+    await fs.mkdir(path.dirname(telemetryPath), { recursive: true });
+
+    let existing: unknown = [];
+    try {
+      const existingContent = await fs.readFile(telemetryPath, 'utf8');
+      existing = JSON.parse(existingContent);
+      if (!Array.isArray(existing)) {
+        logger.warn(`Existing telemetry file at ${telemetryPath} is not an array. Overwriting.`);
+        existing = [];
+      }
+    } catch (error) {
+      const err = error as NodeJS.ErrnoException;
+      if (err.code && err.code !== 'ENOENT') {
+        logger.warn(`Failed to read telemetry file at ${telemetryPath}: ${err.message}`);
+      }
+      if (!Array.isArray(existing)) {
+        existing = [];
+      }
+    }
+
+    (existing as PhaseTelemetryEntry[]).push(telemetry);
+
+    await fs.writeFile(telemetryPath, JSON.stringify(existing, null, 2));
+  } catch (error) {
+    logger.warn(`Failed to write telemetry entry for ${telemetry.phase}: ${(error as Error).message}`);
+  }
+}
+
 export interface WorkflowOptions {
   feature?: string;
   brief?: string;
@@ -162,6 +206,7 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
   let taskContext: TaskContext | null = null;
   const workflowLogger = createWorkflowLogger();
   const contextLogger = createLogger('workflow:context');
+  const telemetryLogger = createLogger('workflow:telemetry');
   const rebuildContext = options.rebuildContext ?? process.env.SPEC_KIT_REBUILD_CONTEXT === '1';
   const startTime = Date.now();
   let success = false;
@@ -215,10 +260,41 @@ export async function runWorkflow(options: WorkflowOptions = {}): Promise<PhaseR
         continue;
       }
 
+      const phaseStart = Date.now();
       phaseLogger.info(`Starting phase for ${phaseOptions.featureName} (agent: ${registryEntry.agent})`);
-      const result = await handler.run(phaseOptions);
+      let result: PhaseResult;
+      try {
+        result = await handler.run(phaseOptions);
+      } catch (error) {
+        const failureEnd = Date.now();
+        await appendPhaseTelemetry(
+          workspaceRoot,
+          {
+            phase: phaseName,
+            startTime: new Date(phaseStart).toISOString(),
+            endTime: new Date(failureEnd).toISOString(),
+            durationMs: failureEnd - phaseStart,
+            result: 'failure'
+          },
+          telemetryLogger
+        );
+        throw error;
+      }
+      const phaseEnd = Date.now();
       phaseLogger.info(`Phase complete → ${result.outputPath}`);
       results.push(result);
+
+      await appendPhaseTelemetry(
+        workspaceRoot,
+        {
+          phase: phaseName,
+          startTime: new Date(phaseStart).toISOString(),
+          endTime: new Date(phaseEnd).toISOString(),
+          durationMs: phaseEnd - phaseStart,
+          result: 'success'
+        },
+        telemetryLogger
+      );
 
       if (phaseName === 'specify') {
         specContext = rebuildContext
