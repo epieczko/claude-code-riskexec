@@ -6,9 +6,15 @@
 
 # Claude Code RiskExec (riskexec.com)
 
+## Introduction
+
 RiskExec turns AI code assistance into a governed workflow for shipping reliable software. Instead of leaving teams with ad-hoc prompts and untracked outputs, it aligns requirements, implementation, and oversight in one coordinated system. Spec Kit structures ideas into traceable specs, BMAD runs the Build-Measure-Analyze-Decide loop with dedicated agents, and Agent OS orchestrates execution with telemetry so every decision is auditable. Together they provide a differentiated, end-to-end solution for managing AI-driven development with confidence.
 
-### Core Pillars
+## Why RiskExec Exists
+
+This framework turns AI development from ad-hoc prompting into a repeatable, measurable engineering process — bridging product intent, technical execution, and compliance.
+
+## Core Pillars
 
 - **🧱 Spec Kit** formalizes how ideas become structured requirements. It defines specs, plans, and tasks so every output has traceability and governance rules for quality.
 - **⚙️ BMAD Method** (Breakthrough Method of Agile AI-Driven Development — Analyst, Architect, PM, Developer, QA) encodes the engineering lifecycle as agents: Build, Measure, Analyze, Decide, ensuring the virtual team hands off deliverables automatically.
@@ -20,11 +26,11 @@ Together they give you:
 - Audit-ready artifacts (specs, plans, tasks, tests).
 - Continuous learning — agents analyze metrics and adjust decisions automatically.
 
-### How to Use It
+## Quick Start Example
 
 ```bash
 # Run the complete workflow for a new feature
-npx claude-code-riskexec --workflow Feature-Login
+npx claude-code-riskexec --workflow Feature-X
 ```
 
 The system will:
@@ -35,17 +41,9 @@ The system will:
 4. Implement and test (`/implement`).
 5. Verify outcomes (`/verify`).
 
-All results are stored under `.agent-os/product/Feature-Login/` with telemetry for review.
+All results are stored under `.agent-os/product/Feature-X/` with telemetry for review.
 
-### Why It Matters
-
-This framework turns AI development from ad-hoc prompting into a repeatable, measurable engineering process — bridging product intent, technical execution, and compliance.
-
-## Browse & Install Components and Templates
-
-**[Browse All Templates](https://riskexec.com)** - Interactive web interface to explore and install 100+ agents, commands, settings, hooks, and MCPs.
-
-<img width="1049" height="855" alt="Screenshot 2025-08-19 at 08 09 24" src="https://github.com/user-attachments/assets/e3617410-9b1c-4731-87b7-a3858800b737" />
+**➡ Next:** Try RiskExec on your own project by running the quick start command above, or see the [Workflow Guide](docs/usage/WORKFLOW_GUIDE.md) for a detailed tutorial. Join our [community forum](https://github.com/davila7/claude-code-riskexec/discussions) if you have questions!
 
 ## 🚀 Quick Installation
 
@@ -64,11 +62,15 @@ npx claude-code-riskexec@latest --hook pre-commit-validation
 npx claude-code-riskexec@latest --mcp postgresql-integration
 ```
 
-## 🔄 End-to-End Workflow
+### Browse & Install Components and Templates
 
-```
-SpecKit → BMAD → CLI → Agent OS → Artifacts & Metrics
-```
+**[Browse All Templates](https://riskexec.com)** - Interactive web interface to explore and install 100+ agents, commands, settings, hooks, and MCPs.
+
+<img width="1049" height="855" alt="Screenshot 2025-08-19 at 08 09 24" src="https://github.com/user-attachments/assets/e3617410-9b1c-4731-87b7-a3858800b737" />
+
+> 📈 **Workflow at a Glance:** Spec Kit → BMAD → CLI → Agent OS → Artifacts & Metrics
+
+## 🔄 End-to-End Workflow
 
 Run the entire pipeline with a single command when you need to orchestrate Spec Kit deliverables, BMAD phase automation, and Agent OS handoffs:
 
@@ -144,15 +146,13 @@ drive how this repository is organized:
 - **Documentation** is cataloged in [`docs/SUMMARY.md`](docs/SUMMARY.md) and split across architecture, usage, and internals sections. Start with [`docs/internals/developer-guide.md`](docs/internals/developer-guide.md) for contributor onboarding, [`docs/architecture/Context_Architecture_Overview.md`](docs/architecture/Context_Architecture_Overview.md) for a deeper dive into system design, and [`docs/architecture/Agent%20OS%20Integration.md`](docs/architecture/Agent%20OS%20Integration.md) for the full Agent OS integration walkthrough.
 - **Docusaurus site content** mirrors the repository docs under `docu/docs/`, making it easy to surface the same structure on [docs.riskexec.com](https://docs.riskexec.com/).
 
-## 📖 Documentation
+## 📖 Documentation & Contributing
 
 **[📚 docs.riskexec.com](https://docs.riskexec.com/)** - Complete guides, examples, and API reference for all components and tools.
 
-## Contributing
-
 We welcome contributions! **[Browse existing templates](https://riskexec.com)** to see what's available, then check our [contributing guidelines](CONTRIBUTING.md) to add your own agents, commands, MCPs, settings, or hooks.
 
-## 🔗 Links
+### 🔗 Useful Links
 
 - **🌐 Browse Templates**: [riskexec.com](https://riskexec.com)
 - **📚 Documentation**: [docs.riskexec.com](https://docs.riskexec.com)
