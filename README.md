@@ -8,11 +8,11 @@
 
 RiskExec turns AI code assistance into a governed workflow for shipping reliable software. Instead of leaving teams with ad-hoc prompts and untracked outputs, it aligns requirements, implementation, and oversight in one coordinated system. Spec Kit structures ideas into traceable specs, BMAD runs the Build-Measure-Analyze-Decide loop with dedicated agents, and Agent OS orchestrates execution with telemetry so every decision is auditable. Together they provide a differentiated, end-to-end solution for managing AI-driven development with confidence.
 
-### The Power Trio
+### Core Pillars
 
-- **🧱 Spec Kit** formalizes how ideas become structured requirements. It defines specs, plans, and tasks so every output has traceability and quality standards ("constitution rules").
-- **⚙️ BMAD Method** encodes the engineering lifecycle as agents: Build, Measure, Analyze, Decide. These roles act like a virtual team (Analyst → Architect → PM → Developer → QA) that hand off deliverables automatically.
-- **🧠 Agent OS** provides orchestration and memory. It runs BMAD agents, monitors telemetry, and synchronizes outputs (`.agent-os/product/`) so everything is observable and replayable.
+- **🧱 Spec Kit** formalizes how ideas become structured requirements. It defines specs, plans, and tasks so every output has traceability and governance rules for quality.
+- **⚙️ BMAD Method** (Breakthrough Method of Agile AI-Driven Development — Analyst, Architect, PM, Developer, QA) encodes the engineering lifecycle as agents: Build, Measure, Analyze, Decide, ensuring the virtual team hands off deliverables automatically.
+- **🧠 Agent OS** provides an orchestration layer with memory. It runs BMAD agents, monitors telemetry, and synchronizes outputs (`.agent-os/product/`) so everything is observable and replayable.
 
 Together they give you:
 
