@@ -1,6 +1,6 @@
 # Spec Kit Workflow Guide
 
-The RiskExec Spec Kit orchestrates software delivery through a structured Builder Methods → Agents → Deliverables (BMAD) pipeline. Each phase takes a well-defined input, prompts a specialized agent, and synchronizes the resulting artifact with Agent OS so product, engineering, and quality stakeholders share a single source of truth. This guide explains how to run the workflow end-to-end and where to find the generated outputs.
+The RiskExec Spec Kit orchestrates software delivery through a structured BMAD (Build, Measure, Analyze, Decide) pipeline with five dedicated agent roles (mapped to Analyst, Architect, PM, Developer, and QA respectively). Each phase takes a well-defined input, prompts a specialized agent, and synchronizes the resulting artifact with Agent OS so product, engineering, and quality stakeholders share a single source of truth. This guide explains how to run the workflow end-to-end and where to find the generated outputs.
 
 ## Pipeline Overview
 
