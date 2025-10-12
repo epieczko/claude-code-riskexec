@@ -6,11 +6,7 @@
 
 # Claude Code RiskExec (riskexec.com)
 
-**Ready-to-use configurations for Anthropic's Claude Code.** A comprehensive collection of AI agents, custom commands, settings, hooks, external integrations (MCPs), and project templates to enhance your development workflow.
-
-## Why RiskExec Exists
-
-Most AI code assistants focus on generating snippets. RiskExec goes further — it turns AI collaboration into a governed, measurable development workflow. By integrating three pillars — Spec Kit, BMAD, and Agent OS — RiskExec transforms Claude Code into a complete agentic software-development system.
+RiskExec turns AI code assistance into a governed workflow for shipping reliable software. Instead of leaving teams with ad-hoc prompts and untracked outputs, it aligns requirements, implementation, and oversight in one coordinated system. Spec Kit structures ideas into traceable specs, BMAD runs the Build-Measure-Analyze-Decide loop with dedicated agents, and Agent OS orchestrates execution with telemetry so every decision is auditable. Together they provide a differentiated, end-to-end solution for managing AI-driven development with confidence.
 
 ### The Power Trio
 
